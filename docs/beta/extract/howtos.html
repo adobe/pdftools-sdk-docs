@@ -18,7 +18,7 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="PDF Extract API Quickstart" href="index.html" />
+    <link rel="prev" title="PDF Extract API Quickstart (BETA)" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -187,7 +187,7 @@ img {
 	 <ul class="removed_globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">PDF Extract API Quickstart</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">PDF Extract API Quickstart (BETA)</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#beta-program-access">Beta Program Access</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#java">JAVA</a></li>
 </ul>
@@ -229,10 +229,9 @@ img {
 <div class="section" id="structured-information-output-format">
 <span id="result"></span><h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
-<ol class="arabic simple">
-<li><p>JSON File: The json file contains extracted content &amp; structure about PDF Elements in a structured format. The detailed schema of the json file is available <a class="reference external" href="./resources/extractJSONOutputSchema.json">here</a>. The file name is structuredData.json</p></li>
-<li><p>Renditions: The Zip package contains folder comprising renditions of each type of elements selected in input for renditions. The folder name is tables, figures depending on element types. Each folder contains renditions with filenames as specified in corresponding element information in above JSON file.</p></li>
-</ol>
+<p>#. The structuredData.json file with the extracted content &amp; PDF element structure. Refer to the samples /resources/ directory for <a href="#id2"><span class="problematic" id="id3">`JSON schema details &lt;
+https://github.com/adobe/pdftools-extract-java-sdk-samples/src/main/resources/extractJSONOutputSchema.json&gt;`__</span></a>. The file name is
+#. A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p>
 <img alt="_images/extractsamplefiles.png" src="_images/extractsamplefiles.png" />
 </div>
 <div class="section" id="runtime-in-memory-authentication">
@@ -403,7 +402,7 @@ img {
       
     </p>
     <p>
-       Last updated Aug 10, 2020 <br/>
+       Last updated Aug 11, 2020 <br/>
     </p>	
   </div>
   </footer>

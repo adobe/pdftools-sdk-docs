@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Extract API Quickstart &#8212; PDF Tools SDK</title>
+    <title>PDF Extract API Quickstart (BETA) &#8212; PDF Tools SDK</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -187,7 +187,7 @@ img {
 	 <ul class="removed_globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API Quickstart</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API Quickstart (BETA)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#beta-program-access">Beta Program Access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#java">JAVA</a></li>
 </ul>
@@ -219,15 +219,14 @@ img {
 </div><br/>
 
       
-  <div class="section" id="pdf-extract-api-quickstart">
-<h1>PDF Extract API Quickstart<a class="headerlink" href="#pdf-extract-api-quickstart" title="Permalink to this headline">¶</a></h1>
-<p>Adobe Document Services provides a PDF Extract API that parses the structural elements of a PDF document, including text, titles, tables, figures.  The API returns a JSON output of those elements. The Extract SDKs are currently available in Java.</p>
-<p>The Extract SDK provides a method for developers to analyze and work with PDF content. Developers can use the Extract API to leverage that content in their custom apps and workflows.</p>
-<p>For example, USE CASE; USE CASE…</p>
-<p>To get started, request a developer credential (need link), and then download and setup the sample project for your preferred language. The sample project provides a preview of the Extract API. Using the sample project and this documentation, you will easily be able to integrate the Extract SDK in your own server-side code.</p>
+  <div class="section" id="pdf-extract-api-quickstart-beta">
+<h1>PDF Extract API Quickstart (BETA)<a class="headerlink" href="#pdf-extract-api-quickstart-beta" title="Permalink to this headline">¶</a></h1>
+<p>Adobe Document Services provides a PDF Extract API that parses the structural elements of a PDF document, including text, titles, tables, figures.  The API returns a JSON output of those elements. The PDF Extract SDKs are currently available in Java.</p>
+<p>The PDF Extract API provides a method for developers to extract content and process this extracted content in their custom apps and workflows. For example, developers can extract content structure (headings, paragraphs, and lists) from a PDF document and then leverage the specific PDF data they need for the current workflow in their downstream applications.</p>
+<p>To get started, request a developer credential, and then download and setup the sample project for your preferred language. The sample project provides a preview of the PDF Extract API. Using the sample project and this documentation, you will easily be able to integrate the PDF Extract API in your own server-side code.</p>
 <div class="section" id="beta-program-access">
 <span id="getcred"></span><h2>Beta Program Access<a class="headerlink" href="#beta-program-access" title="Permalink to this headline">¶</a></h2>
-<p>The Adobe PDF Extract API is initially being offered through a limited Beta program. By submitting a Request-Access form, the Product team will provide selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract SDK into your own server-side code.</p>
+<p>The PDF Extract API is initially offered through a limited, Beta program. Once you submit the Request-Access form, the product team  provides selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract API into your own server-side code.</p>
 <p>While beta program participation is limited, the program will expand as the SDK evolves.</p>
 </div>
 <div class="section" id="java">
@@ -240,7 +239,7 @@ img {
 </ul>
 <div class="section" id="authentication">
 <h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
-<p>After you submit the request access form, you will receive a mail from Adobe Document Cloud containing a zipped folder. The zipped folder contains an pdftools-api-credentials.json file and private.key file.</p>
+<p>After you submit the request access form, Adobe Document Cloud will email a zip file containintg a pdftools-api-credentials.json file and private.key file.</p>
 <p>Replace the pdftools-api-credentials.json file in the sample project with the one you receive from Adobe, and add the private.key file to the same path as your pdftools-api-credentials.json file.</p>
 <p><strong>Example pdftools-api-credentials.json file</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -369,7 +368,7 @@ img {
       
     </p>
     <p>
-       Last updated Aug 10, 2020 <br/>
+       Last updated Aug 11, 2020 <br/>
     </p>	
   </div>
   </footer>
