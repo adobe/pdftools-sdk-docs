@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Tos &#8212; PDF Tools SDK</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PDF Extract API Quickstart" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">PDF Extract API Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#beta-program-access">Beta Program Access</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#java">JAVA</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeout-configuration">Timeout configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.io/apis/documentcloud/dcsdk/docs.html?view=services#://">Go to the PDF Tools API</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="how-tos">
+<span id="howtos"></span><h1>How Tos<a class="headerlink" href="#how-tos" title="Permalink to this headline">¶</a></h1>
+<p>The samples and documentation provide sample “Hello World” code that speeds development with the Extract API. The code examples illustrate how to perform Extract PDF operations such as:</p>
+<ul class="simple">
+<li><p>Extract as JSON the content &amp; structure of text, table, and figure elements</p></li>
+<li><p>Extract as JSON the content, structure &amp; renditions of table and figure elements</p></li>
+</ul>
+<div class="section" id="structured-information-output-format">
+<span id="result"></span><h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
+<p>The output of an SDK extract operation is a zip package containing the following:</p>
+<ol class="arabic simple">
+<li><p>JSON File: The json file contains extracted content &amp; structure about PDF Elements in a structured format. The detailed schema of the json file is available <a class="reference external" href="./resources/extractJSONOutputSchema.json">here</a>. The file name is structuredData.json</p></li>
+<li><p>Renditions: The Zip package contains folder comprising renditions of each type of elements selected in input for renditions. The folder name is tables, figures depending on element types. Each folder contains renditions with filenames as specified in corresponding element information in above JSON file.</p></li>
+</ol>
+<img alt="_images/extractsamplefiles.png" src="_images/extractsamplefiles.png" />
+</div>
+<div class="section" id="runtime-in-memory-authentication">
+<span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
+<p>The SDK supports providing authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoWithInMemoryAuthCredentials.java">Java</a></p></li>
+</ul>
+</div>
+<div class="section" id="timeout-configuration">
+<h2>Timeout configuration<a class="headerlink" href="#timeout-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoWithCustomTimeouts.java">Java</a></p></li>
+</ul>
+<p>Java timeout configuration</p>
+<p>Available properties</p>
+<ul class="simple">
+<li><p>connectTimeout: Default: 4000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p>socketTimeout: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+</ul>
+<p>Override the timeout properties via a custom ClientConfig class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span><span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span><span class="o">.</span><span class="n">withSocketTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-text-from-a-pdf">
+<h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
+<p>Use the sample below to extract text element information from a PDF document.</p>
+<p>Run the sample:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextInfoFromPDF</span></code></p>
+<p><strong>Example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextInfoFromPDF</span> <span class="p">{</span>
+
+  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
+  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextInfoFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+
+  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+
+          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
+                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
+          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
+          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextInfoFromPDF.zip&quot;</span><span class="p">);</span>
+
+      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-text-and-tables">
+<h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
+<p>Run the sample:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoFromPDF</span></code></p>
+<p><strong>Example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextTableInfoFromPDF</span> <span class="p">{</span>
+
+  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
+  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextTableInfoFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+
+  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+
+          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
+                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
+          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">)</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
+          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextTableInfoFromPDF.zip&quot;</span><span class="p">);</span>
+
+      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-text-and-tables-w-renditions">
+<h2>Extract Text and Tables (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-w-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample class <code class="docutils literal notranslate"><span class="pre">ExtractTextTableInfoWithRenditionsFromPDF</span></code> extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<p>Run the sample:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF</span></code></p>
+<p><strong>Example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextTableInfoWithRenditionsFromPDF</span> <span class="p">{</span>
+
+  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
+  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextTableInfoWithRenditionsFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+
+  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+
+          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
+                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
+          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
+          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
+
+          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementsToExtract</span><span class="p">(</span><span class="n">Arrays</span><span class="o">.</span><span class="n">asList</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">,</span> <span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">));</span>
+          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtractRenditions</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
+          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
+
+          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
+          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextTableInfoWithRenditionsFromPDF.zip&quot;</span><span class="p">);</span>
+
+      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Aug 10, 2020 <br/>
+    </p>	
+  </div>
+  </footer>
+  </body>
+</html>

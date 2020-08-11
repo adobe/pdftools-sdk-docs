@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Extract API Quickstart &#8212; PDF Tools SDK</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How Tos" href="howtos.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#beta-program-access">Beta Program Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#java">JAVA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#timeout-configuration">Timeout configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.io/apis/documentcloud/dcsdk/docs.html?view=services#://">Go to the PDF Tools API</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="pdf-extract-api-quickstart">
+<h1>PDF Extract API Quickstart<a class="headerlink" href="#pdf-extract-api-quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Adobe Document Services provides a PDF Extract API that parses the structural elements of a PDF document, including text, titles, tables, figures.  The API returns a JSON output of those elements. The Extract SDKs are currently available in Java.</p>
+<p>The Extract SDK provides a method for developers to analyze and work with PDF content. Developers can use the Extract API to leverage that content in their custom apps and workflows.</p>
+<p>For example, USE CASE; USE CASE…</p>
+<p>To get started, request a developer credential (need link), and then download and setup the sample project for your preferred language. The sample project provides a preview of the Extract API. Using the sample project and this documentation, you will easily be able to integrate the Extract SDK in your own server-side code.</p>
+<div class="section" id="beta-program-access">
+<span id="getcred"></span><h2>Beta Program Access<a class="headerlink" href="#beta-program-access" title="Permalink to this headline">¶</a></h2>
+<p>The Adobe PDF Extract API is initially being offered through a limited Beta program. By submitting a Request-Access form, the Product team will provide selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract SDK into your own server-side code.</p>
+<p>While beta program participation is limited, the program will expand as the SDK evolves.</p>
+</div>
+<div class="section" id="java">
+<span id="javasetup"></span><h2>JAVA<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
+<p>Start by bookmarking or downloading these following key resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../apidocs/index.html">API reference (Javadoc)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples">Sample code</a></p></li>
+<li><p><a class="reference external" href="https://mvnrepository.com/artifact/com.adobe.documentservices/pdftools-extract-sdk">Java library</a>. The Maven project contains the .jar file.</p></li>
+</ul>
+<div class="section" id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
+<p>After you submit the request access form, you will receive a mail from Adobe Document Cloud containing a zipped folder. The zipped folder contains an pdftools-api-credentials.json file and private.key file.</p>
+<p>Replace the pdftools-api-credentials.json file in the sample project with the one you receive from Adobe, and add the private.key file to the same path as your pdftools-api-credentials.json file.</p>
+<p><strong>Example pdftools-api-credentials.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;client_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_SECRET&gt; &quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;service_account_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;organization_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_ORGANIZATION_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;account_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_TECHINCAL_ACCOUNT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;private_key_file&quot;</span><span class="p">:</span> <span class="s2">&quot;private.key&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-a-java-environment">
+<h3>Setup a Java environment<a class="headerlink" href="#setup-a-java-environment" title="Permalink to this headline">¶</a></h3>
+<p>The quickest way to get up and running is to set up and configure the sample project. The project provides everything from ready-to-run sample code, a config file for your credential details, and pre-configured connections to dependencies such as the pdftools-extract-sdk:&lt;version&gt;-beta.jar file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Maven uses pom.xml to fetch the pdftools-extract-sdk from the public Maven repository when running the project. The .jar automatically downloads when you build the sample project. Alternatively, you can download the .jar file, and configure your own environment.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Install <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 8 or above</a>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">javac</span> <span class="pre">-version</span></code> to verify your install.</p></li>
+<li><p>Verify the JDK bin folder is included in the PATH variable (method varies by OS).</p></li>
+<li><p>Install <a class="reference external" href="https://maven.apache.org/install.html">Maven</a>. You may use your preferred tool; for example:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Windows</strong>: Example: <a class="reference external" href="https://chocolatey.org/packages/maven">Chocolatey</a>.</p></li>
+<li><p><strong>Macintosh</strong>: Example: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">maven</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sample-project-setup">
+<h3>Sample project setup<a class="headerlink" href="#sample-project-setup" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples">the sample project</a>.</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">private.key</span></code> with files within ZIP received from Adobe.</p></li>
+<li><p>Build the sample project with Maven:  <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">clean</span> <span class="pre">install</span></code>.</p></li>
+<li><p>Test the sample code on the command line. Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="./apidoc/index.html">API documentation</a>.</p></li>
+</ol>
+</div>
+<div class="section" id="verifying-download-authenticity">
+<h3>Verifying download authenticity<a class="headerlink" href="#verifying-download-authenticity" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After installing the package, navigate to the <code class="docutils literal notranslate"><span class="pre">.jar.sha1</span></code> file.</p></li>
+<li><p>Calculate the hash with any 3rd party utility.</p></li>
+<li><p>Find and open PDF Extract sha1 file. Note: if you’re using Maven, look in the .m2 directory.</p></li>
+<li><p>Verify the hash you generated matches the value in the .sha1 file.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TBD</span> <span class="n">TBD</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<ul class="simple">
+<li><p>For logging, use the <a class="reference external" href="https://www.slf4j.org/">slf4j API</a> with a log4js-slf4j binding.</p></li>
+<li><p>Logging configurations are provided in <code class="docutils literal notranslate"><span class="pre">src/main/resources/log4js.properties</span></code>.</p></li>
+<li><p>Specify alternate bindings, if required, in pom.xml.</p></li>
+</ul>
+<p><strong>log4js.properties file</strong></p>
+<pre class="prettyprint lang-java">
+   name=PropertiesConfig
+   appenders = console
+
+   # A sample console appender configuration which clients can change as needed.
+   rootLogger.level = WARN
+   rootLogger.appenderRefs = stdout
+   rootLogger.appenderRef.stdout.ref = STDOUT
+
+   appender.console.type = Console
+   appender.console.name = STDOUT
+   appender.console.layout.type = PatternLayout
+   appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+   loggers = pdftoolsextractsdk,validator,apache
+
+   # Change the logging levels as desired. INFO is recommended.
+   logger.pdftoolsextractsdk.name = com.adobe.platform.operation
+   logger.pdftoolsextractsdk.level = INFO
+   logger.pdftoolsextractsdk.additivity = false
+   logger.pdftoolsextractsdk.appenderRef.console.ref = STDOUT
+
+   logger.validator.name=org.hibernate
+   logger.validator.level=WARN
+
+   logger.apache.name=org.apache
+   logger.apache.level=WARN
+</pre></div>
+<div class="section" id="test-files">
+<span id="javaenv"></span><h3>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h3>
+<p>The sample files reference input and output files located in the sample project’s src/main/resources/ directory. You can of course modify the files and paths or use your own files.</p>
+</div>
+<div class="section" id="custom-projects">
+<h3>Custom projects<a class="headerlink" href="#custom-projects" title="Permalink to this headline">¶</a></h3>
+<p>While the samples use Maven, you can use your own tools and process.</p>
+<p>To build a custom project:</p>
+<ol class="arabic simple">
+<li><p>Access the .jar in the <a class="reference external" href="https://mvnrepository.com/artifact/com.adobe.documentservices/pdftools-extract-sdk">central Maven repository</a>.</p></li>
+<li><p>Use your preferred dependency management tool (Ivy, Gradle, Maven), to include the SDK .jar dependency.</p></li>
+<li><p>Manually create <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code>, <code class="docutils literal notranslate"><span class="pre">private.key</span></code>.</p></li>
+<li><p>Add the authentication details as described above. (update below picture)</p></li>
+</ol>
+<img alt="_images/maven.png" src="_images/maven.png" />
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Aug 10, 2020 <br/>
+    </p>	
+  </div>
+  </footer>
+  </body>
+</html>
