@@ -229,23 +229,24 @@ img {
 <div class="section" id="structured-information-output-format">
 <span id="result"></span><h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
-<p>#. The structuredData.json file with the extracted content &amp; PDF element structure. Refer to the samples /resources/ directory for <a href="#id2"><span class="problematic" id="id3">`JSON schema details &lt;
-https://github.com/adobe/pdftools-extract-java-sdk-samples/src/main/resources/extractJSONOutputSchema.json&gt;`__</span></a>. The file name is
-#. A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p>
+<ul class="simple">
+<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. Refer to file here for <a class="reference external" href="https://github.com/adobe/pdftools-sdk-docs/tree/master/docs/beta/extract/resources/extractJsonOutputSchema.json">JSON schema details</a></p></li>
+<li><p>A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p></li>
+</ul>
 <img alt="_images/extractsamplefiles.png" src="_images/extractsamplefiles.png" />
 </div>
 <div class="section" id="runtime-in-memory-authentication">
 <span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
 <p>The SDK supports providing authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoWithInMemoryAuthCredentials.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithInMemoryAuthCredentials.java">Java</a></p></li>
 </ul>
 </div>
 <div class="section" id="timeout-configuration">
 <h2>Timeout configuration<a class="headerlink" href="#timeout-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoWithCustomTimeouts.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithCustomTimeouts.java">Java</a></p></li>
 </ul>
 <p>Java timeout configuration</p>
 <p>Available properties</p>
