@@ -223,23 +223,23 @@ img {
 <h1>PDF Extract API Quickstart (BETA)<a class="headerlink" href="#pdf-extract-api-quickstart-beta" title="Permalink to this headline">¶</a></h1>
 <p>Adobe Document Services provides a PDF Extract API that parses the structural elements of a PDF document, including text, titles, tables, figures.  The API returns a JSON output of those elements. The PDF Extract SDKs are currently available in Java.</p>
 <p>The PDF Extract API provides a method for developers to extract content and process this extracted content in their custom apps and workflows. For example, developers can extract content structure (headings, paragraphs, and lists) from a PDF document and then leverage the specific PDF data they need for the current workflow in their downstream applications.</p>
-<p>To get started, request a developer credential, and then download and setup the sample project for your preferred language. The sample project provides a preview of the PDF Extract API. Using the sample project and this documentation, you will easily be able to integrate the PDF Extract API in your own server-side code.</p>
+<p>To get started, request a developer credential via the <a class="reference external" href="http://www.adobe.com/go/pdfextractapi_requestform">request access form</a>, and then download and setup the sample project for your preferred language. The sample project provides a preview of the PDF Extract API. Using the sample project and this documentation, you will easily be able to integrate the PDF Extract API in your own server-side code.</p>
 <div class="section" id="beta-program-access">
 <span id="getcred"></span><h2>Beta Program Access<a class="headerlink" href="#beta-program-access" title="Permalink to this headline">¶</a></h2>
-<p>The PDF Extract API is initially offered through a limited, Beta program. Once you submit the Request-Access form, the product team  provides selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract API into your own server-side code.</p>
+<p>The PDF Extract API is initially offered through a limited, Beta program. Once you submit the <a class="reference external" href="http://www.adobe.com/go/pdfextractapi_requestform">request access form</a>, the product team  provides selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract API into your own server-side code.</p>
 <p>While beta program participation is limited, the program will expand as the SDK evolves.</p>
 </div>
 <div class="section" id="java">
 <span id="javasetup"></span><h2>JAVA<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
 <p>Start by bookmarking or downloading these following key resources:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="../apidocs/index.html">API reference (Javadoc)</a></p></li>
+<li><p><a class="reference external" href="https://opensource.adobe.com/pdftools-extract-java-sdk-samples/apidocs/">API reference (Javadoc)</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples">Sample code</a></p></li>
 <li><p><a class="reference external" href="https://mvnrepository.com/artifact/com.adobe.documentservices/pdftools-extract-sdk">Java library</a>. The Maven project contains the .jar file.</p></li>
 </ul>
 <div class="section" id="authentication">
 <h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
-<p>After you submit the request access form, Adobe Document Cloud will email a zip file containintg a pdftools-api-credentials.json file and private.key file.</p>
+<p>After you submit the request access form, Adobe Document Cloud will email a zip file containing a pdftools-api-credentials.json file and private.key file.</p>
 <p>Replace the pdftools-api-credentials.json file in the sample project with the one you receive from Adobe, and add the private.key file to the same path as your pdftools-api-credentials.json file.</p>
 <p><strong>Example pdftools-api-credentials.json file</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -280,7 +280,7 @@ img {
 <h3>Sample project setup<a class="headerlink" href="#sample-project-setup" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Download <a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples">the sample project</a>.</p></li>
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">private.key</span></code> with files within ZIP received from Adobe.</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">private.key</span></code> with the zipped files within ZIP sent by Adobe.</p></li>
 <li><p>Build the sample project with Maven:  <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">clean</span> <span class="pre">install</span></code>.</p></li>
 <li><p>Test the sample code on the command line. Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="./apidoc/index.html">API documentation</a>.</p></li>
 </ol>
@@ -294,7 +294,7 @@ img {
 <li><p>Find and open PDF Extract sha1 file. Note: if you’re using Maven, look in the .m2 directory.</p></li>
 <li><p>Verify the hash you generated matches the value in the .sha1 file.</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TBD</span> <span class="n">TBD</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bf57acfae5622e7418a03da5505e967eddb6812d</span>
 </pre></div>
 </div>
 </div>
@@ -337,7 +337,7 @@ img {
 </pre></div>
 <div class="section" id="test-files">
 <span id="javaenv"></span><h3>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h3>
-<p>The sample files reference input and output files located in the sample project’s src/main/resources/ directory. You can of course modify the files and paths or use your own files.</p>
+<p>The sample files reference input files located in the sample project’s src/main/resources/ directory. You can of course modify the files and paths or use your own files.</p>
 </div>
 <div class="section" id="custom-projects">
 <h3>Custom projects<a class="headerlink" href="#custom-projects" title="Permalink to this headline">¶</a></h3>
@@ -368,7 +368,7 @@ img {
       
     </p>
     <p>
-       Last updated Aug 11, 2020 <br/>
+       Last updated Aug 13, 2020 <br/>
     </p>	
   </div>
   </footer>
