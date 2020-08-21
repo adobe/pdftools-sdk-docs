@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head><meta name='robots' content='noindex,nofollow'/>
+    <meta charset="utf-8" />
+    <title>Quickstarts &#8212; Document Cloud Services SDK</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How Tos" href="howtos.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='description' content='DC Services SDK, DC Services, Document Cloud Services SDK, Adobe Document Cloud Platform SDK, Document Cloud, Document Cloud View SDK, DC View SDK, Acrobat DC Services,' />
+
+<meta name='robots' content='noindex,nofollow'/>
+
+
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+  
+  <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+ 
+  <script>
+  	function copyToClipboard(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).text()).select();
+			document.execCommand("copy");
+			$temp.remove();
+	}
+  </script>
+
+<script type='text/javascript'>
+         window.marketingtech = {
+               adobe: {
+                   launch: {
+                       property: "global",
+                       environment: "production"
+                   }
+               },
+           };
+        </script>
+  <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+blockquote > div > ul.simple {font-size:80%;}
+h2 { margin-top: 2em; }
+h3 { margin-top: 1em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+	  <!-- Ben: use this navbar -->
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><!--Project title -->
+          Document Cloud Services SDK</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../index.html">Platform Home</a></li>
+                <li><a href="https://www.adobe.com/go/dcsdk_requestform">Request Access</a></li>
+                <li><a href="mailto:dc_platform_feedback@adobe.com">Feedback</a></li>
+            
+			
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#request-access">Request access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#net">.NET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-js">Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-local-html">Create a PDF from  local HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-a-url">Create a PDF from a URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf-to-images">Export a PDF to images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-files">Combine files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="howtos.html" title="Next Chapter: How Tos"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">How Tos &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><div style="margin:1em; font-size:90%;">
+  <p>Select a language:</p>
+  <button class="langmode" data-index="0">JAVA</button>
+  <button class="langmode" data-index="1">.NET</button>
+  <button class="langmode" data-index="2">Node.js</button>
+</div>
+<li  style="list-style:none;">	
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#request-access">Request access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#net">.NET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-js">Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-local-html">Create a PDF from  local HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-a-url">Create a PDF from a URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf-to-images">Export a PDF to images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-files">Combine files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+<hr/>
+
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="quickstarts">
+<h1>Quickstarts<a class="headerlink" href="#quickstarts" title="Permalink to this headline">¶</a></h1>
+<p>The Services SDK provides APIs for creating, combining, and exporting PDFs.</p>
+<p>DC’s simple cloud-based APIs help you get up and running quickly. Once you’ve received your developer credential, download and set up one of the sample projects. After you’re familiar with the APIs, leverage the samples in your own server-side code.</p>
+<div class="section" id="request-access">
+<h2>Request access<a class="headerlink" href="#request-access" title="Permalink to this headline">¶</a></h2>
+<p>Development on the DC Platform requires an Adobe-provided credential. Submit the <a class="reference external" href="https://www.adobe.com/go/dcsdk_requestform">request access form</a> to request access to DC SDK. While the beta program participation is limited, the program will expand as the SDK evolves.</p>
+</div>
+<div class="section" id="java">
+<span id="javasetup"></span><h2>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
+<p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
+<ul class="simple">
+<li><p>This document</p></li>
+<li><p><a class="reference external" href="./javadoc/index.html">API reference (Javadoc)</a></p></li>
+<li><p><a class="reference external" href="https://www.adobe.com/go/dcservicessdk_java_samples">Sample code</a></p></li>
+<li><p><a class="reference external" href="https://www.adobe.com/go/dcservicessdk_java_maven">Java library</a>. The Maven project contains the .jar file.</p></li>
+</ul>
+<div class="section" id="verifying-download-authenticity">
+<h3>Verifying download authenticity<a class="headerlink" href="#verifying-download-authenticity" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After installing the package, navigate to dc-services-sdk-0.5.0.1.jar.</p></li>
+<li><p>Calculatate the hash with any 3rd party utility.</p></li>
+<li><p>Find and open <code class="docutils literal notranslate"><span class="pre">dc-services-sdk-0.5.0.1.jar.sha1</span></code>. Note: if you’re using Maven, look in the .m2 directory.</p></li>
+<li><p>Verify the hash you generated matches the value in the .sha1 file.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">5</span><span class="n">f1910f1ddd103c579e45c3f1c03fbad8f3f43c8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authentication">
+<span id="auth"></span><h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
+<p>Once you’ve been granted access to DC services, replace the dc-services-sdk-config.json file in the sample project with the one you receive from Adobe.</p>
+<p><strong>Example dc-services-sdk-config.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;techacct&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_SECRET&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;private_key&quot;</span><span class="p">:</span> <span class="s2">&quot;---BEGIN RSA PRIVATE KEY---</span><span class="se">\n</span><span class="s2">XXXXX..XXXX</span><span class="se">\n</span><span class="s2">---END RSA PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;claim&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ims-na1.adobelogin.com/s/ent_documentcloud_sdk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;issuer&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_ORGANIZATION_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_TECHINCAL_ACCOUNT_ID&gt;&quot;</span>
+  <span class="p">},</span>
+<span class="s2">&quot;connectTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;2000&quot;</span><span class="p">,</span>
+<span class="s2">&quot;readTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10000&quot;</span><span class="p">,</span>
+<span class="s2">&quot;uploadReadTimeout&quot;</span><span class="p">:</span><span class="s2">&quot;60000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="timeout-configuration">
+<h3>Timeout configuration<a class="headerlink" href="#timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Timeout properties are inferred and provide defaults. Manually add the properties to your configuration file if you prefer to use custom values. Communication times with Adobe servers are configurable as follows:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 2000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+<li><p><strong>uploadReadTimeout</strong>: Default: 60000. The read timeout in milliseconds for file upload requests.</p></li>
+</ul>
+</div>
+<div class="section" id="set-up-your-java-environment">
+<h3>Set up your Java environment<a class="headerlink" href="#set-up-your-java-environment" title="Permalink to this headline">¶</a></h3>
+<p>The quickest way to get up and running is to set up and configure the sample project. The project provides everything from ready-to-run sample code, a config file for your credential details, and pre-configured connections to dependencies such as the dc-services-sdk.jar file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Maven uses pom.xml to fetch dc-services-sdk from the public Maven repository when running the project. The .jar automatically downloads when you build the sample project.</p>
+</div>
+<p>Environment setup:</p>
+<ol class="arabic simple">
+<li><p>Install <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 8 or above</a>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">javac</span> <span class="pre">-version</span></code> to verify your install.</p></li>
+<li><p>Verify the JDK bin folder is included in the PATH variable (method varies by OS).</p></li>
+<li><p>Install <a class="reference external" href="https://maven.apache.org/install.html">Maven</a>. You may use your preferred tool; for example:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Windows</strong>: Example: <a class="reference external" href="https://chocolatey.org/packages/maven">Chocolatey</a>.</p></li>
+<li><p><strong>Macintosh</strong>: Example: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">maven</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can download the dc-services-sdk jar file, and configure your own environment.</p>
+</div>
+<p>Sample project setup:</p>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="https://www.adobe.com/go/dcservicessdk_java_samples">the sample project</a>.</p></li>
+<li><p>Find and open <code class="docutils literal notranslate"><span class="pre">dc-services-sdk-config.json</span></code>.</p></li>
+<li><p>Enter your authentication credentials and save the file.</p></li>
+<li><p>Build the sample project with Maven:  <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">clean</span> <span class="pre">install</span></code>.</p></li>
+<li><p>Test the sample code on the command line. Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="./javadoc/index.html">Javadoc</a>.</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Command line execution is not mandatory. You can import the samples Maven project into your preferred IDE (e.g. IntelliJ/Eclipse) and run the samples from there.</p>
+</div>
+</div>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<ul class="simple">
+<li><p>For logging, use the <a class="reference external" href="https://www.slf4j.org/">slf4j API</a> with a log4j2-slf4j binding.</p></li>
+<li><p>Logging configurations are provided in <code class="docutils literal notranslate"><span class="pre">src/main/resources/log4j2.properties</span></code>.</p></li>
+<li><p>Specify alternate bindings, if required, in pom.xml.</p></li>
+</ul>
+<p><strong>log4j2.properties file</strong></p>
+<pre class="prettyprint lang-java">
+name=PropertiesConfig
+appenders = console
+
+# A sample console appender configuration which clients can change as needed.
+rootLogger.level = WARN
+rootLogger.appenderRefs = stdout
+rootLogger.appenderRef.stdout.ref = STDOUT
+
+appender.console.type = Console
+appender.console.name = STDOUT
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+loggers = dcservicessdk,validator,apache
+
+# Change the logging levels as desired. INFO is recommended.
+logger.dcservicessdk.name = com.adobe.platform.operation
+logger.dcservicessdk.level = INFO
+logger.dcservicessdk.additivity = false
+logger.dcservicessdk.appenderRef.console.ref = STDOUT
+
+logger.validator.name=org.hibernate
+logger.validator.level=WARN
+
+logger.apache.name=org.apache
+logger.apache.level=WARN
+</pre></div>
+<div class="section" id="test-files">
+<span id="javaenv"></span><h3>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h3>
+<p>The sample files reference input and output files located in the sample project’s <code class="docutils literal notranslate"><span class="pre">/resources/</span></code> directory. You can of course modify the files and paths or use your own files.</p>
+<img alt="_images/samplefilesjava.png" src="_images/samplefilesjava.png" />
+</div>
+<div class="section" id="custom-projects">
+<h3>Custom projects<a class="headerlink" href="#custom-projects" title="Permalink to this headline">¶</a></h3>
+<p>While the samples use Maven, you can use your own tools and process.</p>
+<p>To build a custom project:</p>
+<ol class="arabic simple">
+<li><p>Access the dc-services-sdk .jar in the <a class="reference external" href="https://www.adobe.com/go/dcservicessdk_java_maven">central Maven repository</a>.</p></li>
+<li><p>Use your preferred dependency management tool (Ivy, Gradle, Maven), to include the SDK .jar.</p></li>
+<li><p>Manually create <code class="docutils literal notranslate"><span class="pre">dc-services-sdk-config.json</span></code>.</p></li>
+<li><p>Add the <a class="reference internal" href="#auth"><span class="std std-ref">Authentication</span></a> details as described above.</p></li>
+</ol>
+<img alt="_images/maven.png" src="_images/maven.png" />
+</div>
+</div>
+<div class="section" id="net">
+<h2>.NET<a class="headerlink" href="#net" title="Permalink to this headline">¶</a></h2>
+<p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
+<ul class="simple">
+<li><p>This document</p></li>
+<li><p><a class="reference external" href="https://www.adobe.com/go/dcservicessdk_net_nuget">Nuget package</a></p></li>
+<li><p><a class="reference external" href="./net/api/index.html">API reference</a></p></li>
+<li><p><a class="reference external" href="https://www.adobe.com/go/dcservicessdk_net_samples">Sample code</a></p></li>
+<li><p>Input/output test files reside in the their respective sample directories</p></li>
+</ul>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>The samples project requires the following:</p>
+<ul class="simple">
+<li><p>.NET Core: version 2.1 or above</p></li>
+<li><p>A build Tool: Either Visual Studio or .NET Core CLI.</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Authentication<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Once you’ve been granted access to DC services, replace the dc-services-sdk-config.json file in the sample project with the one you receive from Adobe.</p>
+<p><strong>Example dc-services-sdk-config.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;techacct&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_SECRET&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;private_key&quot;</span><span class="p">:</span> <span class="s2">&quot;---BEGIN RSA PRIVATE KEY---</span><span class="se">\n</span><span class="s2">XXXXX..XXXX</span><span class="se">\n</span><span class="s2">---END RSA PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;claim&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ims-na1.adobelogin.com/s/ent_documentcloud_sdk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;issuer&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_ORGANIZATION_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_TECHINCAL_ACCOUNT_ID&gt;&quot;</span>
+  <span class="p">},</span>
+    <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;2000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uploadTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;400000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;readWriteTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Timeout configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Timeout properties are inferred and provide defaults. Manually add the properties to your configuration file if you prefer to use custom values. Communication times with Adobe servers are configurable as follows:</p>
+<ul class="simple">
+<li><p><strong>timeout</strong>: Default: 2000. The maximum allowed time in milliseconds for establishing a connection, sending a request, and getting a response.</p></li>
+<li><p><strong>uploadTimeout</strong>: Default: 400000. The maximum allowed time in milliseconds for the file upload request.</p></li>
+<li><p><strong>readWriteTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds to read or write data after connection is established.</p></li>
+</ul>
+</div>
+<div class="section" id="set-up-your-net-environment">
+<h3>Set up your .NET environment<a class="headerlink" href="#set-up-your-net-environment" title="Permalink to this headline">¶</a></h3>
+<p>The quickest way to get up and running is to set up and configure the sample project. The project provides everything from ready-to-run sample code, a config file for your credential details, and pre-configured connections to dependencies. Running any sample or custom code requires the following steps:</p>
+<ol class="arabic simple">
+<li><p>Download and install the <a class="reference external" href="https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/install">.NET SDK</a>.</p></li>
+<li><p>Download the <a class="reference external" href="https://www.adobe.com/go/dcservicessdk_net_nuget">Nuget package</a>.</p></li>
+<li><p>Clone or download the <a class="reference external" href="https://www.adobe.com/go/dcservicessdk_net_samples">samples project</a>.</p></li>
+<li><p>Find and open <code class="docutils literal notranslate"><span class="pre">dc-services-sdk-config.json</span></code>.</p></li>
+<li><p>Enter your authentication credentials and save the file. As each sample resides in its own project directory, you’ll need to copy the config.json file there.</p></li>
+</ol>
+<p>Once configured, navigate to the sample project directory you’d like to run, open the project, and execute the sample as descibed in the Readme or in the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a>.</p>
+</div>
+<div class="section" id="id3">
+<h3>Verifying download authenticity<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After installing the Nuget package, navigate to the .nuget directory.</p></li>
+<li><p>Find and open <code class="docutils literal notranslate"><span class="pre">adobe.documentcloud.services.0.5.0.nupkg.sha512</span></code>.</p></li>
+<li><p>Verify the hash in the downloaded file matches the value published here.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P8i3E6ddlRAC4vrED6cq9AWGGdKzVIKhZFnBNsJVm8nGT</span><span class="o">/</span><span class="n">v3jm9E2FE2z</span><span class="o">+</span><span class="n">igzdc</span><span class="o">/</span><span class="n">CQBXplGYNhCRT4669CdktQ</span><span class="o">==</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Logging<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<p>The .NET SDK uses <a class="reference external" href="https://github.com/damianh/LibLog">LibLog</a> as a bridge between different logging frameworks. Log4net is used as a logging provider in the sample projects and the logging configurations are provided in <code class="docutils literal notranslate"><span class="pre">log4net.config</span></code>. Add the configuration for your preferred provider and set up the necessary appender as required to enable logging.</p>
+<p><strong>log4net.config file</strong></p>
+<pre class="prettyprint lang-java">
+&lt;log4net&gt;
+ &lt;root&gt;
+   &lt;level value="INFO" /&gt;
+   &lt;appender-ref ref="console" /&gt;
+ &lt;/root&gt;
+ &lt;appender name="console" type="log4net.Appender.ConsoleAppender"&gt;
+   &lt;layout type="log4net.Layout.PatternLayout"&gt;
+     &lt;conversionPattern value="%date %level %logger - %message%newline" /&gt;
+   &lt;/layout&gt;
+ &lt;/appender&gt;
+&lt;/log4net&gt;
+</pre></div>
+<div class="section" id="id5">
+<h3>Test files<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Refer to each sample directory for the requisite input/output files.</p>
+</div>
+</div>
+<div class="section" id="node-js">
+<h2>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h2>
+<p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
+<ul class="simple">
+<li><p>This document</p></li>
+<li><p><a class="reference external" href="./node/module-DCServicesSDK.html">API reference</a></p></li>
+<li><p><a class="reference external" href="http://www.adobe.com/go/dcservicesnode_sample">Sample code</a></p></li>
+<li><p><a class="reference external" href="http://www.adobe.com/go/dcservicesnode_npm">Node.js SDK</a></p></li>
+</ul>
+<div class="section" id="id6">
+<h3>Authentication<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Once you’ve been granted access to DC services, replace the dc-services-sdk-config.json file in the sample project with the one you receive from Adobe. You can also use <a class="reference internal" href="howtos.html#inmemory"><span class="std std-ref">Runtime in-memory authentication</span></a>.</p>
+<p><strong>Example dc-services-sdk-config.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;techacct&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_SECRET&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;private_key&quot;</span><span class="p">:</span> <span class="s2">&quot;---BEGIN RSA PRIVATE KEY---</span><span class="se">\n</span><span class="s2">XXXXX..XXXX</span><span class="se">\n</span><span class="s2">---END RSA PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;claim&quot;</span><span class="p">:</span> <span class="s2">&quot;https://ims-na1.adobelogin.com/s/ent_documentcloud_sdk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;issuer&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_ORGANIZATION_ID&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;YOUR_TECHINCAL_ACCOUNT_ID&gt;&quot;</span>
+  <span class="p">},</span>
+<span class="s2">&quot;connectTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;2000&quot;</span><span class="p">,</span>
+<span class="s2">&quot;readTimeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10000&quot;</span><span class="p">,</span>
+<span class="s2">&quot;uploadReadTimeout&quot;</span><span class="p">:</span><span class="s2">&quot;60000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Timeout configuration<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Timeout properties are inferred and provide defaults. Manually add the properties to your configuration file if you prefer to use custom values. Communication times with Adobe servers are configurable as follows:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 2000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+<li><p><strong>uploadReadTimeout</strong>: Default: 60000. The read timeout in milliseconds for file upload requests.</p></li>
+</ul>
+</div>
+<div class="section" id="set-up-your-node-js-environment">
+<h3>Set up your Node.js environment<a class="headerlink" href="#set-up-your-node-js-environment" title="Permalink to this headline">¶</a></h3>
+<p>Running any sample or custom code requires the following steps:</p>
+<p>Environment setup:</p>
+<ol class="arabic simple">
+<li><p>Install <a class="reference external" href="https://nodejs.org/en/download/">Node.js 10.0</a> or higher.</p></li>
+<li><p>Install Adobe’s DC <a class="reference external" href="http://www.adobe.com/go/dcservicesnode_npm">Node.js SDK</a>:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span> <span class="nd">@adobe</span><span class="o">/</span><span class="n">dc</span><span class="o">-</span><span class="n">services</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+<p>Sample project setup:</p>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="http://www.adobe.com/go/dcservicesnode_sample">the sample project</a>.</p></li>
+<li><p>Find and open <code class="docutils literal notranslate"><span class="pre">dc-services-sdk-config.json</span></code>.</p></li>
+<li><p>Enter your authentication credentials and save the file.</p></li>
+<li><p>From the root directory, run:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> lists the DC Services SDK as a dependency, and it downloads automatically.</p>
+</div>
+<p>Test the sample code on the command line. Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="./node/index.html">API reference</a>.</p>
+</div>
+<div class="section" id="id9">
+<h3>Verifying download authenticity<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After installing the package, find and open <code class="docutils literal notranslate"><span class="pre">package.json</span></code>.</p></li>
+<li><p>Find the “_integrity” key.</p></li>
+<li><p>Verify the hash in the downloaded file matches the value published here.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sha512</span><span class="o">-</span><span class="n">dDctEEmy81BghHUlPCvEzWegTWEQUXfDOBt</span><span class="o">+</span><span class="n">dEPiVTVHW57xAPf4JGBP6nzG3zCBL</span><span class="o">/</span><span class="n">lerWqn</span><span class="o">+</span><span class="n">IGMAc</span><span class="o">/</span><span class="n">SQCdhZQ</span><span class="o">==</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>Logging<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<p>The SDK uses the  use the <a class="reference external" href="https://www.npmjs.com/package/log4js">log4js API</a> for logging. During execution, the SDK searches for <code class="docutils literal notranslate"><span class="pre">config/dc-sdk-log4js-config.json</span></code> in the working directory and reads the logging properties from there. If you do not provide a configuration file, the default logging logs INFO to the console. Customize the logging settings as needed.</p>
+<p><strong>log4j2.properties file</strong></p>
+ <pre class="prettyprint lang-json">
+{
+ "appenders": {
+   "consoleAppender": {
+           "_comment": "A sample console appender configuration. Customize the logging implementation as needed.",
+     "type": "console",
+     "layout": {
+       "type": "pattern",
+       "pattern": "%d:[%p]: %m"
+     }
+   }
+ },
+ "categories": {
+   "default": {
+     "appenders": [
+       "consoleAppender"
+           ],
+           "_comment": "INFO is the minimum recommended log level for the DC SDK.",
+     "level": "info"
+   }
+ }
+}
+</pre></div>
+<div class="section" id="id11">
+<h3>Test files<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Refer to each sample project’s <a class="reference external" href="https://github.com/adobe/dc-services-sdk-node-samples/tree/master/resources">resource directory</a> for the requisite input/output files.</p>
+<img alt="_images/nodetestfiles.png" src="_images/nodetestfiles.png" />
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+      &copy; Copyright Mar 11, 2020 Adobe Systems.<br/>
+    </p>	
+  </div>
+  
+  
+</footer>
+  <script type='text/javascript'>window.marketingtech = {adobe: {launch: {property: "global",environment: "production"}},};</script><script src="https://www.adobe.com/marketingtech/main.min.js"></script></body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head><meta name='robots' content='noindex,nofollow'/>
+    <meta charset="utf-8" />
+    <title>Search &#8212; Document Cloud Services SDK</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/searchtools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" />
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
+  </script>
+  
+  <script type="text/javascript" id="searchindexloader"></script>
+  
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='description' content='DC Services SDK, DC Services, Document Cloud Services SDK, Adobe Document Cloud Platform SDK, Document Cloud, Document Cloud View SDK, DC View SDK, Acrobat DC Services,' />
+
+<meta name='robots' content='noindex,nofollow'/>
+
+
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+  
+  <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+ 
+  <script>
+  	function copyToClipboard(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).text()).select();
+			document.execCommand("copy");
+			$temp.remove();
+	}
+  </script>
+
+<script type='text/javascript'>
+         window.marketingtech = {
+               adobe: {
+                   launch: {
+                       property: "global",
+                       environment: "production"
+                   }
+               },
+           };
+        </script>
+  <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+blockquote > div > ul.simple {font-size:80%;}
+h2 { margin-top: 2em; }
+h3 { margin-top: 1em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+	  <!-- Ben: use this navbar -->
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><!--Project title -->
+          Document Cloud Services SDK</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../index.html">Platform Home</a></li>
+                <li><a href="https://www.adobe.com/go/dcsdk_requestform">Request Access</a></li>
+                <li><a href="mailto:dc_platform_feedback@adobe.com">Feedback</a></li>
+            
+			
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#request-access">Request access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#net">.NET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-local-html">Create a PDF from  local HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-a-url">Create a PDF from a URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf-to-images">Export a PDF to images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-files">Combine files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><div style="margin:1em; font-size:90%;">
+  <p>Select a language:</p>
+  <button class="langmode" data-index="0">JAVA</button>
+  <button class="langmode" data-index="1">.NET</button>
+  <button class="langmode" data-index="2">Node.js</button>
+</div>
+<li  style="list-style:none;">	
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#request-access">Request access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#net">.NET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-local-html">Create a PDF from  local HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-a-pdf-from-a-url">Create a PDF from a URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-a-pdf-to-images">Export a PDF to images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-files">Combine files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+<hr/>
+
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <h1 id="search-documentation">Search</h1>
+  <div id="fallback" class="admonition warning">
+  <script type="text/javascript">$('#fallback').hide();</script>
+  <p>
+    Please activate JavaScript to enable the search
+    functionality.
+  </p>
+  </div>
+  <p>
+    From here you can search these documents. Enter your search
+    words into the box below and click "search". Note that the search
+    function will automatically search for all of the words. Pages
+    containing fewer words won't appear in the result list.
+  </p>
+
+  
+  <form class="form-inline" action="" method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" name="q" value="" />
+    </div>
+    <input type="submit" class="btn btn-default" value="search" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>  
+  
+  
+  
+  <div id="search-results">
+  
+  </div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+      &copy; Copyright Mar 11, 2020 Adobe Systems.<br/>
+    </p>	
+  </div>
+  
+  
+</footer>
+  <script type='text/javascript'>window.marketingtech = {adobe: {launch: {property: "global",environment: "production"}},};</script><script src="https://www.adobe.com/marketingtech/main.min.js"></script></body>
+</html>

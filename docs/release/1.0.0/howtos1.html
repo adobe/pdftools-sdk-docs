@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+
+<html>
+  <head><meta name='robots' content='noindex,nofollow'/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Tos &#8212; Document Cloud Services SDK</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Quickstarts" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quickstarts</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#trial-vs-paid-program">Trial vs paid program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-credentials">Getting credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#net">.NET</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-timeout-configuration">Custom timeout configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-pdf-from-static-html">Create a PDF from static HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-pdf-from-dynamic-html">Create a PDF from dynamic HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#export-a-pdf-to-images">Export a PDF to images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine-files">Combine files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#text-recognition-ocr">Text recognition (OCR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ocr-with-explicit-language">OCR with explicit language</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="../viewSDK/index.html#://">Go to the View SDK</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-cloud-sdk/bd-p/Document-Cloud-SDK?page=1&amp;sort=latest_replies&amp;filter=all#://">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="how-tos">
+<span id="howtos"></span><h1>How Tos<a class="headerlink" href="#how-tos" title="Permalink to this headline">¶</a></h1>
+<p>The samples and documentation here should get you quickly up and running with the DC Services SDK. These code examples illustrate how to perform PDF actions using the SDK, including:</p>
+<ul class="simple">
+<li><p>Creating a PDF from multiple formats, including HTML, Microsoft Office documents, and text files</p></li>
+<li><p>Exporting a PDF to other formats or an image</p></li>
+<li><p>Combining entire PDFs or specified page ranges</p></li>
+<li><p>Using OCR to make a PDF file searchable and editable with a custom locale</p></li>
+</ul>
+<div class="section" id="runtime-in-memory-authentication">
+<span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
+<p>The SDK supports providing the authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/dc-services-sdk-java-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/createpdf/CreatePDFWithInMemoryAuthCredentials.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/DC.Services.SDK.NET.Samples/tree/master/CreatePDFWithInMemoryAuthCredentials">.NET</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/dc-services-sdk-node-samples/blob/master/src/createpdf/create-pdf-with-inmemory-auth-credentials.js">Node.js</a></p></li>
+</ul>
+</div>
+<div class="section" id="custom-timeout-configuration">
+<h2>Custom timeout configuration<a class="headerlink" href="#custom-timeout-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/dc-services-sdk-java-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/createpdf/CreatePDFWithCustomTimeouts.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/DC.Services.SDK.NET.Samples/blob/master/CreatePDFWithCustomTimeouts/Program.cs">.NET</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/dc-services-sdk-node-samples/blob/master/src/createpdf/create-pdf-with-custom-timeouts.js">Node.js</a></p></li>
+</ul>
+<div class="section" id="java-timeout-configuration">
+<span id="timejava"></span><h3>Java timeout configuration<a class="headerlink" href="#java-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 2000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>socketTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span>
+   <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">withSocketTimeout</span><span class="p">(</span><span class="mi">40000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="net-timeout-configuration">
+<span id="timenet"></span><h3>.NET timeout configuration<a class="headerlink" href="#net-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>timeout</strong>: Default: 2000. The maximum allowed time in milliseconds for establishing a connection, sending a request, and getting a response.</p></li>
+<li><p><strong>readWriteTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds to read or write data after connection is established.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">ConfigBuilder</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">WithTimeout</span><span class="p">(</span><span class="mi">40000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">WithReadWriteTimeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">Build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="node-js-timeout-configuration">
+<span id="timenode"></span><h3>Node.js timeout configuration<a class="headerlink" href="#node-js-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 2000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+<li><p><strong>uploadReadTimeout</strong>: Default: 60000. The read timeout in milliseconds for file upload requests.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">DCServicesSdk</span><span class="o">.</span><span class="n">ClientConfig</span>
+  <span class="o">.</span><span class="n">clientConfigBuilder</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="s2">&quot;100000&quot;</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">withReadTimeout</span><span class="p">(</span><span class="s2">&quot;40000&quot;</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-a-pdf">
+<h2>Create a PDF<a class="headerlink" href="#create-a-pdf" title="Permalink to this headline">¶</a></h2>
+<p>Use the sample below to create PDFs from Microsoft Office documents (Word, Excel and PowerPoint) and other <a class="reference external" href="./javadoc/com/adobe/platform/operation/pdfops/CreatePDFOperation.SupportedSourceFormat.html">supported file formats</a>. While the example shows .docx file conversion, the SDK supports the following formats:</p>
+<ul class="simple">
+<li><p>Microsoft Word (DOC, DOCX)</p></li>
+<li><p>Microsoft PowerPoint (PPT, PPTX)</p></li>
+<li><p>Microsoft Excel (XLS, XLSX)</p></li>
+<li><p>Text (TXT, RTF)</p></li>
+<li><p>Image (BMP, JPEG, GIF, TIFF, PNG)</p></li>
+</ul>
+ <div class="tabs">
+         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+     <ul>
+       <li><a href="#tabsjava1">JAVA</a></li>
+       <li><a href="#tabsnet1">.NET</a></li><li><a href="#tabsnode1">NODE</a></li>
+     </ul>
+     <div id="tabsjava1">
+     <div class="cmdline"><strong>Run the sample:</strong><br />
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.createpdf.CreatePDFFromDOCX</div>
+
+<pre class="prettyprint">
+Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+  package com.adobe.platform.operation.samples.createpdf;
+
+ import java.io.IOException;
+
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.CreatePDFOperation;
+
+ public class CreatePDFFromDOCX {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(CreatePDFFromDOCX.class);
+
+   public static void main(String[] args) {
+
+     try {
+
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       CreatePDFOperation createPdfOperation = CreatePDFOperation.createNew();
+
+       // Set operation input from a source file.
+       FileRef source = FileRef.createFromLocalFile("src/main/resources/createPDFInput.docx");
+       createPdfOperation.setInput(source);
+
+       // Execute the operation.
+       FileRef result = createPdfOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/createPDFFromDOCX.pdf");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+ }
+     </pre>
+     </div>
+     <div id="tabsnet1">
+       <div class="cmdline"><strong>Run the sample:</strong><br />
+cd CreatePDFFromDocx/<br/>
+dotnet run CreatePDFFromDocx.csproj
+               </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System;
+ using System.IO;
+ using log4net.Repository;
+ using log4net.Config;
+ using log4net;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+
+ namespace CreatePDFFromDocx
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         CreatePDFOperation createPdfOperation = CreatePDFOperation.CreateNew();
+
+         // Set operation input from a source file.
+         FileRef source = FileRef.CreateFromLocalFile(@"createPdfInput.docx");
+         createPdfOperation.SetInput(source);
+
+         // Execute the operation.
+         FileRef result = createPdfOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/createPdfOutput.pdf");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode1">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+node src/createpdf/create-pdf-from-docx.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     createPdfOperation = DCServicesSdk.CreatePDF.Operation.createNew();
+
+   // Set operation input from a source file.
+   const input = DCServicesSdk.FileRef.createFromLocalFile('resources/createPDFInput.docx');
+   createPdfOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   createPdfOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/createPDFFromDOCX.pdf'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+
+   </div></div>
+<div class="section" id="create-a-pdf-from-static-html">
+<h2>Create a PDF from static HTML<a class="headerlink" href="#create-a-pdf-from-static-html" title="Permalink to this headline">¶</a></h2>
+<p>The sample below creates a PDF file from a static HTML file. The file must be local. Since HTML/web pages typically contain external assets, the input file must be a zip file containing an index.html at the top level of the archive as well as any dependencies such as images, css files, and so on.</p>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava2">JAVA</a></li>
+       <li><a href="#tabsnet2">.NET</a></li><li><a href="#tabsnode2">NODE</a></li>
+     </ul>
+     <div id="tabsjava2">
+        <div class="cmdline"><strong>Run the sample:</strong><br />
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.createpdf.CreatePDFFromStaticHTML
+       </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.createpdf;
+
+ import java.io.IOException;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.CreatePDFOperation;
+ import com.adobe.platform.operation.pdfops.options.createpdf.CreatePDFOptions;
+ import com.adobe.platform.operation.pdfops.options.createpdf.PageLayout;
+
+ public class CreatePDFFromStaticHTML {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(CreatePDFFromStaticHTML.class);
+
+   public static void main(String[] args) {
+
+     try {
+
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       CreatePDFOperation htmlToPDFOperation = CreatePDFOperation.createNew();
+
+       // Set operation input from a source file.
+       FileRef source = FileRef.createFromLocalFile("src/main/resources/createPDFFromStaticHtmlInput.zip");
+       htmlToPDFOperation.setInput(source);
+
+       // Provide any custom configuration options for the operation.
+       setCustomOptions(htmlToPDFOperation);
+
+       // Execute the operation.
+       FileRef result = htmlToPDFOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/createPDFFromStaticHtmlOutput.pdf");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+
+   private static void setCustomOptions(CreatePDFOperation htmlToPDFOperation) {
+     // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+     PageLayout pageLayout = new PageLayout();
+     pageLayout.setPageSize(8, 11.5);
+
+     // Set the desired HTML-to-PDF conversion options.
+     CreatePDFOptions htmlToPdfOptions = CreatePDFOptions.htmlOptionsBuilder()
+         .includeHeaderFooter(true)
+         .withPageLayout(pageLayout)
+         .build();
+     htmlToPDFOperation.setOptions(htmlToPdfOptions);
+   }
+ }
+     </pre>
+     </div>
+
+     <div id="tabsnet2">
+        <div class="cmdline"><strong>Run the sample:</strong><br />
+cd CreatePDFFromHtml/ <br/>
+dotnet run CreatePDFFromStaticHtml.csproj
+       </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System;
+ using System.IO;
+ using log4net.Repository;
+ using log4net;
+ using log4net.Config;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+ using Adobe.DocumentCloud.Services.options.createpdf;
+
+ namespace CreatePDFFromStaticHtml
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         CreatePDFOperation htmlToPDFOperation = CreatePDFOperation.CreateNew();
+
+         // Set operation input from a source file.
+         FileRef source = FileRef.CreateFromLocalFile(@"createPDFFromStaticHtmlInput.zip");
+         htmlToPDFOperation.SetInput(source);
+
+         // Provide any custom configuration options for the operation.
+         SetCustomOptions(htmlToPDFOperation);
+
+         // Execute the operation.
+         FileRef result = htmlToPDFOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/createPdfFromStaticHtmlOutput.pdf");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+        // Catch more errors here. . .
+     }
+
+     private static void SetCustomOptions(CreatePDFOperation htmlToPDFOperation)
+     {
+       // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+       PageLayout pageLayout = new PageLayout();
+       pageLayout.SetPageSize(8, 11.5);
+
+       // Set the desired HTML-to-PDF conversion options.
+       CreatePDFOptions htmlToPdfOptions = CreatePDFOptions.HtmlOptionsBuilder()
+           .IncludeHeaderFooter(true)
+           .WithPageLayout(pageLayout)
+           . Build();
+       htmlToPDFOperation.SetOptions(htmlToPdfOptions);
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+  </pre>
+     </div>
+ <div id="tabsnode2">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/createpdf/create-pdf-from-static-html.js
+ </div>
+<pre class="prettyprint">
+const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ const setCustomOptions = (htmlToPDFOperation) => {
+   // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+   const pageLayout = new DCServicesSdk.CreatePDF.options.PageLayout();
+   pageLayout.setPageSize(8, 11.5);
+
+   // Set the desired HTML-to-PDF conversion options.
+   const htmlToPdfOptions = new DCServicesSdk.CreatePDF.options.html.CreatePDFFromHtmlOptions.Builder()
+     .includesHeaderFooter(true)
+     .withPageLayout(pageLayout)
+     .build();
+   htmlToPDFOperation.setOptions(htmlToPdfOptions);
+ };
+
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     htmlToPDFOperation = DCServicesSdk.CreatePDF.Operation.createNew();
+
+   // Set operation input from a source file.
+   const input = DCServicesSdk.FileRef.createFromLocalFile('resources/createPDFFromStaticHtmlInput.zip');
+   htmlToPDFOperation.setInput(input);
+
+   // Provide any custom configuration options for the operation.
+   setCustomOptions(htmlToPDFOperation);
+
+   // Execute the operation and Save the result to the specified location.
+   htmlToPDFOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/createPdfFromStaticHtmlOutput.pdf'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+
+  </div></div>
+<div class="section" id="create-a-pdf-from-dynamic-html">
+<h2>Create a PDF from dynamic HTML<a class="headerlink" href="#create-a-pdf-from-dynamic-html" title="Permalink to this headline">¶</a></h2>
+<p>To support workflows with dynamic data, <code class="docutils literal notranslate"><span class="pre">CreatePDFFromDynamicHTML</span></code> creates PDFs from dynamic HTML. It’s a common scenario for enterprise to provide end users with an HTML template with form fields. This API allows you to capture the users unique data entries and then save it as PDF.  Collected data is stored in a JSON file, and the source HTML file must include <code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">src='./json.js'</span> <span class="pre">type='text/javascript'&gt;&lt;/script&gt;</span></code>. Refer to the API docs for usage.</p>
+<p>The sample <code class="docutils literal notranslate"><span class="pre">CreatePDFFromDynamicHTML</span></code> converts a zip file, containing the input HTML file and its resources, along with the input data to a PDF file. The input data is used by the JavaScript in the HTML file to manipulate the HTML DOM, thus effectively updating the source HTML file. This mechanism can be used to provide data to the template HTML dynamically prior to PDF conversion.</p>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava10">JAVA</a></li>
+       <li><a href="#tabsnet10">.NET</a></li>
+               <li><a href="#tabsnode10">NODE</a></li>
+     </ul>
+     <div id="tabsjava10">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.createpdf.CreatePDFFromDynamicHTML
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.createpdf;
+
+ import java.io.IOException;
+
+ import org.json.JSONObject;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.CreatePDFOperation;
+ import com.adobe.platform.operation.pdfops.options.createpdf.CreatePDFOptions;
+ import com.adobe.platform.operation.pdfops.options.createpdf.PageLayout;
+
+ public class CreatePDFFromDynamicHTML {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(CreatePDFFromDynamicHTML.class);
+
+   public static void main(String[] args) {
+
+     try {
+
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       CreatePDFOperation htmlToPDFOperation = CreatePDFOperation.createNew();
+
+       // Set operation input from a source file.
+       FileRef source = FileRef.createFromLocalFile("src/main/resources/createPDFFromDynamicHtmlInput.zip");
+       htmlToPDFOperation.setInput(source);
+
+       // Provide any custom configuration options for the operation.
+       setCustomOptions(htmlToPDFOperation);
+
+       // Execute the operation.
+       FileRef result = htmlToPDFOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/createPDFFromDynamicHtmlOutput.pdf");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+
+   private static void setCustomOptions(CreatePDFOperation htmlToPDFOperation) {
+     // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+     PageLayout pageLayout = new PageLayout();
+     pageLayout.setPageSize(8, 11.5);
+
+     //Set the dataToMerge field that needs to be populated in the HTML before its conversion
+     JSONObject dataToMerge = new JSONObject();
+     dataToMerge.put("title","Create, Convert PDFs and More!");
+     dataToMerge.put("sub_title","Easily integrate PDF actions within your document workflows.");
+
+     // Set the desired HTML-to-PDF conversion options.
+     CreatePDFOptions htmlToPdfOptions = CreatePDFOptions.htmlOptionsBuilder()
+         .includeHeaderFooter(true)
+         .withPageLayout(pageLayout)
+         .withDataToMerge(dataToMerge)
+         .build();
+     htmlToPDFOperation.setOptions(htmlToPdfOptions);
+   }
+ }
+</pre>
+     </div>
+     <div id="tabsnet10">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd CreatePDFFromDynamicHtml/<br/>
+ dotnet run CreatePDFFromDynamicHtml.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System;
+ using System.IO;
+ using log4net.Repository;
+ using log4net;
+ using log4net.Config;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+ using Adobe.DocumentCloud.Services.options.createpdf;
+ using Newtonsoft.Json.Linq;
+
+ namespace CreatePDFFromDynamicHtml
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         CreatePDFOperation htmlToPDFOperation = CreatePDFOperation.CreateNew();
+
+         // Set operation input from a source file.
+         FileRef source = FileRef.CreateFromLocalFile(@"createPDFFromDynamicHtmlInput.zip");
+         htmlToPDFOperation.SetInput(source);
+
+         // Provide any custom configuration options for the operation.
+         SetCustomOptions(htmlToPDFOperation);
+
+         // Execute the operation.
+         FileRef result = htmlToPDFOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/createPdfFromDynamicHtmlOutput.pdf");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // errors continued. . .
+     }
+
+     private static void SetCustomOptions(CreatePDFOperation htmlToPDFOperation)
+     {
+       // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+       PageLayout pageLayout = new PageLayout();
+       pageLayout.SetPageSize(8, 11.5);
+
+       //Set the dataToMerge field that needs to be populated in the HTML before its conversion
+       JObject dataToMerge = new JObject
+       {
+         { "title", "Create, Convert PDFs and More!" },
+         { "sub_title", "Easily integrate PDF actions within your document workflows." }
+       };
+
+       // Set the desired HTML-to-PDF conversion options.
+       CreatePDFOptions htmlToPdfOptions = CreatePDFOptions.HtmlOptionsBuilder()
+           .IncludeHeaderFooter(true)
+           .WithPageLayout(pageLayout)
+           .WithDataToMerge(dataToMerge)
+           .Build();
+       htmlToPDFOperation.SetOptions(htmlToPdfOptions);
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+
+    </pre>
+     </div>
+ <div id="tabsnode10">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/createpdf/create-pdf-from-dynamic-html.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ const setCustomOptions = (htmlToPDFOperation) => {
+   // Define the page layout, in this case an 8 x 11.5 inch page (effectively portrait orientation).
+   const pageLayout = new DCServicesSdk.CreatePDF.options.PageLayout();
+   pageLayout.setPageSize(8, 11.5);
+   //Set the dataToMerge field that needs to be populated in the generated PDF.
+   const dataToMerge = {
+     "title":"Create, Convert PDFs and More!",
+     "sub_title": "Easily integrate PDF actions within your document workflows."
+   };
+   // Set the desired HTML-to-PDF conversion options.
+   const htmlToPdfOptions = new DCServicesSdk.CreatePDF.options.html.CreatePDFFromHtmlOptions.Builder()
+     .includesHeaderFooter(true)
+     .withPageLayout(pageLayout)
+     .withDataToMerge(dataToMerge)
+     .build();
+   htmlToPDFOperation.setOptions(htmlToPdfOptions);
+ };
+
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     htmlToPDFOperation = DCServicesSdk.CreatePDF.Operation.createNew();
+
+   // Set operation input from a source file.
+   const input = DCServicesSdk.FileRef.createFromLocalFile('resources/createPDFFromDynamicHtmlInput.zip');
+   htmlToPDFOperation.setInput(input);
+
+   // Provide any custom configuration options for the operation.
+   setCustomOptions(htmlToPDFOperation);
+
+   // Execute the operation and Save the result to the specified location.
+   htmlToPDFOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/createPdfFromDynamicHtmlOutput.pdf'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+
+</pre>
+</div></div>
+<div class="section" id="export-a-pdf">
+<h2>Export a PDF<a class="headerlink" href="#export-a-pdf" title="Permalink to this headline">¶</a></h2>
+<p>The sample below converts a PDF file into a number of <a class="reference external" href="./javadoc/com/adobe/platform/operation/pdfops/options/exportpdf/ExportPDFTargetFormat.html">supported formats</a> such as:</p>
+<ul class="simple">
+<li><p>Microsoft Office file formats</p></li>
+<li><p>Text files</p></li>
+<li><p>Images</p></li>
+</ul>
+<div class="tabs">
+  <ul>
+     <li><a href="#tabsjava4">JAVA</a></li>
+     <li><a href="#tabsnet4">.NET</a></li><li><a href="#tabsnode4">NODE</a></li>
+  </ul>
+  <div id="tabsjava4">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.exportpdf.ExportPDFToDOCX
+</div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.exportpdf;
+
+ import java.io.IOException;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.ExportPDFOperation;
+ import com.adobe.platform.operation.pdfops.options.exportpdf.ExportPDFTargetFormat;
+
+ public class ExportPDFToDOCX {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(ExportPDFToDOCX.class);
+
+   public static void main(String[] args) {
+
+     try {
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       ExportPDFOperation exportPdfOperation = ExportPDFOperation.createNew(ExportPDFTargetFormat.DOCX);
+
+       // Set operation input from a local PDF file
+       FileRef sourceFileRef = FileRef.createFromLocalFile("src/main/resources/exportPDFInput.pdf");
+       exportPdfOperation.setInput(sourceFileRef);
+
+       // Execute the operation.
+       FileRef result = exportPdfOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/exportPdfOutput.docx");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+ }
+  </pre>
+  </div>
+  <div id="tabsnet4">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd ExportPDFToDocx/<br/>
+ dotnet run ExportPDFToDocx.csproj
+               </div>
+     <pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.exception;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.options.exportpdf;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using log4net;
+ using log4net.Config;
+ using log4net.Repository;
+ using System;
+ using System.IO;
+ using System.Reflection;
+
+ namespace ExportPDFToDocx
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         ExportPDFOperation exportPdfOperation = ExportPDFOperation.CreateNew(ExportPDFTargetFormat.DOCX);
+
+         // Set operation input from a local PDF file
+         FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"exportPdfInput.pdf");
+         exportPdfOperation.SetInput(sourceFileRef);
+
+         // Execute the operation.
+         FileRef result = exportPdfOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/exportPdfOutput.docx");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+  </pre>
+  </div>
+ <div id="tabsnode4">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/exportpdf/export-pdf-to-docx.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   //Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     exportPDF = DCServicesSdk.ExportPDF,
+     exportPdfOperation = exportPDF.Operation.createNew(exportPDF.SupportedTargetFormats.DOCX);
+
+   // Set operation input from a source file
+   const input = DCServicesSdk.FileRef.createFromLocalFile('resources/exportPDFInput.pdf');
+   exportPdfOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   exportPdfOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/exportPdfOutput.docx'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+
+</div></div>
+<div class="section" id="export-a-pdf-to-images">
+<h2>Export a PDF to images<a class="headerlink" href="#export-a-pdf-to-images" title="Permalink to this headline">¶</a></h2>
+<p>The sample below converts a PDF file to one or more jpeg or png images. Exporting to an image produces a zip archive containing one image per page. Each image file name ends with “_&lt;unpadded_page_index_number&gt;”. For example, a PDF file with 15 pages will generate 15 image files. The first file’s name ends with “_1” and the last file’s name ends with “_15”.</p>
+ <div class="tabs">
+      <ul>
+        <li><a href="#tabsjava5">JAVA</a></li>
+        <li><a href="#tabsnet5">.NET</a></li><li><a href="#tabsnode5">NODE</a></li>
+      </ul>
+      <div id="tabsjava5">
+                 <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.exportpdf.ExportPDFToJPEG
+ </div>
+ <pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.exportpdf;
+
+ import java.io.IOException;
+ import com.adobe.platform.operation.ExecutionContext;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.ExportPDFOperation;
+ import com.adobe.platform.operation.pdfops.options.exportpdf.ExportPDFTargetFormat;
+
+ public class ExportPDFToJPEG {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(ExportPDFToJPEG.class);
+
+   public static void main(String[] args) {
+     try {
+
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       ExportPDFOperation exportPdfOperation = ExportPDFOperation.createNew(ExportPDFTargetFormat.JPEG);
+
+       // Set operation input from a source file.
+       FileRef sourceFileRef = FileRef.createFromLocalFile("src/main/resources/exportPDFToImageInput.pdf");
+       exportPdfOperation.setInput(sourceFileRef);
+
+       // Execute the operation.
+       FileRef result = exportPdfOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/exportPDFToJPEG.zip");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+ }
+     </pre>
+     </div>
+     <div id="tabsnet5">
+         <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd ExportPDFToImage/ <br/>
+ dotnet run ExportPDFToImage.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+using System.IO;
+ using System;
+ using log4net.Repository;
+ using log4net.Config;
+ using log4net;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.options.exportpdf;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+
+ namespace ExportPDFToImage
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         ExportPDFOperation exportPdfOperation = ExportPDFOperation.CreateNew(ExportPDFTargetFormat.JPEG);
+
+         // Set operation input from a source file.
+         FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"exportPdfToImageInput.pdf");
+         exportPdfOperation.SetInput(sourceFileRef);
+
+         // Execute the operation.
+         FileRef result = exportPdfOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/exportPdfToImageOutput.zip");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode5">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/exportpdf/export-pdf-to-jpeg.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   //Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     exportPDF = DCServicesSdk.ExportPDF,
+     exportPdfOperation = exportPDF.Operation.createNew(exportPDF.SupportedTargetFormats.JPEG);
+
+   // Set operation input from a source file
+   const input = DCServicesSdk.FileRef.createFromLocalFile('resources/exportPDFToImageInput.pdf');
+   exportPdfOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   exportPdfOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/exportPDFToJPEG.zip'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+
+   </div></div>
+<div class="section" id="combine-files">
+<h2>Combine files<a class="headerlink" href="#combine-files" title="Permalink to this headline">¶</a></h2>
+<p>This sample combines up to 12 PDF files into a single PDF file.</p>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava6">JAVA</a></li>
+       <li><a href="#tabsnet6">.NET</a></li><li><a href="#tabsnode6">NODE</a></li>
+     </ul>
+     <div id="tabsjava6">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.combine.CombinePDF
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.combine;
+
+ import java.io.IOException;
+
+ import com.adobe.platform.operation.ExecutionContext;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.CombineFilesOperation;
+ import com.adobe.platform.operation.samples.exportpdf.ExportPDFToJPEG;
+
+ public class CombinePDF {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(ExportPDFToJPEG.class);
+
+   public static void main(String[] args) {
+     try {
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       CombineFilesOperation combineFilesOperation = CombineFilesOperation.createNew();
+
+       // Add operation input from source files.
+       FileRef combineSource1 = FileRef.createFromLocalFile("src/main/resources/combineFilesInput1.pdf");
+       FileRef combineSource2 = FileRef.createFromLocalFile("src/main/resources/combineFilesInput2.pdf");
+       combineFilesOperation.addInput(combineSource1);
+       combineFilesOperation.addInput(combineSource2);
+
+       // Execute the operation.
+       FileRef result = combineFilesOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/combineFilesOutput.pdf");
+
+     } catch (IOException | ServiceApiException | SdkException | ServiceUsageException e) {
+       LOGGER.error("Exception encountered while executing operation", e);
+     }
+   }
+ }
+     </pre>
+     </div>
+     <div id="tabsnet6">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd CombinePDF/ <br/>
+ dotnet run CombinePDF.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System;
+ using System.IO;
+ using log4net;
+ using log4net.Config;
+ using System.Reflection;
+ using log4net.Repository;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+
+ namespace CombinePDF
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         CombineFilesOperation combineFilesOperation = CombineFilesOperation.CreateNew();
+
+         // Add operation input from source files.
+         FileRef combineSource1 = FileRef.CreateFromLocalFile(@"combineFilesInput1.pdf");
+         FileRef combineSource2 = FileRef.CreateFromLocalFile(@"combineFilesInput2.pdf");
+         combineFilesOperation.AddInput(combineSource1);
+         combineFilesOperation.AddInput(combineSource2);
+
+         // Execute the operation.
+         FileRef result = combineFilesOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/combineFilesOutput.pdf");
+
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode6">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/combine/combine-pdf.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials = DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     combineFilesOperation = DCServicesSdk.CombineFiles.Operation.createNew();
+
+   // Set operation input from a source file.
+   const combineSource1 = DCServicesSdk.FileRef.createFromLocalFile('resources/combineFilesInput1.pdf'),
+     combineSource2 = DCServicesSdk.FileRef.createFromLocalFile('resources/combineFilesInput2.pdf');
+   combineFilesOperation.addInput(combineSource1);
+   combineFilesOperation.addInput(combineSource2);
+
+   // Execute the operation and Save the result to the specified location.
+   combineFilesOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/combineFilesOutput.pdf'))
+     .catch(err => {
+       if (err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+
+</pre>
+
+   </div></div>
+<div class="section" id="combine-pages-from-multiple-files">
+<h2>Combine pages from multiple files<a class="headerlink" href="#combine-pages-from-multiple-files" title="Permalink to this headline">¶</a></h2>
+<p>This combine sample combines specific pages from up to 12 different PDF files into a single
+PDF file. Optional arguments allow specifying page ranges for each file to combine in the output file.</p>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava7">JAVA</a></li>
+       <li><a href="#tabsnet7">.NET</a></li>
+               <li><a href="#tabsnode7">NODE</a></li>
+     </ul>
+     <div id="tabsjava7">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.combine.CombinePDFWithPageRanges
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.combine;
+
+ import java.io.IOException;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.CombineFilesOperation;
+ import com.adobe.platform.operation.pdfops.options.PageRanges;
+
+ public class CombinePDFWithPageRanges {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(CombinePDFWithPageRanges.class);
+
+   public static void main(String[] args) {
+
+     try {
+
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+           .fromFile("dc-services-sdk-credentials.json")
+           .build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.create(credentials);
+       CombineFilesOperation combineFilesOperation = CombineFilesOperation.createNew();
+
+       // Create a FileRef instance from a local file.
+       FileRef firstFileToCombine = FileRef.createFromLocalFile("src/main/resources/combineFileWithPageRangeInput1.pdf");
+       PageRanges pageRangesForFirstFile = getPageRangeForFirstFile();
+       // Add the first file as input to the operation, along with its page range.
+       combineFilesOperation.addInput(firstFileToCombine, pageRangesForFirstFile);
+
+       // Create a second FileRef instance using a local file.
+       FileRef secondFileToCombine = FileRef.createFromLocalFile("src/main/resources/combineFileWithPageRangeInput2.pdf");
+       PageRanges pageRangesForSecondFile = getPageRangeForSecondFile();
+       // Add the second file as input to the operation, along with its page range.
+       combineFilesOperation.addInput(secondFileToCombine, pageRangesForSecondFile);
+
+       // Execute the operation.
+       FileRef result = combineFilesOperation.execute(executionContext);
+
+       // Save the result to the specified location.
+       result.saveAs("output/combineFilesWithPageOptionsOutput.pdf");
+
+     } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+       LOGGER.error("Exception encountered while executing operation", ex);
+     }
+   }
+
+   private static PageRanges getPageRangeForSecondFile() {
+     // Specify which pages of the second file are to be included in the combined file.
+     PageRanges pageRangesForSecondFile = new PageRanges();
+     // Add all pages including and after page 3.
+     pageRangesForSecondFile.addAllFrom(3);
+     return pageRangesForSecondFile;
+   }
+
+   private static PageRanges getPageRangeForFirstFile() {
+     // Specify which pages of the first file are to be included in the combined file.
+     PageRanges pageRangesForFirstFile = new PageRanges();
+     // Add page 1.
+     pageRangesForFirstFile.addSinglePage(1);
+     // Add page 2.
+     pageRangesForFirstFile.addSinglePage(2);
+     // Add pages 3 to 4.
+     pageRangesForFirstFile.addRange(3, 4);
+     return pageRangesForFirstFile;
+   }
+ }
+     </pre>
+     </div>
+     <div id="tabsnet7">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd CombinePDFWithPageRanges/<br/>
+ dotnet run CombinePDFWithPageRanges.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System;
+ using System.IO;
+ using log4net.Repository;
+ using log4net;
+ using log4net.Config;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.options;
+ using Adobe.DocumentCloud.Services.exception;
+
+ namespace CombinePDFWithPageRanges
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         CombineFilesOperation combineFilesOperation = CombineFilesOperation.CreateNew();
+
+         // Create a FileRef instance from a local file.
+         FileRef firstFileToCombine = FileRef.CreateFromLocalFile(@"combineFileWithPageRangeInput1.pdf");
+         PageRanges pageRangesForFirstFile = GetPageRangeForFirstFile();
+         // Add the first file as input to the operation, along with its page range.
+         combineFilesOperation.AddInput(firstFileToCombine, pageRangesForFirstFile);
+
+         // Create a second FileRef instance using a local file.
+         FileRef secondFileToCombine = FileRef.CreateFromLocalFile(@"combineFileWithPageRangeInput2.pdf");
+         PageRanges pageRangesForSecondFile = GetPageRangeForSecondFile();
+         // Add the second file as input to the operation, along with its page range.
+         combineFilesOperation.AddInput(secondFileToCombine, pageRangesForSecondFile);
+
+         // Execute the operation.
+         FileRef result = combineFilesOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/combineFilesOutput.pdf");
+
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     private static PageRanges GetPageRangeForSecondFile()
+     {
+       // Specify which pages of the second file are to be included in the combined file.
+       PageRanges pageRangesForSecondFile = new PageRanges();
+       // Add all pages including and after page 5.
+       pageRangesForSecondFile.AddAllFrom(5);
+       return pageRangesForSecondFile;
+     }
+
+     private static PageRanges GetPageRangeForFirstFile()
+     {
+       // Specify which pages of the first file are to be included in the combined file.
+       PageRanges pageRangesForFirstFile = new PageRanges();
+       // Add page 2.
+       pageRangesForFirstFile.AddSinglePage(2);
+       // Add page 3.
+       pageRangesForFirstFile.AddSinglePage(3);
+       // Add pages 5 to 7.
+       pageRangesForFirstFile.AddRange(5, 7);
+       return pageRangesForFirstFile;
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode7">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/combine/combine-pdf-with-page-ranges.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ const getPageRangesForFirstFile = () => {
+   // Specify which pages of the first file are to be included in the combined file.
+   const pageRangesForFirstFile = new DCServicesSdk.PageRanges();
+   // Add page 1.
+   pageRangesForFirstFile.addSinglePage(1);
+   // Add page 2.
+   pageRangesForFirstFile.addSinglePage(2);
+   // Add pages 3 to 4.
+   pageRangesForFirstFile.addPageRange(3, 4);
+   return pageRangesForFirstFile;
+ };
+
+ const getPageRangesForSecondFile = () => {
+   // Specify which pages of the second file are to be included in the combined file.
+   const pageRangesForSecondFile = new DCServicesSdk.PageRanges();
+   // Add all pages including and after page 3.
+   pageRangesForSecondFile.addAllFrom(3);
+   return pageRangesForSecondFile;
+ };
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     combineFilesOperation = DCServicesSdk.CombineFiles.Operation.createNew();
+
+   // Create a FileRef instance from a local file.
+   const combineSource1 = DCServicesSdk.FileRef.createFromLocalFile('resources/combineFilesInput1.pdf'),
+     pageRangesForFirstFile = getPageRangesForFirstFile();
+   // Add the first file as input to the operation, along with its page range.
+   combineFilesOperation.addInput(combineSource1, pageRangesForFirstFile);
+
+   // Create a second FileRef instance using a local file.
+   const combineSource2 = DCServicesSdk.FileRef.createFromLocalFile('resources/combineFilesInput2.pdf'),
+     pageRangesForSecondFile = getPageRangesForSecondFile();
+   // Add the second file as input to the operation, along with its page range.
+   combineFilesOperation.addInput(combineSource2, pageRangesForSecondFile);
+
+   // Execute the operation and Save the result to the specified location.
+   combineFilesOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/combineFilesWithPageRangesOutput.pdf'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+   </div></div>
+<div class="section" id="text-recognition-ocr">
+<h2>Text recognition (OCR)<a class="headerlink" href="#text-recognition-ocr" title="Permalink to this headline">¶</a></h2>
+<p>Optical character recognition (OCR) converts images to text so that you and your users can fully interact with the PDF file. After performing OCR, the PDF may be fully editable and searchable. The input format must be <code class="docutils literal notranslate"><span class="pre">application/pdf</span></code>.</p>
+<p>This sample defaults to the en-us locale. For other languages, see <a class="reference internal" href="#ocrlang"><span class="std std-ref">OCR with explicit language</span></a>.</p>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava9">JAVA</a></li>
+       <li><a href="#tabsnet9">.NET</a></li>
+               <li><a href="#tabsnode9">NODE</a></li>
+     </ul>
+     <div id="tabsjava9">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.ocr.OcrPDF
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+package com.adobe.platform.operation.samples.ocr;
+
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.adobe.platform.operation.ExecutionContext;
+import com.adobe.platform.operation.auth.Credentials;
+import com.adobe.platform.operation.exception.SdkException;
+import com.adobe.platform.operation.exception.ServiceApiException;
+import com.adobe.platform.operation.exception.ServiceUsageException;
+import com.adobe.platform.operation.io.FileRef;
+import com.adobe.platform.operation.pdfops.OCROperation;
+
+public class OcrPDF {
+
+ // Initialize the logger.
+ private static final Logger LOGGER = LoggerFactory.getLogger(OcrPDF.class);
+
+ public static void main(String[] args) {
+
+  try {
+
+   // Initial setup, create credentials instance.
+   Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   //Create an ExecutionContext using credentials and create a new operation instance.
+   ExecutionContext executionContext = ExecutionContext.create(credentials);
+   OCROperation ocrOperation = OCROperation.createNew();
+
+   // Set operation input from a source file.
+   FileRef source = FileRef.createFromLocalFile("src/main/resources/ocrInput.pdf");
+   ocrOperation.setInput(source);
+
+   // Execute the operation
+   FileRef result = ocrOperation.execute(executionContext);
+
+   // Save the result at the specified location
+   result.saveAs("output/ocrOutput.pdf");
+
+  } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+   LOGGER.error("Exception encountered while executing operation", ex);
+  }
+ }
+}
+
+     </pre>
+     </div>
+     <div id="tabsnet9">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd OcrPDF/<br/>
+ dotnet run OcrPDF.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+ using System.IO;
+ using System;
+ using log4net.Repository;
+ using log4net.Config;
+ using log4net;
+ using System.Reflection;
+ using Adobe.DocumentCloud.Services;
+ using Adobe.DocumentCloud.Services.auth;
+ using Adobe.DocumentCloud.Services.pdfops;
+ using Adobe.DocumentCloud.Services.io;
+ using Adobe.DocumentCloud.Services.exception;
+
+ namespace OcrPDF
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+         Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                 .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+                 .Build();
+
+         //Create an ExecutionContext using credentials and create a new operation instance.
+         ExecutionContext executionContext = ExecutionContext.Create(credentials);
+         OCROperation ocrOperation = OCROperation.CreateNew();
+
+         // Set operation input from a source file.
+         FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"ocrInput.pdf");
+         ocrOperation.SetInput(sourceFileRef);
+
+         // Execute the operation.
+         FileRef result = ocrOperation.Execute(executionContext);
+
+         // Save the result to the specified location.
+         result.SaveAs(Directory.GetCurrentDirectory() + "/output/ocrOperationOutput.pdf");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode9">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/ocr/ocr-pdf.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+     .serviceAccountCredentialsBuilder()
+     .fromFile("dc-services-sdk-credentials.json")
+     .build();
+
+   // Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+     ocrOperation = DCServicesSdk.OCR.Operation.createNew();
+
+   // Set operation input from a source file.
+   const input = DCServicesSdk.FileRef.createFromLocalFile(
+       'resources/ocrInput.pdf',
+       DCServicesSdk.OCR.SupportedMediaTypes.pdf
+     );
+   ocrOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   ocrOperation.execute(executionContext)
+     .then(result => result.saveAsFile('output/ocrOutput.pdf'))
+     .catch(err => {
+       if(err instanceof DCServicesSdk.Error.ServiceApiError
+         || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+         console.log('Exception encountered while executing operation', err);
+       } else {
+         console.log('Exception encountered while executing operation', err);
+       }
+     });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+   </div></div>
+<div class="section" id="ocr-with-explicit-language">
+<span id="ocrlang"></span><h2>OCR with explicit language<a class="headerlink" href="#ocr-with-explicit-language" title="Permalink to this headline">¶</a></h2>
+<p>You can perform OCR on files in other languages, including German, French, Danish, and other languages. Refer to <code class="docutils literal notranslate"><span class="pre">OCRSupportedLocale</span></code> and <code class="docutils literal notranslate"><span class="pre">OCRSupportedType</span></code> in the API docs  for a list of supported OCR locales and OCR types.</p>
+<p>As shown in the OcrPDFWithOptions sample, when you make a PDF file searchable, you specify both the locale (language) and the type. There are two types which produce a different result:</p>
+<ul class="simple">
+<li><p>One type ensures that text is searchable and selectable, but modifies the original image during the cleanup process (for example, deskews it) before placing an invisible text layer over it. This type removes unwanted artifacts and may result in a more readable document in some scenarios.</p></li>
+<li><p>The second (EXACT) type, also overlays a searchable text layer over the original image, but in this case, the original image is unchanged. This type produces maximum fidelity to the original image.</p></li>
+</ul>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava8">JAVA</a></li>
+       <li><a href="#tabsnet8">.NET</a></li>
+       <li><a href="#tabsnode8">NODE</a></li>
+     </ul>
+     <div id="tabsjava8">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java
+ Dexec.mainClass=com.adobe.platform.operation.samples.ocr.OcrPDFWithOptions
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_java_samples
+ package com.adobe.platform.operation.samples.ocr;
+
+ import java.io.IOException;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import com.adobe.platform.operation.ExecutionContext;
+ import com.adobe.platform.operation.auth.Credentials;
+ import com.adobe.platform.operation.exception.SdkException;
+ import com.adobe.platform.operation.exception.ServiceApiException;
+ import com.adobe.platform.operation.exception.ServiceUsageException;
+ import com.adobe.platform.operation.io.FileRef;
+ import com.adobe.platform.operation.pdfops.OCROperation;
+ import com.adobe.platform.operation.pdfops.options.ocr.OCROptions;
+ import com.adobe.platform.operation.pdfops.options.ocr.OCRSupportedLocale;
+ import com.adobe.platform.operation.pdfops.options.ocr.OCRSupportedType;
+
+ public class OcrPDFWithOptions {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(OcrPDFWithOptions.class);
+
+   public static void main(String[] args) {
+
+       try {
+
+           // Initial setup, create credentials instance.
+           Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                   .fromFile("dc-services-sdk-credentials.json")
+                   .build();
+
+           //Create an ExecutionContext using credentials and create a new operation instance.
+           ExecutionContext executionContext = ExecutionContext.create(credentials);
+           OCROperation ocrOperation = OCROperation.createNew();
+
+           // Set operation input from a source file.
+           FileRef source = FileRef.createFromLocalFile("src/main/resources/ocrInput.pdf");
+           ocrOperation.setInput(source);
+
+           // Build OCR options from supported locales and OCR-types and set them into the operation
+           OCROptions ocrOptions = OCROptions.ocrOptionsBuilder()
+                   .withOCRLocale(OCRSupportedLocale.EN_US)
+                   .withOCRType(OCRSupportedType.SEARCHABLE_IMAGE_EXACT)
+                   .build();
+           ocrOperation.setOptions(ocrOptions);
+
+           // Execute the operation
+           FileRef result = ocrOperation.execute(executionContext);
+
+           // Save the result at the specified location
+           result.saveAs("output/ocrWithOptionsOutput.pdf");
+
+       } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+           LOGGER.error("Exception encountered while executing operation", ex);
+       }
+   }
+ }
+     </pre>
+     </div>
+     <div id="tabsnet8">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ cd OcrPDFWithOptions<br/>
+ dotnet run OcrPDFWithOptions.csproj
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/dcservicessdk_net_samples
+using System.IO;
+using System;
+using log4net.Repository;
+using log4net.Config;
+using log4net;
+using System.Reflection;
+using Adobe.DocumentCloud.Services;
+using Adobe.DocumentCloud.Services.auth;
+using Adobe.DocumentCloud.Services.options.ocr;
+using Adobe.DocumentCloud.Services.pdfops;
+using Adobe.DocumentCloud.Services.io;
+using Adobe.DocumentCloud.Services.exception;
+
+namespace OcrPDFWithOptions
+{
+ class Program
+ {
+   private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+   static void Main()
+   {
+     //Configure the logging
+     ConfigureLogging();
+     try
+     {
+       // Initial setup, create credentials instance.
+       Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+               .FromFile(Directory.GetCurrentDirectory() + "/dc-services-sdk-credentials.json")
+               .Build();
+
+       //Create an ExecutionContext using credentials and create a new operation instance.
+       ExecutionContext executionContext = ExecutionContext.Create(credentials);
+       OCROperation ocrOperation = OCROperation.CreateNew();
+
+       // Set operation input from a source file.
+       FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"ocrWithOptionsInput.pdf");
+       ocrOperation.SetInput(sourceFileRef);
+       // Build OCR options from supported locales and OCR-types and set them into the operation
+       OCROptions ocrOptions = OCROptions.OCROptionsBuilder()
+           .WithOcrLocale(OCRSupportedLocale.EN_US)
+           .WithOcrType(OCRSupportedType.SEARCHABLE_IMAGE_EXACT)
+           .Build();
+       ocrOperation.SetOptions(ocrOptions);
+
+       // Execute the operation.
+       FileRef result = ocrOperation.Execute(executionContext);
+
+       // Save the result to the specified location.
+       result.SaveAs(Directory.GetCurrentDirectory() + "/output/ocrOperationWithOptionsOutput.pdf");
+     }
+     catch (ServiceUsageException ex)
+     {
+       log.Error("Exception encountered while executing operation", ex);
+     }
+     // Catch more errors here . . .
+   }
+
+   static void ConfigureLogging()
+   {
+     ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+     XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+   }
+ }
+}
+</pre>
+     </div>
+ <div id="tabsnode8">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ node src/ocr/ocr-pdf-with-ocr-options.js
+ </div>
+<pre class="prettyprint">
+ const DCServicesSdk = require('@dcloud/dc-services-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  DCServicesSdk.Credentials
+       .serviceAccountCredentialsBuilder()
+       .fromFile("dc-services-sdk-credentials.json")
+       .build();
+
+   //Create an ExecutionContext using credentials and create a new operation instance.
+   const executionContext = DCServicesSdk.ExecutionContext.create(credentials),
+       ocrOperation = DCServicesSdk.OCR.Operation.createNew();
+
+   // Set operation input from a source file.
+   const input = DCServicesSdk.FileRef.createFromLocalFile(
+           'resources/ocrInput.pdf',
+           DCServicesSdk.OCR.SupportedMediaTypes.pdf
+       );
+   ocrOperation.setInput(input);
+
+   // Provide any custom configuration options for the operation.
+   const options = new DCServicesSdk.OCR.options.OCROptions.Builder()
+       .withOcrType(DCServicesSdk.OCR.options.OCRSupportedType.SEARCHABLE_IMAGE_EXACT)
+       .withOcrLang(DCServicesSdk.OCR.options.OCRSupportedLocale.EN_US)
+       .build();
+   ocrOperation.setOptions(options);
+
+   // Execute the operation and Save the result to the specified location.
+   ocrOperation.execute(executionContext)
+       .then(result => result.saveAsFile('output/ocrWithOptionsOutput.pdf'))
+       .catch(err => {
+           if(err instanceof DCServicesSdk.Error.ServiceApiError
+               || err instanceof DCServicesSdk.Error.ServiceUsageError) {
+               console.log('Exception encountered while executing operation', err);
+           } else {
+               console.log('Exception encountered while executing operation', err);
+           }
+       });
+ } catch (err) {
+   console.log('Exception encountered while executing operation', err);
+ }
+</pre>
+   </div></div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Jun 09, 2020 <br/>
+    </p>	
+  </div>
+  </footer>
+  <script type='text/javascript'>window.marketingtech = {adobe: {launch: {property: "global",environment: "production"}},};</script><script src="https://www.adobe.com/marketingtech/main.min.js"></script></body>
+</html>

@@ -1,0 +1,404 @@
+{
+  "homepages": [],
+  "source_base_path": "/Users/deagrawa/dc/Adobe.DocumentCloud.Services.SDK/Adobe.DocumentCloud.Services",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.Authentication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.Authentication.html",
+          "hash": "ATyzTLlSTPHGuqetqNwcbQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.ClientContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.ClientContext.html",
+          "hash": "ovNpldD1/4OahdyIDMWU2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.IOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.IOperation.html",
+          "hash": "ZQJWeUWljhKdcSlBfwLTVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.exception.SDKException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.exception.SDKException.html",
+          "hash": "c18ca3q/l8CSIux/jGt1nA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.exception.ServiceApiException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.exception.ServiceApiException.html",
+          "hash": "0fvYYhOWh0cXCIi2SxEQBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.exception.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.exception.html",
+          "hash": "eoNMKjIYqNdRvTr1XOUP/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.io.FileRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.io.FileRef.html",
+          "hash": "UZPrYz/ZYE82EsfLAi8rDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.io.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.io.html",
+          "hash": "/47HmhU6iCPHrHpi2e+7jA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.PageRanges.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.PageRanges.html",
+          "hash": "bPo2zDV8efScQCupjs57ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFFromHTMLOptions.Builder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFFromHTMLOptions.Builder.html",
+          "hash": "SZ6NpLzN6IueVhvXLoiQMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFFromHTMLOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFFromHTMLOptions.html",
+          "hash": "wPvl2DySStgABPWcf7NMlw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.CreatePDFOptions.html",
+          "hash": "6pzlynxQcOs07sYZL0gzyw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.PageLayout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.PageLayout.html",
+          "hash": "idQNHc7ZgZeAgESu9vq3vw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.createpdf.html",
+          "hash": "GzwnPadspFE+pEL/If5CcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.exportpdf.ExportPDFTargetFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.exportpdf.ExportPDFTargetFormat.html",
+          "hash": "ca1ya2JQezV9Ige75SFL6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.exportpdf.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.exportpdf.html",
+          "hash": "YOZRwSrF09yqnWO5vhvgpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.options.html",
+          "hash": "XS48lxzjHOUm5OK1cRA6lw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CombineFilesOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CombineFilesOperation.html",
+          "hash": "kBnh2TS3KYYEvRmP6GqQKA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CreatePDFOperation.SupportedSourceFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CreatePDFOperation.SupportedSourceFormat.html",
+          "hash": "0iDx0ZW9nShNwxYPqdUgDA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CreatePDFOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.pdfops.CreatePDFOperation.html",
+          "hash": "nbq2M+ECp3eqUhEc+70fYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.pdfops.ExportPDFOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.pdfops.ExportPDFOperation.html",
+          "hash": "JRQBeneF/H2qRVmy0kkETw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.pdfops.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.pdfops.html",
+          "hash": "5b//6Jrqi1bKem44psUFWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Adobe.DocumentCloud.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Adobe.DocumentCloud.Services.html",
+          "hash": "8YLmgxTLeQ6ylcIAwNoE4w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "2zj4ese+tfBlzC5Ud3L6FQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "EJdJnWankMHqPTelh3XbNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "W0hc+ASeac85jcU6gpZCLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "t7iiFrmuYmrKWisdq+lN6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "q8NK6xs2uAKY6H0qHFRThw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "c8zqc7UI0DN8zfToGTimDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 23,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: it's disabled.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
