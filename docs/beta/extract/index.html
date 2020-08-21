@@ -136,7 +136,8 @@ $(document).ready(function() {
     }, 300);
 });
 </script>
-
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
   
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
@@ -188,8 +189,10 @@ img {
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API Quickstart (BETA)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#beta-program-access">Beta Program Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta-program-access">Beta program access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#java">JAVA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">Known issues</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
@@ -221,16 +224,33 @@ img {
       
   <div class="section" id="pdf-extract-api-quickstart-beta">
 <h1>PDF Extract API Quickstart (BETA)<a class="headerlink" href="#pdf-extract-api-quickstart-beta" title="Permalink to this headline">¶</a></h1>
-<p>Adobe Document Services provides a PDF Extract API that parses the structural elements of a PDF document, including text, titles, tables, figures.  The API returns a JSON output of those elements. The PDF Extract SDKs are currently available in Java.</p>
-<p>The PDF Extract API provides a method for developers to extract content and process this extracted content in their custom apps and workflows. For example, developers can extract content structure (headings, paragraphs, and lists) from a PDF document and then leverage the specific PDF data they need for the current workflow in their downstream applications.</p>
+<p>Adobe provides a PDF Extract API that parses structural elements such as text, titles, tables, figures of any PDF, including scanned documents. The API returns a JSON output with these elements. The PDF Extract SDK is currently available in Java, but other languages are in the pipeline (e.g Node.js).</p>
+<p>The PDF Extract API provides a method for developers to extract content and process this extracted content in their custom apps and workflows. For example, developers can:</p>
+<ul class="simple">
+<li><p>Extract text with structure (headings, paragraphs, and lists)</p></li>
+<li><p>Preserve the PDF’s original reading order structure in the JSON output so that they can more easily find and process content based on the original source</p></li>
+<li><p>Detect tables and extract table cell data</p></li>
+<li><p>Extract tables as images. The images can be used to validate the extracted table data and developer doesn’t need to process the output to identify only tables.</p></li>
+</ul>
+<p>Developers can leverage extracted PDF content and structure both in their current workflow as well as in  their downstream applications.</p>
 <p>To get started, request a developer credential via the <a class="reference external" href="http://www.adobe.com/go/pdfextractapi_requestform">request access form</a>, and then download and setup the sample project for your preferred language. The sample project provides a preview of the PDF Extract API. Using the sample project and this documentation, you will easily be able to integrate the PDF Extract API in your own server-side code.</p>
 <div class="section" id="beta-program-access">
-<span id="getcred"></span><h2>Beta Program Access<a class="headerlink" href="#beta-program-access" title="Permalink to this headline">¶</a></h2>
+<span id="getcred"></span><h2>Beta program access<a class="headerlink" href="#beta-program-access" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Extract API is initially offered through a limited, Beta program. Once you submit the <a class="reference external" href="http://www.adobe.com/go/pdfextractapi_requestform">request access form</a>, the product team  provides selected developers with credentials and links to download the SDK.  After downloading the SDK and setting up sample projects,  you can use this documentation to easily integrate the PDF Extract API into your own server-side code.</p>
 <p>While beta program participation is limited, the program will expand as the SDK evolves.</p>
 </div>
+<div class="section" id="api-limitations">
+<span id="restrictions"></span><span id="javasetup"></span><h2>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h2>
+<p>The beta program has the following limitations.</p>
+<ul class="simple">
+<li><p><strong>API rate limit</strong>: Beta program users are entitled to 1000 transactions for PDF extraction. A PDF Transaction is based on the initial endpoint request (i.e., API call) and the document output.</p></li>
+<li><p><strong>Unsupported PDF types</strong>: The API does not support extracting from digitally signed, encrypted, or policy protected PDFs.</p></li>
+<li><p><strong>Size limits</strong>: Maximum supported file size is 100MB.</p></li>
+<li><p><strong>Page limits</strong>: Non scanned PDFs are limited to 200 pages with no more than 50 pages containing tables. Scanned PDFs must be 20 pages or less.</p></li>
+</ul>
+</div>
 <div class="section" id="java">
-<span id="javasetup"></span><h2>JAVA<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
+<h2>JAVA<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
 <p>Start by bookmarking or downloading these following key resources:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://opensource.adobe.com/pdftools-extract-java-sdk-samples/apidocs/">API reference (Javadoc)</a></p></li>
@@ -350,8 +370,15 @@ img {
 <li><p>Add the authentication details as described above.</p></li>
 </ol>
 <img alt="_images/maven.png" src="_images/maven.png" />
-<div class="toctree-wrapper compound">
 </div>
+</div>
+<div class="section" id="known-issues">
+<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elementToExtract</span></code> input filter is currently not honored, text and table element information is provided in the output for all scenarios.</p></li>
+<li><p>Complex PDFs taking more than 300s for extraction will result in timeout error.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 </div>
@@ -368,7 +395,7 @@ img {
       
     </p>
     <p>
-       Last updated Aug 14, 2020 <br/>
+       Last updated Aug 20, 2020 <br/>
     </p>	
   </div>
   </footer>
