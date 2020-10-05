@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction &#8212; Document Cloud SDK</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -123,6 +123,8 @@ $(document).ready(function() {
         }
     }
     $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
 
     postDocHeight();
     setInterval(function(){
@@ -189,7 +191,7 @@ img {
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-are-document-services-apis">What are Document Services APIs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pdf-viewing-and-collaboration-within-your-webpages">PDF viewing and collaboration within your webpages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-viewing-and-collaboration-within-your-web-pages">PDF viewing and collaboration within your web pages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pdf-automation-for-your-document-workflows">PDF automation for your document workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#community-forum-and-feedback">Community forum and feedback</a></li>
 </ul>
@@ -220,12 +222,12 @@ img {
 <h2>What are Document Services APIs?<a class="headerlink" href="#what-are-document-services-apis" title="Permalink to this headline">¶</a></h2>
 <p>Increasingly content and application owners are looking for easy-to-use PDF functionality when building modern web experiences. They are looking to cloud-based platforms with simple and reliable plug-and-play services.</p>
 <p>Adobe Document Services offers two APIs: the Adobe PDF Tools API and the Adobe PDF Embed API. Whether you’re developing a web app or web site, these APIs automate the generation, manipulation, and transformation of PDF content via a set of modern cloud-based web services. These APIs help you deliver simpler, faster, and branded experiences so that you control user interaction with your documents, streamline PDF workflows and promote usage and retention.</p>
-<p>With tools and language support that caters to developers’ existing skillsets, you can now create compelling and consistent PDF experiences, including viewing, exporting, creating and working with PDFs.</p>
+<p>With tools and language support that caters to developers’ existing skill sets, you can now create compelling and consistent PDF experiences, including viewing, exporting, creating and working with PDFs.</p>
 <p>These APIs represent a paradigm shift in the way PDF workflows exist and interact with your environment and digital documents. Adobe is rapidly evolving and expanding the portfolio of APIs to support additional use cases. We are also continually enhancing the APIs, including supporting SDKs, sample code, and documentation.</p>
 </div>
-<div class="section" id="pdf-viewing-and-collaboration-within-your-webpages">
-<h2>PDF viewing and collaboration within your webpages<a class="headerlink" href="#pdf-viewing-and-collaboration-within-your-webpages" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed">PDF Embed API</a> brings PDF viewing to any web application with only a few lines of JavaScript. Multiple embed modes make it easy to support different views, from full browser to boxed containers and in line. Document collaboration is achieved with support for commenting, drawing, highlighting, and text editing tools. Analytics insights provide an opportunity to embed dynamic interactivity to enhance end-user experiences with chats, prompts, and other with event triggers based on PDF viewing activity.</p>
+<div class="section" id="pdf-viewing-and-collaboration-within-your-web-pages">
+<h2>PDF viewing and collaboration within your web pages<a class="headerlink" href="#pdf-viewing-and-collaboration-within-your-web-pages" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed">PDF Embed API</a> brings PDF viewing to any web application with only a few lines of JavaScript. Multiple embed modes make it easy to support different views, from full browser to boxed containers and in line. Document collaboration is achieved with support for commenting, drawing, highlighting, and text editing tools. Analytics insights provide an opportunity to embed dynamic interactivity to enhance end-user experiences with chats, prompts, and other with event triggers based on PDF viewing activity.</p>
 </div>
 <div class="section" id="pdf-automation-for-your-document-workflows">
 <h2>PDF automation for your document workflows<a class="headerlink" href="#pdf-automation-for-your-document-workflows" title="Permalink to this headline">¶</a></h2>
@@ -253,7 +255,7 @@ img {
       
     </p>
     <p>
-       Last updated Oct 01, 2020 <br/>
+       Last updated Oct 05, 2020 <br/>
     </p>	
   </div>
   </footer>
