@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search &#8212; PDF Tools SDK</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -130,6 +130,8 @@ $(document).ready(function() {
         }
     }
     $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
 
     postDocHeight();
     setInterval(function(){
@@ -298,7 +300,7 @@ img {
       
     </p>
     <p>
-       Last updated Sep 24, 2020 <br/>
+       Last updated Oct 05, 2020 <br/>
     </p>	
   </div>
   </footer>
