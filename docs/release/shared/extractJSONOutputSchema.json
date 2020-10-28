@@ -23,10 +23,25 @@
         "schema": {
           "type": "string",
           "const": "0.1"
+        },
+        "structure": {
+          "type": "string"
+        },
+        "page_segmentation": {
+          "type": "string"
+        },
+        "json_export": {
+          "type": "string"
+        },
+        "table_structure": {
+          "type": "string"
         }
       },
       "required": [
-        "schema"
+        "schema",
+        "structure",
+        "page_segmentation",
+        "json_export"
       ]
     },
     "extended_metadata": {

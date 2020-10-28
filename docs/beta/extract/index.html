@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Extract API Quickstart (BETA) &#8212; PDF Tools SDK</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -124,6 +124,8 @@ $(document).ready(function() {
         }
     }
     $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
 
     postDocHeight();
     setInterval(function(){
@@ -204,7 +206,12 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://www.adobe.io/apis/documentcloud/dcsdk/docs.html?view=services#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-types">Change types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-history">Change history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="../../release/1.2.0/index.html#://">Go to the PDF Tools API</a></li>
 </ul>
 </ul>
 </li>
@@ -394,7 +401,7 @@ img {
       
     </p>
     <p>
-       Last updated Sep 08, 2020 <br/>
+       Last updated Oct 16, 2020 <br/>
     </p>	
   </div>
   </footer>
