@@ -195,6 +195,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="index.html#beta-program-access">Beta program access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#java">JAVA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#known-issues">Known issues</a></li>
 </ul>
 </li>
@@ -251,6 +252,7 @@ img {
 <p>The SDK supports providing authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithInMemoryAuthCredentials.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples/blob/main/src/extractpdf/extract-text-info-from-pdf-with-inmem-auth-cred.js">Node.js</a></p></li>
 </ul>
 </div>
 <div class="section" id="timeout-configuration">
@@ -258,148 +260,318 @@ img {
 <p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithCustomTimeouts.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples/blob/main/src/extractpdf/extract-text-info-from-pdf-with-custom-timeouts.js">Node.js</a></p></li>
 </ul>
-<p>Java timeout configuration</p>
-<p>Available properties</p>
+<div class="section" id="java-timeout-configuration">
+<span id="timejava"></span><h3>Java timeout configuration<a class="headerlink" href="#java-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
 <ul class="simple">
-<li><p>connectTimeout: Default: 4000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
-<li><p>socketTimeout: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+<li><p><strong>connectTimeout</strong>: Default: 4000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>socketTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
 </ul>
-<p>Override the timeout properties via a custom ClientConfig class:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span><span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span><span class="o">.</span><span class="n">withSocketTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">();</span>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span>
+   <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">withSocketTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">build</span><span class="p">();</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="node-js-timeout-configuration">
+<span id="timenode"></span><h3>Node.js timeout configuration<a class="headerlink" href="#node-js-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 20000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">PDFToolsSdk</span><span class="o">.</span><span class="n">ClientConfig</span>
+  <span class="o">.</span><span class="n">clientConfigBuilder</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">15000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">withReadTimeout</span><span class="p">(</span><span class="mi">25000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="extract-text-from-a-pdf">
 <h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
 <p>Use the sample below to extract text element information from a PDF document.</p>
-<p>Run the sample:</p>
-<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextInfoFromPDF</span></code></p>
-<p><strong>Example</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextInfoFromPDF</span> <span class="p">{</span>
+<div class="tabs">
+    <ul>
+      <li><a href="#tabsjava1">JAVA</a></li>
+      <li><a href="#tabsnode1">NODE</a></li>
+    </ul>
+    <div id="tabsjava1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
 
-  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
-  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextInfoFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextInfoFromPDF </div>
+<pre class="prettyprint">
 
-  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+public class ExtractTextInfoFromPDF {
 
-      <span class="k">try</span> <span class="p">{</span>
+  // Initialize the logger.
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExtractTextInfoFromPDF.class);
 
-          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
-                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
-                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+  public static void main(String[] args) {
 
-          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
-          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
+      try {
 
-          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">);</span>
+          // Initial setup, create credentials instance.
+          Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                  .fromFile("pdftools-api-credentials.json")
+                  .build();
 
-          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
+          // Create an ExecutionContext using credentials and create a new operation instance.
+          ExecutionContext executionContext = ExecutionContext.create(credentials);
+          ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.createNew();
 
-          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
-          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextInfoFromPDF.zip&quot;</span><span class="p">);</span>
+          // Set operation input from a source file.
+          FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPDFInput.pdf");
+          extractPdfOperation.setInputFile(source);
+          extractPdfOperation.addElementToExtract(PDFElementType.TEXT);
 
-      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
-          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
+          // Execute the operation.
+          FileRef result = extractPdfOperation.execute(executionContext);
+
+          // Save the result to the specified location.
+          result.saveAs("output/ExtractTextInfoFromPDF.zip");
+
+      } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+          LOGGER.error("Exception encountered while executing operation", ex);
+      }
+  }
+}
+    </pre>
+  </div>
+   <div id="tabsnode1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-info-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+
+  const ExtractPdfSdk = require('@adobe/pdftools-extract-node-sdk');
+
+  try {
+
+      // Initial setup, create credentials instance.
+      const credentials =  ExtractPdfSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile(`pdftools-api-credentials.json`)
+          .build();
+
+      //Create a clientContext using credentials and create a new operation instance.
+      const clientContext = ExtractPdfSdk.ExecutionContext.create(credentials),
+      extractPDFOperation = ExtractPdfSdk.ExtractPDF.Operation.createNew(),
+
+      // Set operation input from a source file.
+      input = ExtractPdfSdk.FileRef.createFromLocalFile(
+          'resources/extractPdfInput.pdf',
+          ExtractPdfSdk.ExtractPDF.SupportedSourceFormat.pdf
+      );
+
+      extractPDFOperation.setInput(input);
+
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TEXT);
+
+      // Execute the operation
+      extractPDFOperation.execute(clientContext)
+          .then(result => result.saveAsFile('output/extractTextTableInfoFromPdf.zip'))
+          .catch(err => console.log(err));
+  } catch (err) {
+      console.log("Exception encountered while executing operation", err);
+  }
+
+  </pre>
+  </div></div>
 <div class="section" id="extract-text-and-tables">
 <h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
-<p>Run the sample:</p>
-<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoFromPDF</span></code></p>
-<p><strong>Example</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextTableInfoFromPDF</span> <span class="p">{</span>
+<div class="tabs">
+    <ul>
+      <li><a href="#tabsjava1">JAVA</a></li>
+      <li><a href="#tabsnode1">NODE</a></li>
+    </ul>
+    <div id="tabsjava1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
 
-  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
-  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextTableInfoFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
+  mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoFromPDF </div>
 
-  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <pre class="prettyprint">
 
-      <span class="k">try</span> <span class="p">{</span>
+public class ExtractTextTableInfoFromPDF {
 
-          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
-                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
-                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+  // Initialize the logger.
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoFromPDF.class);
 
-          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
-          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
+  public static void main(String[] args) {
 
-          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">)</span><span class="o">.</span><span class="n">addElementToExtract</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">);</span>
+      try {
 
-          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
+          // Initial setup, create credentials instance.
+          Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                  .fromFile("pdftools-api-credentials.json")
+                  .build();
 
-          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
-          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextTableInfoFromPDF.zip&quot;</span><span class="p">);</span>
+          // Create an ExecutionContext using credentials and create a new operation instance.
+          ExecutionContext executionContext = ExecutionContext.create(credentials);
+          ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.createNew();
 
-      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
-          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
+          // Set operation input from a source file.
+          FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPDFInput.pdf");
+          extractPdfOperation.setInputFile(source);
+          extractPdfOperation.addElementToExtract(PDFElementType.TEXT).addElementToExtract(PDFElementType.TABLES);
+
+          // Execute the operation.
+          FileRef result = extractPdfOperation.execute(executionContext);
+
+          // Save the result to the specified location.
+          result.saveAs("output/ExtractTextTableInfoFromPDF.zip");
+
+      } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+          LOGGER.error("Exception encountered while executing operation", ex);
+      }
+  }
+}
+  </pre>
+  </div>
+   <div id="tabsnode1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+
+  const ExtractPdfSdk = require('@adobe/pdftools-extract-node-sdk');
+
+  try {
+
+      // Initial setup, create credentials instance.
+      const credentials =  ExtractPdfSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile(`pdftools-api-credentials.json`)
+          .build();
+
+      //Create a clientContext using credentials and create a new operation instance.
+      const clientContext = ExtractPdfSdk.ExecutionContext.create(credentials),
+      extractPDFOperation = ExtractPdfSdk.ExtractPDF.Operation.createNew(),
+
+      // Set operation input from a source file.
+      input = ExtractPdfSdk.FileRef.createFromLocalFile(
+          'resources/extractPdfInput.pdf',
+          ExtractPdfSdk.ExtractPDF.SupportedSourceFormat.pdf
+      );
+
+      extractPDFOperation.setInput(input);
+
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TEXT);
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TABLES);
+
+      // Execute the operation
+      extractPDFOperation.execute(clientContext)
+          .then(result => result.saveAsFile('output/extractTextTableInfoFromPdf.zip'))
+          .catch(err => console.log(err));
+  } catch (err) {
+
+      console.log("Exception encountered while executing operation", err);
+  }
+
+  </pre>
+  </div></div>
 <div class="section" id="extract-text-and-tables-w-renditions">
 <h2>Extract Text and Tables (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-w-renditions" title="Permalink to this headline">¶</a></h2>
-<p>The sample class <code class="docutils literal notranslate"><span class="pre">ExtractTextTableInfoWithRenditionsFromPDF</span></code> extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
-<p>Run the sample:</p>
-<p><code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">-f</span> <span class="pre">pom.xml</span> <span class="pre">exec:java</span> <span class="pre">-Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF</span></code></p>
-<p><strong>Example</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="k">class</span> <span class="nc">ExtractTextTableInfoWithRenditionsFromPDF</span> <span class="p">{</span>
+<p>The sample below extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava1">JAVA</a></li>
+      <li><a href="#tabsnode1">NODE</a></li>
+    </ul>
+    <div id="tabsjava1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
 
-  <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">logger</span><span class="o">.</span>
-  <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">ExtractTextTableInfoWithRenditionsFromPDF</span><span class="o">.</span><span class="n">class</span><span class="p">);</span>
-
-  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="k">try</span> <span class="p">{</span>
-
-          <span class="o">//</span> <span class="n">Initial</span> <span class="n">setup</span><span class="p">,</span> <span class="n">create</span> <span class="n">credentials</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">Credentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">serviceAccountCredentialsBuilder</span><span class="p">()</span>
-                  <span class="o">.</span><span class="n">fromFile</span><span class="p">(</span><span class="s2">&quot;pdftools-api-credentials.json&quot;</span><span class="p">)</span>
-                  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
-
-          <span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">ExecutionContext</span> <span class="n">using</span> <span class="n">credentials</span> <span class="ow">and</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">operation</span> <span class="n">instance</span><span class="o">.</span>
-          <span class="n">ExecutionContext</span> <span class="n">executionContext</span> <span class="o">=</span> <span class="n">ExecutionContext</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">credentials</span><span class="p">);</span>
-          <span class="n">ExtractPDFOperation</span> <span class="n">extractPdfOperation</span> <span class="o">=</span> <span class="n">ExtractPDFOperation</span><span class="o">.</span><span class="n">createNew</span><span class="p">();</span>
-
-          <span class="o">//</span> <span class="n">Set</span> <span class="n">operation</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">source</span> <span class="n">file</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">source</span> <span class="o">=</span> <span class="n">FileRef</span><span class="o">.</span><span class="n">createFromLocalFile</span><span class="p">(</span><span class="s2">&quot;src/main/resources/extractPDFInput.pdf&quot;</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">setInputFile</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementsToExtract</span><span class="p">(</span><span class="n">Arrays</span><span class="o">.</span><span class="n">asList</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">,</span> <span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">));</span>
-          <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">addElementToExtractRenditions</span><span class="p">(</span><span class="n">PDFElementType</span><span class="o">.</span><span class="n">TABLES</span><span class="p">);</span>
-
-          <span class="o">//</span> <span class="n">Execute</span> <span class="n">the</span> <span class="n">operation</span><span class="o">.</span>
-          <span class="n">FileRef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">extractPdfOperation</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">executionContext</span><span class="p">);</span>
-
-          <span class="o">//</span> <span class="n">Save</span> <span class="n">the</span> <span class="n">result</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">location</span><span class="o">.</span>
-          <span class="n">result</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="s2">&quot;output/ExtractTextTableInfoWithRenditionsFromPDF.zip&quot;</span><span class="p">);</span>
-
-      <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ServiceApiException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="o">|</span> <span class="n">SdkException</span> <span class="o">|</span> <span class="n">ServiceUsageException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
-          <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception encountered while executing operation&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
 </div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithRenditionsFromPDF {
+
+  // Initialize the logger.
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithRenditionsFromPDF.class);
+
+  public static void main(String[] args) {
+
+      try {
+
+          // Initial setup, create credentials instance.
+          Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                  .fromFile("pdftools-api-credentials.json")
+                  .build();
+
+          // Create an ExecutionContext using credentials and create a new operation instance.
+          ExecutionContext executionContext = ExecutionContext.create(credentials);
+          ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.createNew();
+
+          // Set operation input from a source file.
+          FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPDFInput.pdf");
+          extractPdfOperation.setInputFile(source);
+          extractPdfOperation.addElementsToExtract(Arrays.asList(PDFElementType.TEXT, PDFElementType.TABLES));
+          extractPdfOperation.addElementToExtractRenditions(PDFElementType.TABLES);
+
+          // Execute the operation.
+          FileRef result = extractPdfOperation.execute(executionContext);
+
+          // Save the result to the specified location.
+          result.saveAs("output/ExtractTextTableInfoWithRenditionsFromPDF.zip");
+
+      } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+          LOGGER.error("Exception encountered while executing operation", ex);
+      }
+  }
+}
+  </pre>
 </div>
+   <div id="tabsnode1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const ExtractPdfSdk = require('@adobe/pdftools-extract-node-sdk');
+
+  try {
+
+      // Initial setup, create credentials instance.
+      const credentials =  ExtractPdfSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile(`pdftools-api-credentials.json`)
+          .build();
+
+      //Create a clientContext using credentials and create a new operation instance.
+      const clientContext = ExtractPdfSdk.ExecutionContext.create(credentials)
+      extractPDFOperation = ExtractPdfSdk.ExtractPDF.Operation.createNew(),
+
+      // Set operation input from a source file.
+      input = ExtractPdfSdk.FileRef.createFromLocalFile(
+          'resources/extractPdfInput.pdf',
+          ExtractPdfSdk.ExtractPDF.SupportedSourceFormat.pdf
+      );
+
+      extractPDFOperation.setInput(input);
+
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TEXT);
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TABLES);
+
+      extractPDFOperation.addElementToExtractRenditions(ExtractPdfSdk.PDFElementType.TABLES);
+
+      // Execute the operation
+      extractPDFOperation.execute(clientContext)
+          .then(result => result.saveAsFile('output/extractTextTableInfoWithTablesRenditionsFromPdf.zip'))
+          .catch(err => console.log(err));
+  } catch (err) {
+      console.log("Exception encountered while executing operation", err);
+  }
+   </pre>
+  </div></div>
 </div>
 
 
@@ -414,7 +586,7 @@ img {
       
     </p>
     <p>
-       Last updated Oct 16, 2020 <br/>
+       Last updated Nov 16, 2020 <br/>
     </p>	
   </div>
   </footer>
