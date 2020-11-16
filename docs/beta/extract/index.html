@@ -194,6 +194,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#beta-program-access">Beta program access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#java">JAVA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-js">Node.js</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-issues">Known issues</a></li>
 </ul>
 </li>
@@ -231,7 +232,7 @@ img {
       
   <div class="section" id="pdf-extract-api-quickstart-beta">
 <h1>PDF Extract API Quickstart (BETA)<a class="headerlink" href="#pdf-extract-api-quickstart-beta" title="Permalink to this headline">¶</a></h1>
-<p>Adobe provides a PDF Extract API that parses structural elements such as text, titles, tables, figures of any PDF, including scanned documents. The API returns a JSON output with these elements. The PDF Extract SDK is currently available in Java, but other languages are in the pipeline (e.g Node.js).</p>
+<p>Adobe provides a PDF Extract API that parses structural elements such as text, titles, tables, figures of any PDF, including scanned documents. The API returns a JSON output with these elements. The PDF Extract SDK is currently available in Java and Node.js, but other languages are in the pipeline (e.g Python).</p>
 <p>The PDF Extract API provides a method for developers to extract content and process this extracted content in their custom apps and workflows. For example, developers can:</p>
 <ul class="simple">
 <li><p>Extract text with structure (headings, paragraphs, and lists)</p></li>
@@ -379,6 +380,111 @@ img {
 <img alt="_images/maven.png" src="_images/maven.png" />
 </div>
 </div>
+<div class="section" id="node-js">
+<h2>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h2>
+<p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opensource.adobe.com/pdftools-extract-node-sdk-samples/apidocs/">API reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples">Sample code</a></p></li>
+<li><p><a class="reference external" href="https://www.npmjs.com/package/&#64;adobe/pdftools-extract-node-sdk">Node.js SDK</a></p></li>
+</ul>
+<div class="section" id="id2">
+<h3>Authentication<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>After you submit the request access form, Adobe Document Cloud will email a zip file containing a pdftools-api-credentials.json file and private.key file.</p>
+<p>Replace the pdftools-api-credentials.json file in the sample project with the one you receive from Adobe, and add the private.key file to the same path as your pdftools-api-credentials.json file.</p>
+<p><strong>Example pdftools-api-credentials.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;client_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_SECRET&gt; &quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;service_account_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;organization_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_ORGANIZATION_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;account_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_TECHINCAL_ACCOUNT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;private_key_file&quot;</span><span class="p">:</span> <span class="s2">&quot;private.key&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-a-node-js-environment">
+<h3>Set up a Node.js environment<a class="headerlink" href="#set-up-a-node-js-environment" title="Permalink to this headline">¶</a></h3>
+<p>Running any sample or custom code requires the following steps:</p>
+<ol class="arabic simple">
+<li><p>Install <a class="reference external" href="https://nodejs.org/en/download/">Node.js 10.13.0</a> or higher.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The &#64;adobe/pdftools-extract-node-sdk npm package automatically downloads when you build the sample project.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span> <span class="nd">@adobe</span><span class="o">/</span><span class="n">pdftools</span><span class="o">-</span><span class="n">extract</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>Sample Project setup<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples">the sample project</a>.</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">private.key</span></code> with the zipped files within ZIP sent by Adobe.</p></li>
+<li><p>From the samples root directory, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>.</p></li>
+<li><p>Test the sample code on the command line.</p></li>
+<li><p>Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="https://opensource.adobe.com/pdftools-extract-node-sdk-samples/apidocs/">API documentation</a>.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Verifying download authenticity<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After installing the package, find and open package-lock.json.</p></li>
+<li><p>Find the “integrity” key.</p></li>
+<li><p>Verify the hash in the downloaded file matches the value published here.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sha512</span><span class="o">-</span><span class="n">TChqGK9w6ftvwcK5nDgun2KYoTKQOpFlJWDYDm</span><span class="o">/</span><span class="n">yqP</span><span class="o">/</span><span class="n">NLsGNiDgWONUBbn5</span><span class="o">/</span><span class="n">j6neMffyO9caBktUxqV68XRwzg</span><span class="o">==</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Logging<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<p>The SDK uses the <a class="reference external" href="https://www.npmjs.com/package/log4js">log4js API</a> for logging. During execution, the SDK searches for config/pdftools-sdk-log4js-config.json in the working directory and reads the logging properties from there. If you do not provide a configuration file, the default logging logs INFO to the console. Customize the logging settings as needed.</p>
+<p><strong>log4js.properties file</strong></p>
+ <pre class="prettyprint lang-json">
+ {
+   "appenders": {
+     "consoleAppender": {
+             "_comment": "A sample console appender configuration, Clients can change as per their logging implementation",
+       "type": "console",
+       "layout": {
+         "type": "pattern",
+         "pattern": "%d:[%p]: %m"
+       }
+     }
+   },
+   "categories": {
+     "default": {
+       "appenders": [
+         "consoleAppender"
+             ],
+             "_comment": "Change the logging levels as per need. info is recommended for pdftools-extract-node-sdk",
+       "level": "info"
+     }
+   }
+ }
+</pre></div>
+<div class="section" id="id7">
+<h3>Test files<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Refer to each sample project’s <a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples/tree/main/resources">resource directory</a> for the requisite input/output files.</p>
+</div>
+<div class="section" id="id8">
+<h3>Custom projects<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>While building the sample project automatically downloads the Node package, you can do it manually if you wish to use your own tools and process.</p>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://www.npmjs.com/package/&#64;adobe/pdftools-extract-node-sdk">https://www.npmjs.com/package/&#64;adobe/pdftools-extract-node-sdk</a></p></li>
+<li><p>Download the latest package.</p></li>
+</ol>
+<img alt="_images/node-extract.png" src="_images/node-extract.png" />
+</div>
+</div>
 <div class="section" id="known-issues">
 <h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -401,7 +507,7 @@ img {
       
     </p>
     <p>
-       Last updated Oct 16, 2020 <br/>
+       Last updated Nov 16, 2020 <br/>
     </p>	
   </div>
   </footer>
