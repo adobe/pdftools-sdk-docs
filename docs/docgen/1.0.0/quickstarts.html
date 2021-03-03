@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstarts &#8212; PDF Tools SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Template Tags" href="templatetags.html" />
+    <link rel="prev" title="Overview" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-generation-process">Document Generation Process</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#components-of-document-generation">Components of Document Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templatetags.html">Template Tags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#placeholder-variables">Placeholder Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#tables">Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#lists">Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#conditionals">Conditionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templatetags.html#numerical-calculations">Numerical Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wordaddin.html">Word Addin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wordaddin.html#how-to-install">How to install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wordaddin.html#add-in-video-demo">Add-In Video Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docgenlicensing.html">DocGen API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="quickstarts">
+<span id="id1"></span><h1>Quickstarts<a class="headerlink" href="#quickstarts" title="Permalink to this headline">¶</a></h1>
+<p>Use Document Generation API to merge JSON data into Word based document templates and produce high fidelity PDF and Word documents from any application.</p>
+<div class="section" id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p><strong>Use MS Word Add-In to design document templates</strong></p>
+<img alt="_images/design_document_templates.gif" src="_images/design_document_templates.gif" />
+<p><strong>Prepare your JSON data</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;Client&quot;</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;Name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Some Corp Inc&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;Address&quot;</span> <span class="p">:</span> <span class="s2">&quot;Somewhere Street&quot;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Create Data Driven Word and PDF documents using Document Generation API</strong></p>
+<p>The Document Generation API is offered through <a class="reference external" href="../latest/index.html">PDFTools SDK</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To get started with PDFTools SDK, refer <a class="reference external" href="../latest/index.html">Quickstarts Section</a></p>
+</div>
+<p><br/></p>
+<p>The samples below illustrate how to merge Word based document template with the JSON data to generate the output document in the PDF/Word format.</p>
+<div class="section" id="generate-word-document">
+<h3>Generate Word document<a class="headerlink" href="#generate-word-document" title="Permalink to this headline">¶</a></h3>
+ <div class="tabs">
+      <ul>
+        <li><a href="#tabsjava1">JAVA</a></li>
+        <li><a href="#tabsnet1">.NET</a></li><li><a href="#tabsnode1">NODE</a></li>
+      </ul>
+           <div id="tabsjava1">
+     <div class="cmdline"><strong>Run the sample:</strong><br />
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.documentmerge.MergeDocumentToDOCX</div>
+
+<pre class="prettyprint">
+//Get the samples from https://www.adobe.com/go/pdftoolsapi_java_samples
+  package com.adobe.platform.operation.samples.documentmerge;
+
+  public class MergeDocumentToDOCX {
+     public static void main(String[] args) {
+
+         try {
+
+            // Initial setup, create credentials instance.
+           Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                   .fromFile("pdftools-api-credentials.json")
+                   .build();
+
+           JSONObject jsonDataForMerge=new JSONObject("{\"customerName\": \"Kane Miller\",\"customerVisits\": 100}");
+
+           // Create a context
+           ExecutionContext executionContext = SampleTestUtils.createExecutionContext();
+
+           // Create a new DocumentMergeOptions instance
+           DocumentMergeOptions documentMergeOptions = new DocumentMergeOptions(jsonDataForMerge, OutputFormat.DOCX);
+
+           // Create a new DocumentMergeOperation instance with the DocumentMergeOptions instance
+           DocumentMergeOperation documentMergeOperation = DocumentMergeOperation.createNew(documentMergeOptions);
+
+           // Set the operation input document template from a source file.
+           FileRef documentTemplate = FileRef.createFromLocalFile("src/main/resources/documentMergeTemplate.docx");
+           documentMergeOperation.setInput(documentTemplate);
+
+           // Execute the operation
+           FileRef result = documentMergeOperation.execute(executionContext);
+
+           // Save the result to the specified location.
+           result.saveAs("output/documentMergeOutput.docx");
+         } catch (ServiceApiException | IOException | ServiceUsageException e) {
+           System.out.println(e);
+         }
+     }
+  }
+     </pre>
+     </div>
+    <div id="tabsnet1">
+       <div class="cmdline"><strong>Run the sample:</strong><br />
+cd CreatePDFFromDocx/<br/>
+dotnet run MergeDocumentToDOCX.csproj
+               </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/pdftoolsapi_net_samples
+
+ namespace MergeDocumentToDOCX
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+               Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                               .FromFile(Directory.GetCurrentDirectory() + "/pdftools-api-credentials.json")
+                               .Build();
+
+               // Create an ExecutionContext using credentials.
+               ExecutionContext executionContext = ExecutionContext.Create(credentials);
+
+                JObject jsonDataForMerge = JObject.Parse("{\"customerName\": \"Kane Miller\",\"customerVisits\": 100}");
+
+               // Create a new DocumentMerge Options instance
+               DocumentMergeOptions documentMergeOptions = new DocumentMergeOptions(jsonDataForMerge, OutputFormat.DOCX);
+
+               // Create a new DocumentMerge Operation instance with the DocumentMerge Options instance
+               DocumentMergeOperation documentMergeOperation = DocumentMergeOperation.CreateNew(documentMergeOptions);
+
+               // Set the operation input document template from a source file.
+               documentMergeOperation.SetInput(FileRef.CreateFromLocalFile(@"documentMergeTemplate.docx"));
+
+               // Execute the operation.
+               FileRef result = documentMergeOperation.Execute(executionContext);
+
+               // Save the result to the specified location
+               result.SaveAs(Directory.GetCurrentDirectory() + "/output/DocumentMergeOutput.docx");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode1">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+node src/documentmerge/merge-document-to-docx.js
+ </div>
+<pre class="prettyprint">
+// Get the samples from http://www.adobe.com/go/pdftoolsapi_node_sample
+ const PDFToolsSdk = require('@adobe/documentservices-pdftools-node-sdk');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  PDFToolsSdk.Credentials
+       .serviceAccountCredentialsBuilder()
+       .fromFile("pdftools-api-credentials.json")
+       .build();
+
+   // Setup input data for the document merge process
+   const jsonDataForMerge = JSON.parse("{\"customerName\": \"Kane Miller\", \"customerVisits\": 100}");
+   jsonDataForMerge = JSON.parse(jsonString);
+
+   // Create an ExecutionContext using credentials
+   const executionContext = PDFToolsSdk.ExecutionContext.create(credentials);
+
+   // Create a new DocumentMerge options instance
+   const documentMerge = PDFToolsSdk.DocumentMerge,
+       documentMergeOptions = documentMerge.options,
+       options = new documentMergeOptions.DocumentMergeOptions(jsonDataForMerge, documentMergeOptions.OutputFormat.DOCX);
+
+   // Create a new operation instance using the options instance
+   const documentMergeOperation = documentMerge.Operation.createNew(options);
+
+   // Set operation input document template from a source file.
+   const input = PDFToolsSdk.FileRef.createFromLocalFile('resources/documentMergeTemplate.docx');
+   documentMergeOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   documentMergeOperation.execute(executionContext)
+       .then(result => result.saveAsFile('output/documentMergeOutput.docx'))
+       .catch(err => {
+           if(err instanceof PDFToolsSdk.Error.ServiceApiError
+               || err instanceof PDFToolsSdk.Error.ServiceUsageError) {
+               console.log('Exception encountered while executing operation', err);
+           } else {
+               console.log('Exception encountered while executing operation', err);
+           }
+       });
+ }
+ catch (err) {
+     console.log('Exception encountered while executing operation', err);
+   }
+ </pre>
+
+ </div></div>
+<div class="section" id="generate-pdf-document">
+<h3>Generate PDF document<a class="headerlink" href="#generate-pdf-document" title="Permalink to this headline">¶</a></h3>
+ <div class="tabs">
+     <ul>
+       <li><a href="#tabsjava2">JAVA</a></li>
+       <li><a href="#tabsnet2">.NET</a></li>
+       <li><a href="#tabsnode2">NODE</a></li>
+     </ul>
+     <div id="tabsjava2">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.documentmerge.MergeDocumentToPDF
+ </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/pdftoolsapi_java_samples
+
+ public class MergeDocumentToPDF {
+
+   // Initialize the logger.
+   private static final Logger LOGGER = LoggerFactory.getLogger(MergeDocumentToPDF.class);
+
+   public static void main(String[] args) {
+
+         try {
+           // Initial setup, create credentials instance.
+           Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                   .fromFile("pdftools-api-credentials.json")
+                   .build();
+
+           // Setup input data for the document merge process
+           String content = new String(Files.readAllBytes(Paths.get("src/main/resources/salesOrder.json")));
+           JSONObject jsonDataForMerge=new JSONObject(content);
+
+           // Create an ExecutionContext using credentials.
+           ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+           //Create a new DocumentMergeOptions instance
+           DocumentMergeOptions documentMergeOptions = new DocumentMergeOptions(jsonDataForMerge, OutputFormat.PDF);
+
+           // Create a new DocumentMergeOperation instance with the DocumentMergeOptions instance
+           DocumentMergeOperation documentMergeOperation = DocumentMergeOperation.createNew(documentMergeOptions);
+
+           // Set the operation input document template from a source file.
+           FileRef documentTemplate = FileRef.createFromLocalFile("src/main/resources/salesOrderTemplate.docx");
+           documentMergeOperation.setInput(documentTemplate);
+
+           // Execute the operation
+           FileRef result = documentMergeOperation.execute(executionContext);
+
+           // Save the result to the specified location.
+           result.saveAs("output/salesOrderOutput.pdf");
+         } catch (ServiceApiException | IOException | ServiceUsageException e) {
+           System.out.println(e);
+         }
+     }
+  }
+     </pre>
+     </div>
+     <div id="tabsnet2">
+       <div class="cmdline"><strong>Run the sample:</strong><br />
+cd CreatePDFFromPdf/<br/>
+dotnet run MergeDocumentToPDF.csproj
+               </div>
+<pre class="prettyprint">
+// Get the samples from https://www.adobe.com/go/pdftoolsapi_net_samples
+
+ namespace MergeDocumentToPDF
+ {
+   class Program
+   {
+     private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+     static void Main()
+     {
+       //Configure the logging
+       ConfigureLogging();
+       try
+       {
+         // Initial setup, create credentials instance.
+               Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                               .FromFile(Directory.GetCurrentDirectory() + "/pdftools-api-credentials.json")
+                               .Build();
+
+               // Create an ExecutionContext using credentials.
+               ExecutionContext executionContext = ExecutionContext.Create(credentials);
+
+               // Setup input data for the document merge process
+               var content = File.ReadAllText(@"salesOrder.json");
+               JObject jsonDataForMerge = JObject.Parse(content);
+
+               // Create a new DocumentMerge Options instance
+               DocumentMergeOptions documentMergeOptions = new DocumentMergeOptions(jsonDataForMerge, OutputFormat.PDF);
+
+               // Create a new DocumentMerge Operation instance with the DocumentMerge Options instance
+               DocumentMergeOperation documentMergeOperation = DocumentMergeOperation.CreateNew(documentMergeOptions);
+
+               // Set the operation input document template from a source file.
+               documentMergeOperation.SetInput(FileRef.CreateFromLocalFile(@"salesOrderTemplate.docx"));
+
+               // Execute the operation.
+               FileRef result = documentMergeOperation.Execute(executionContext);
+
+               // Save the result to the specified location
+               result.SaveAs(Directory.GetCurrentDirectory() + "/output/salesOrderOutput.pdf");
+       }
+       catch (ServiceUsageException ex)
+       {
+         log.Error("Exception encountered while executing operation", ex);
+       }
+       // Catch more errors here. . .
+     }
+
+     static void ConfigureLogging()
+     {
+       ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+       XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+     }
+   }
+ }
+    </pre>
+     </div>
+ <div id="tabsnode2">
+ <div class="cmdline"><strong>Run the sample:</strong><br />
+node src/documentmerge/merge-document-to-pdf.js
+ </div>
+<pre class="prettyprint">
+// Get the samples from http://www.adobe.com/go/pdftoolsapi_node_sample
+ const PDFToolsSdk = require('@dcloud/documentservices-pdftools-node-sdk'),
+   fs = require('fs');
+
+ try {
+   // Initial setup, create credentials instance.
+   const credentials =  PDFToolsSdk.Credentials
+       .serviceAccountCredentialsBuilder()
+       .fromFile("pdftools-api-credentials.json")
+       .build();
+
+   // Setup input data for the document merge process
+   const jsonString = fs.readFileSync('resources/salesOrder.json'),
+       jsonDataForMerge = JSON.parse(jsonString);
+
+   // Create an ExecutionContext using credentials
+   const executionContext = PDFToolsSdk.ExecutionContext.create(credentials);
+
+   // Create a new DocumentMerge options instance
+   const documentMerge = PDFToolsSdk.DocumentMerge,
+       documentMergeOptions = documentMerge.options,
+       options = new documentMergeOptions.DocumentMergeOptions(jsonDataForMerge, documentMergeOptions.OutputFormat.PDF);
+
+   // Create a new operation instance using the options instance
+   const documentMergeOperation = documentMerge.Operation.createNew(options)
+
+   // Set operation input document template from a source file.
+   const input = PDFToolsSdk.FileRef.createFromLocalFile('resources/salesOrderTemplate.docx');
+   documentMergeOperation.setInput(input);
+
+   // Execute the operation and Save the result to the specified location.
+   documentMergeOperation.execute(executionContext)
+       .then(result => result.saveAsFile('output/salesOrderOutput.pdf'))
+       .catch(err => {
+           if(err instanceof PDFToolsSdk.Error.ServiceApiError
+               || err instanceof PDFToolsSdk.Error.ServiceUsageError) {
+               console.log('Exception encountered while executing operation', err);
+           } else {
+               console.log('Exception encountered while executing operation', err);
+           }
+       });
+ } catch (err) {
+     console.log('Exception encountered while executing operation', err);
+   }
+ </pre>
+  </div>
+<!--end tab data-->
+ </div><p><br/> <br/></p>
+<p>As a result of the Document Generation API, template tags are replaced with the input JSON data.</p>
+<img alt="_images/generate_document.gif" src="_images/generate_document.gif" />
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Mar 03, 2021 <br/>
+    </p>	
+  </div>
+  </footer>
+  </body>
+</html>
