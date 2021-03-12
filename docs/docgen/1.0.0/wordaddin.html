@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Word Addin &#8212; PDF Tools SDK</title>
+    <title>Word Add-in &#8212; PDF Tools SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -208,8 +208,9 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="templatetags.html#numerical-calculations">Numerical Calculations</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Word Addin</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Word Add-in</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-install">How to install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-at-the-tenant-level">Installing at the Tenant level</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-in-video-demo">Add-In Video Demo</a></li>
 </ul>
 </li>
@@ -232,19 +233,113 @@ img {
 </div><br/>
 
       
-  <div class="section" id="word-addin">
-<span id="waddin"></span><h1>Word Addin<a class="headerlink" href="#word-addin" title="Permalink to this headline">¶</a></h1>
-<p>This document proposes the template grammar which shall be used to construct document templates for the DocGen.</p>
+  <div class="section" id="word-add-in">
+<span id="waddin"></span><h1>Word Add-in<a class="headerlink" href="#word-add-in" title="Permalink to this headline">¶</a></h1>
+<p>Document Generation Word Add-in provide capability to author templates to generate data driven Word and PDF documents. It provides capability to add different tags and enable users to author template in seamless manner. You can refer the <a class="reference internal" href="#addindemo"><span class="std std-ref">Add-In Video Demo</span></a> for explanation on how to use the add-in.</p>
 <div class="section" id="how-to-install">
 <h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
-<p>You can get the Docgen Word Addin form Microsoft Office store.</p>
+<p>You can get the Document Generation Word Add-in from Microsoft Office store. This add-in can be installed in both the web based and desktop launched MS Word application.
+Access to the store is slightly different for each environment. Detailed instructions for both are described below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Please refer the official Microsoft addin installation guide provided here : <a class="reference external" href="https://support.microsoft.com/en-us/office/view-manage-and-install-add-ins-in-office-programs-16278816-1948-4028-91e5-76dca5380f8d">Addin Reference</a></p>
+<p>If you are an Enterprise User, organizational Office 365 Admins or user with admin rights can centrally  <a class="reference internal" href="#tenant"><span class="std std-ref">install the add-in at the tenant level</span></a>, and control access at the user level if desired.</p>
+</div>
+<p><br/></p>
+<p><strong>Installing the add-in for the web-based client</strong></p>
+<ul class="simple">
+<li><p>Log in to your 365 Office account and open the word application.</p></li>
+<li><p>Navigate to the <strong>Insert</strong> tab, and click the <strong>Add-ins</strong> icon in the insert section. Office Add-ins Pop up page will open up.</p></li>
+</ul>
+<img alt="_images/browser_insert_tab.png" src="_images/browser_insert_tab.png" />
+<img alt="_images/browser_addin_tab.png" src="_images/browser_addin_tab.png" />
+<ul>
+<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins Pop up page.</p></li>
+<li><p>Navigate to <strong>STORE</strong> tab in the Office Add-ins popup, if add-in is not enabled/installed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you face an issue, as illustrated below, while accessing your Office Add-ins store then you can contact your organizational Office 365 Admins to get <a class="reference internal" href="#tenant"><span class="std std-ref">Add-in installed at the tenant level</span></a>.</p>
+</div>
+<img alt="_images/enterprise_error.png" src="_images/enterprise_error.png" />
+<ul class="simple">
+<li><p>In the top Left search box, search for <strong>Adobe Document Generation</strong> and click on add button.</p></li>
+</ul>
+</li>
+<li><p>After enabling/installing the add-in, you will find a new Adobe Document Generation add-in on the Home tab.</p></li>
+</ul>
+<img alt="_images/browser_final.png" src="_images/browser_final.png" />
+<img alt="_images/browser_final2.png" src="_images/browser_final2.png" />
+<p><br/>
+<br/></p>
+<p><strong>Installing the add-in for the desktop client</strong></p>
+<ul class="simple">
+<li><p>Open your desktop Office application.</p></li>
+<li><p>Navigate to the <strong>Insert</strong> tab, and click the <strong>Get Add-ins</strong> option.</p></li>
+</ul>
+<img alt="_images/desktop_insert_tab.png" src="_images/desktop_insert_tab.png" />
+<img alt="_images/desktop_addin_tab.png" src="_images/desktop_addin_tab.png" />
+<ul>
+<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins Pop up page.</p></li>
+<li><p>Navigate to <strong>STORE</strong> tab in the Office Add-ins popup, if add-in is not already enabled/installed.</p>
+<ul>
+<li><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you face an issue, as illustrated below, while accessing your Office Add-ins store then you can contact your organizational Office 365 Admins to get <a class="reference internal" href="#tenant"><span class="std std-ref">Add-in installed at the tenant level</span></a>.</p>
+</div>
+</li>
+</ul>
+<img alt="_images/enterprise_error.png" src="_images/enterprise_error.png" />
+<ul class="simple">
+<li><p>In the top left search box, search for <strong>Adobe Document Generation</strong> and click on <strong>add</strong> button to install.</p></li>
+</ul>
+</li>
+<li><p>After enabling/installing the add-in, you will find a new Adobe Document Generation add-in on the Home tab.</p></li>
+</ul>
+<img alt="_images/browser_final.png" src="_images/browser_final.png" />
+<p><br/></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer the official <a class="reference external" href="https://support.microsoft.com/en-us/office/view-manage-and-install-add-ins-in-office-programs-16278816-1948-4028-91e5-76dca5380f8d">Microsoft Add-In Installation Guide</a> for detailed steps on Add-In installation.</p>
+</div>
+</div>
+<div class="section" id="installing-at-the-tenant-level">
+<span id="tenant"></span><h2>Installing at the Tenant level<a class="headerlink" href="#installing-at-the-tenant-level" title="Permalink to this headline">¶</a></h2>
+<p>Installing at the tenant level allows the admin to expose the add-in by default, saving the users the installation steps, and ensuring that all users have access without issue.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The below process enables the add-in at the tenant level for the whole user base. <a class="reference external" href="https://docs.microsoft.com/en-gb/microsoft-365/admin/manage/manage-deployment-of-add-ins?redirectSourcePath=%252fen-us%252farticle%252fdeploy-office-add-ins-in-the-office-365-admin-center-737e8c86-be63-44d7-bf02-492fa7cd9c3f&amp;view=o365-worldwide">Check here if you would like more granular control over the deployment.</a> <br/> <a class="reference external" href="https://docs.microsoft.com/en-gb/microsoft-365/admin/manage/centralized-deployment-of-add-ins?view=o365-worldwide">Determine if Centralized Deployment of add-ins works for your organization.</a></p>
+</div>
+<p><br/></p>
+<p><strong>The enablement is quick and easy, taking only about 5 minutes</strong>:</p>
+<ul class="simple">
+<li><p>Log in as the Tenant admin, and navigate to the admin center from app launcher.</p></li>
+<li><p>Log in as the Tenant admin, and navigate to the admin center from app launcherdt.</p></li>
+<li><p>In the admin center, go to the Settings &gt; Add-ins page. If you don’t see the Add-in Page, go to the Settings &gt; Integrated apps.</p></li>
+<li><p>On the top of the Integrated apps page, click Add-ins link.</p></li>
+</ul>
+<img alt="_images/admincenter_addin_tab.png" src="_images/admincenter_addin_tab.png" />
+<ul class="simple">
+<li><p>Select Deploy Add-in at the top of the page, and then select Next.</p></li>
+<li><p>Select the option to add an add-in from the Office Store. In the top left search box, search for <strong>Adobe Document Generation</strong> and click on add button.</p></li>
+<li><p>Assign Users</p>
+<ul>
+<li><p>Everyone - Applies the deployment method to all users in the Tenant.</p></li>
+<li><p>Specific users/groups - Applies the deployment method to only the selected users or groups.</p></li>
+<li><p>Just me - Applies the deployment method to just the user (admin) doing the configuration</p></li>
+</ul>
+</li>
+</ul>
+<a class="reference internal image-reference" href="_images/admincenter_assign_user.png"><img alt="_images/admincenter_assign_user.png" src="_images/admincenter_assign_user.png" style="width: 330px;" /></a>
+<ul class="simple">
+<li><p>Click Deploy after assigning users.</p></li>
+</ul>
+<p><br/></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users might need to relaunch Office to view the add-in icon on the app ribbon.</p>
 </div>
 </div>
 <div class="section" id="add-in-video-demo">
-<h2>Add-In Video Demo<a class="headerlink" href="#add-in-video-demo" title="Permalink to this headline">¶</a></h2>
+<span id="addindemo"></span><h2>Add-In Video Demo<a class="headerlink" href="#add-in-video-demo" title="Permalink to this headline">¶</a></h2>
 <p>DodGen add-in is developed in such a way that you don’t need to learn any code. The system does it all for you, as you’ll see in the video below:</p>
 <iframe width="100%" height="315" src="https://tinyurl.com/myo3m9u0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>
@@ -261,7 +356,7 @@ img {
       
     </p>
     <p>
-       Last updated Mar 03, 2021 <br/>
+       Last updated Mar 12, 2021 <br/>
     </p>	
   </div>
   </footer>
