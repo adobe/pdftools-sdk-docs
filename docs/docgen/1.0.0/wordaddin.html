@@ -17,7 +17,6 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DocGen API Licensing" href="docgenlicensing.html" />
     <link rel="prev" title="Template Tags" href="templatetags.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -197,6 +196,7 @@ img {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstarts.html">Quickstarts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstarts.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstarts.html#api-limitations">API Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="templatetags.html">Template Tags</a><ul>
@@ -214,7 +214,8 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#add-in-video-demo">Add-In Video Demo</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="docgenlicensing.html">DocGen API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">API licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
 </ul>
 </ul>
@@ -235,10 +236,10 @@ img {
       
   <div class="section" id="word-add-in">
 <span id="waddin"></span><h1>Word Add-in<a class="headerlink" href="#word-add-in" title="Permalink to this headline">¶</a></h1>
-<p>Document Generation Word Add-in provide capability to author templates to generate data driven Word and PDF documents. It provides capability to add different tags and enable users to author template in seamless manner. You can refer the <a class="reference internal" href="#addindemo"><span class="std std-ref">Add-In Video Demo</span></a> for explanation on how to use the add-in.</p>
+<p>Document Generation Word Add-in provides the capability to author templates to generate data-driven Word and PDF documents. It provides the capability to add different tags and enable users to author templates seamlessly. You can refer to the <a class="reference internal" href="#addindemo"><span class="std std-ref">Add-In Video Demo</span></a> for the explanation on how to use the add-in.</p>
 <div class="section" id="how-to-install">
 <h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
-<p>You can get the Document Generation Word Add-in from Microsoft Office store. This add-in can be installed in both the web based and desktop launched MS Word application.
+<p>You can get the Document Generation Word Add-in from the Microsoft Office store. This add-in can be installed in both the web-based and desktop launched MS Word application.
 Access to the store is slightly different for each environment. Detailed instructions for both are described below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -248,20 +249,20 @@ Access to the store is slightly different for each environment. Detailed instruc
 <p><strong>Installing the add-in for the web-based client</strong></p>
 <ul class="simple">
 <li><p>Log in to your 365 Office account and open the word application.</p></li>
-<li><p>Navigate to the <strong>Insert</strong> tab, and click the <strong>Add-ins</strong> icon in the insert section. Office Add-ins Pop up page will open up.</p></li>
+<li><p>Navigate to the <strong>Insert</strong> tab, and click the <strong>Add-ins</strong> icon in the insert section. Office Add-ins pop-up page will open up.</p></li>
 </ul>
 <img alt="_images/browser_insert_tab.png" src="_images/browser_insert_tab.png" />
 <img alt="_images/browser_addin_tab.png" src="_images/browser_addin_tab.png" />
 <ul>
-<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins Pop up page.</p></li>
-<li><p>Navigate to <strong>STORE</strong> tab in the Office Add-ins popup, if add-in is not enabled/installed.</p>
+<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins pop-up page.</p></li>
+<li><p>Navigate to the <strong>STORE</strong> tab in the Office Add-ins pop-up, if the add-in is not enabled/installed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you face an issue, as illustrated below, while accessing your Office Add-ins store then you can contact your organizational Office 365 Admins to get <a class="reference internal" href="#tenant"><span class="std std-ref">Add-in installed at the tenant level</span></a>.</p>
 </div>
 <img alt="_images/enterprise_error.png" src="_images/enterprise_error.png" />
 <ul class="simple">
-<li><p>In the top Left search box, search for <strong>Adobe Document Generation</strong> and click on add button.</p></li>
+<li><p>In the top left search box, search for <strong>Adobe Document Generation</strong> and click on add button.</p></li>
 </ul>
 </li>
 <li><p>After enabling/installing the add-in, you will find a new Adobe Document Generation add-in on the Home tab.</p></li>
@@ -278,7 +279,7 @@ Access to the store is slightly different for each environment. Detailed instruc
 <img alt="_images/desktop_insert_tab.png" src="_images/desktop_insert_tab.png" />
 <img alt="_images/desktop_addin_tab.png" src="_images/desktop_addin_tab.png" />
 <ul>
-<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins Pop up page.</p></li>
+<li><p>Check for the <strong>Adobe Document Generation</strong> add-in in the <strong>MY ADDINS</strong> tab on Add-ins pop-up page.</p></li>
 <li><p>Navigate to <strong>STORE</strong> tab in the Office Add-ins popup, if add-in is not already enabled/installed.</p>
 <ul>
 <li><div class="admonition note">
@@ -298,7 +299,7 @@ Access to the store is slightly different for each environment. Detailed instruc
 <p><br/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Please refer the official <a class="reference external" href="https://support.microsoft.com/en-us/office/view-manage-and-install-add-ins-in-office-programs-16278816-1948-4028-91e5-76dca5380f8d">Microsoft Add-In Installation Guide</a> for detailed steps on Add-In installation.</p>
+<p>Please refer to the official <a class="reference external" href="https://support.microsoft.com/en-us/office/view-manage-and-install-add-ins-in-office-programs-16278816-1948-4028-91e5-76dca5380f8d">Microsoft Add-In Installation Guide</a> for detailed steps on Add-In installation.</p>
 </div>
 </div>
 <div class="section" id="installing-at-the-tenant-level">
@@ -311,10 +312,10 @@ Access to the store is slightly different for each environment. Detailed instruc
 <p><br/></p>
 <p><strong>The enablement is quick and easy, taking only about 5 minutes</strong>:</p>
 <ul class="simple">
-<li><p>Log in as the Tenant admin, and navigate to the admin center from app launcher.</p></li>
-<li><p>Log in as the Tenant admin, and navigate to the admin center from app launcherdt.</p></li>
+<li><p>Log in as the Tenant admin, and navigate to the admin center from the app launcher.</p></li>
+<li><p>Log in as the Tenant admin, and navigate to the admin center from the app launcher.</p></li>
 <li><p>In the admin center, go to the Settings &gt; Add-ins page. If you don’t see the Add-in Page, go to the Settings &gt; Integrated apps.</p></li>
-<li><p>On the top of the Integrated apps page, click Add-ins link.</p></li>
+<li><p>On the top of the Integrated apps page, click the Add-ins link.</p></li>
 </ul>
 <img alt="_images/admincenter_addin_tab.png" src="_images/admincenter_addin_tab.png" />
 <ul class="simple">
@@ -340,7 +341,7 @@ Access to the store is slightly different for each environment. Detailed instruc
 </div>
 <div class="section" id="add-in-video-demo">
 <span id="addindemo"></span><h2>Add-In Video Demo<a class="headerlink" href="#add-in-video-demo" title="Permalink to this headline">¶</a></h2>
-<p>DodGen add-in is developed in such a way that you don’t need to learn any code. The system does it all for you, as you’ll see in the video below:</p>
+<p>Document Generation add-in is developed in such a way that you don’t need to learn any code. The system does it all for you, as you’ll see in the video below:</p>
 <iframe width="100%" height="315" src="https://tinyurl.com/myo3m9u0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>
 
@@ -356,7 +357,7 @@ Access to the store is slightly different for each environment. Detailed instruc
       
     </p>
     <p>
-       Last updated Mar 12, 2021 <br/>
+       Last updated Mar 14, 2021 <br/>
     </p>	
   </div>
   </footer>
