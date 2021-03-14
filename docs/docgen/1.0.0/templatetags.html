@@ -197,6 +197,7 @@ img {
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstarts.html">Quickstarts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstarts.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstarts.html#api-limitations">API Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Template Tags</a><ul>
@@ -214,7 +215,8 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="wordaddin.html#add-in-video-demo">Add-In Video Demo</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="docgenlicensing.html">DocGen API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">API licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
 </ul>
 </ul>
@@ -236,8 +238,12 @@ img {
   <div class="section" id="template-tags">
 <span id="ttags"></span><h1>Template Tags<a class="headerlink" href="#template-tags" title="Permalink to this headline">¶</a></h1>
 <p>This section describes all the template tags that can be used to author a document template.</p>
-<p>As a result of <a class="reference external" href="./index.html#document-generation-process">Document Generation Process</a> ,
+<p>During the <a class="reference external" href="./index.html#document-generation-process">Document Generation Process</a> ,
 the Document Generation API replaces the template tags in the document template with the input data to generate the output document.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All the tags are <a class="reference external" href="https://docs.jsonata.org/overview.html">JSONata compliant</a>.</p>
+</div>
 <div class="section" id="placeholder-variables">
 <h2>Placeholder Variables<a class="headerlink" href="#placeholder-variables" title="Permalink to this headline">¶</a></h2>
 <p>A placeholder gets replaced by the actual input data.</p>
@@ -259,7 +265,7 @@ the Document Generation API replaces the template tags in the document template 
 </div>
 <p><br/></p>
 <p><strong>Usage</strong></p>
-<p>Placeholder variables gets replaced with the actual input data.</p>
+<p>Placeholder variables get replaced with the actual input data.</p>
 <img alt="_images/placeholder_basic.png" src="_images/placeholder_basic.png" />
 <p><br/></p>
 <p><strong>Default Value</strong></p>
@@ -332,7 +338,7 @@ the Document Generation API replaces the template tags in the document template 
 <p><strong>Usage</strong></p>
 <p>Create a table with requisite column headers. Add a row to the table and place the template tags referring to the properties of the objects in the array inside the row under the required column headings.</p>
 <p>The template tag should indicate the name of the array followed by the property name of the objects in the array.
-<em>{{subscriptions.name}}</em> illustrates one such template tag where <em>subscriptions</em> refers to the array of objects while name refers to the property of one such object in the array.</p>
+<em>{{subscriptions.name}}</em> illustrates one such template tag where <em>subscriptions</em> refer to the array of objects while name refers to the property of one such object in the array.</p>
 <img alt="_images/table.png" src="_images/table.png" />
 <p>Table rows are dynamically populated in the output document by repeating over the specified array of objects.</p>
 <img alt="_images/table_result.png" src="_images/table_result.png" />
@@ -374,7 +380,7 @@ the Document Generation API replaces the template tags in the document template 
 </div>
 <p>JSON representation of the input data:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;WA&quot;</span>
+  <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;CA&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -390,7 +396,7 @@ the Document Generation API replaces the template tags in the document template 
 <div class="section" id="numerical-calculations">
 <h2>Numerical Calculations<a class="headerlink" href="#numerical-calculations" title="Permalink to this headline">¶</a></h2>
 <p>Performing numerical calculations on the input data.</p>
-<p>All calculations supported are <a class="reference external" href="https://docs.jsonata.org/overview.html">JSONata compliant</a></p>
+<p>All calculations supported are <a class="reference external" href="https://docs.jsonata.org/overview.html">JSONata compliant</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All the calculations must be wrapped inside <em>expr()</em>.</p>
@@ -422,7 +428,7 @@ the Document Generation API replaces the template tags in the document template 
 <img alt="_images/arithmetic.png" src="_images/arithmetic.png" />
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Supported arithmetic operations are +, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /, % . <br/> An arithmetic numerical calculation can only be applied to input fields which corresponds to a number..</p>
+<p>Supported arithmetic operations are +, -, <a href="#id2"><span class="problematic" id="id3">*</span></a>, /, % . <br/> An arithmetic numerical calculation can only be applied to input fields that corresponds to a number.</p>
 </div>
 <p><br/></p>
 <p><strong>Aggregation</strong></p>
@@ -447,7 +453,7 @@ the Document Generation API replaces the template tags in the document template 
       
     </p>
     <p>
-       Last updated Mar 12, 2021 <br/>
+       Last updated Mar 14, 2021 <br/>
     </p>	
   </div>
   </footer>
