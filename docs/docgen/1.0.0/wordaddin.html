@@ -31,14 +31,23 @@
 
     <script>
   $( function() {
-    $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
 
     $('.langmode').click(function () {
       $(".tabs").tabs("option", "active", $(this).data('index'));
     });
   } );
   </script>
-  
+
 <script>
 var heightMsgCounter = 0;
 var heightMsgValue = 0;
@@ -139,14 +148,14 @@ $(document).ready(function() {
 </script>
 <script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
 <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
-  
+
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
 .headerlink {display:none;}
 .toctree-l1 {font-weight:bold;}
 .toctree-l2 {font-weight:normal;}
 .removed_globaltoc {}
-div.shadow {	
+div.shadow {
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
@@ -237,9 +246,13 @@ img {
   <div class="section" id="word-add-in">
 <span id="waddin"></span><h1>Word Add-in<a class="headerlink" href="#word-add-in" title="Permalink to this headline">¶</a></h1>
 <p>Document Generation Word Add-in provides the capability to author templates to generate data-driven Word and PDF documents. It provides the capability to add different tags and enable users to author templates seamlessly. You can refer to the <a class="reference internal" href="#addindemo"><span class="std std-ref">Add-In Video Demo</span></a> for the explanation on how to use the add-in.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Adobe Document Generation Word Add-in is available <a class="reference external" href="./wordaddin.html">here</a>.</p>
+</div>
 <div class="section" id="how-to-install">
 <h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
-<p>You can get the Document Generation Word Add-in from the Microsoft Office store. This add-in can be installed in both the web-based and desktop launched MS Word application.
+<p>You can get the Document Generation Word <a class="reference external" href="./wordaddin.html">Add-in</a> from the Microsoft Office store. This add-in can be installed in both the web-based and desktop launched MS Word application.
 Access to the store is slightly different for each environment. Detailed instructions for both are described below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -357,8 +370,8 @@ Access to the store is slightly different for each environment. Detailed instruc
       
     </p>
     <p>
-       Last updated Mar 15, 2021 <br/>
-    </p>	
+       Last updated Mar 16, 2021 <br/>
+    </p>
   </div>
   </footer>
   </body>
