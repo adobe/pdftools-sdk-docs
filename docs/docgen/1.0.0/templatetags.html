@@ -219,9 +219,9 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wordaddin.html">Word Add-in</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wordaddin.html#add-in-demo">Add-In Demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wordaddin.html#how-to-install">How to install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wordaddin.html#installing-at-the-tenant-level">Installing at the Tenant level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wordaddin.html#add-in-video-demo">Add-In Video Demo</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">API licensing</a></li>
@@ -255,7 +255,9 @@ the Document Generation API replaces the template tags in the document template 
 </div>
 <div class="section" id="placeholder-variables">
 <h2>Placeholder Variables<a class="headerlink" href="#placeholder-variables" title="Permalink to this headline">¶</a></h2>
-<p>A placeholder gets replaced by the actual input data.</p>
+<p>A placeholder(text tags) gets replaced by the actual input data.</p>
+<p><strong>How to insert Placeholder Variables</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332116#t=05s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A placeholder variable can only be applied to an input field of type string, number or boolean. <br/> Formatting applied to the placeholder variable in the document template will be retained in the output document.</p>
@@ -284,10 +286,13 @@ the Document Generation API replaces the template tags in the document template 
 <p><strong>Optional</strong></p>
 <p>Setting placeholder variable as optional will replace the placeholder with an empty string in case the specified variable is not present in the input data.</p>
 <img alt="_images/placeholder_optional.png" src="_images/placeholder_optional.png" />
+<p><br/></p>
 </div>
 <div class="section" id="images">
 <h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
 <p>To dynamically insert an image in the document, add any image as placeholder and edit the alt text as per the defined format:</p>
+<p><strong>How to insert Images</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332114" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;location-path&quot;</span><span class="p">:</span> <span class="s2">&quot;logo&quot;</span><span class="p">,</span>
   <span class="nt">&quot;image-props&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -320,6 +325,8 @@ the Document Generation API replaces the template tags in the document template 
 <div class="section" id="tables">
 <span id="library"></span><h2>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h2>
 <p>Rows of a table can be dynamically populated by repeating over an array of objects from the input data.</p>
+<p><strong>How to insert Tables</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332115" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Formatting applied to the table in the document template will be retained in the output document.</p>
@@ -355,6 +362,8 @@ the Document Generation API replaces the template tags in the document template 
 <div class="section" id="lists">
 <h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
 <p>Dynamically generate numbered or bullet lists by repeating over a list of objects.</p>
+<p><strong>How to insert Lists</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332115" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <p>JSON representation of the input data:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;products&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -383,6 +392,8 @@ the Document Generation API replaces the template tags in the document template 
 <div class="section" id="conditionals">
 <h2>Conditionals<a class="headerlink" href="#conditionals" title="Permalink to this headline">¶</a></h2>
 <p>Show or hide content in the document based on the conditions.</p>
+<p><strong>How to insert Conditional Tags</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332117#t=6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The condition must be wrapped inside <em>expr()</em>. <br/> Supported conditional operators are =, !=, &gt;=, &gt;, &lt;=, &lt;.</p>
@@ -405,6 +416,8 @@ the Document Generation API replaces the template tags in the document template 
 <div class="section" id="numerical-calculations">
 <h2>Numerical Calculations<a class="headerlink" href="#numerical-calculations" title="Permalink to this headline">¶</a></h2>
 <p>Performing numerical calculations on the input data.</p>
+<p><strong>How to insert Numerical Calculations</strong></p>
+<iframe width="100%" height="415" src="https://video.tv.adobe.com/v/332118" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><br/></p>
 <p>All calculations supported are <a class="reference external" href="https://docs.jsonata.org/overview.html">JSONata compliant</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -462,7 +475,7 @@ the Document Generation API replaces the template tags in the document template 
       
     </p>
     <p>
-       Last updated Mar 16, 2021 <br/>
+       Last updated Mar 17, 2021 <br/>
     </p>
   </div>
   </footer>
