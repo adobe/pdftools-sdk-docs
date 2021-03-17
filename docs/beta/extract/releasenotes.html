@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Release Notes &#8212; PDF Tools SDK</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -32,14 +32,23 @@
 
     <script>
   $( function() {
-    $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
 
     $('.langmode').click(function () {
       $(".tabs").tabs("option", "active", $(this).data('index'));
     });
   } );
   </script>
-  
+
 <script>
 var heightMsgCounter = 0;
 var heightMsgValue = 0;
@@ -140,14 +149,14 @@ $(document).ready(function() {
 </script>
 <script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
 <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
-  
+
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
 .headerlink {display:none;}
 .toctree-l1 {font-weight:bold;}
 .toctree-l2 {font-weight:normal;}
 .removed_globaltoc {}
-div.shadow {	
+div.shadow {
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
@@ -194,6 +203,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="index.html#beta-program-access">Beta program access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#java">JAVA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#known-issues">Known issues</a></li>
 </ul>
 </li>
@@ -204,6 +214,8 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables">Extract Text and Tables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
@@ -249,7 +261,43 @@ img {
 <div class="section" id="change-history">
 <h2>Change history<a class="headerlink" href="#change-history" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">October, 2020; minor release</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">March, 2021; major release</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Change</p></th>
+<th class="head"><p>Language</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>All</p></td>
+<td><p>Feature to get CSV output for tables</p></td>
+</tr>
+<tr class="row-odd"><td><p>New</p></td>
+<td><p>All</p></td>
+<td><p>Feature to get character level bounding boxes to output json</p></td>
+</tr>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>All</p></td>
+<td><p>Addition of page level information in output json</p></td>
+</tr>
+<tr class="row-odd"><td><p>New</p></td>
+<td><p>All</p></td>
+<td><p>Feature to support signed documents</p></td>
+</tr>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>All</p></td>
+<td><p>General stability fixes</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">October, 2020; minor release</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 10%" />
@@ -299,8 +347,8 @@ img {
       
     </p>
     <p>
-       Last updated Oct 16, 2020 <br/>
-    </p>	
+       Last updated Mar 17, 2021 <br/>
+    </p>
   </div>
   </footer>
   </body>

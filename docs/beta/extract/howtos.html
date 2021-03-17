@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How Tos &#8212; PDF Tools SDK</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -33,14 +33,23 @@
 
     <script>
   $( function() {
-    $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
 
     $('.langmode').click(function () {
       $(".tabs").tabs("option", "active", $(this).data('index'));
     });
   } );
   </script>
-  
+
 <script>
 var heightMsgCounter = 0;
 var heightMsgValue = 0;
@@ -141,14 +150,14 @@ $(document).ready(function() {
 </script>
 <script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
 <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
-  
+
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
 .headerlink {display:none;}
 .toctree-l1 {font-weight:bold;}
 .toctree-l2 {font-weight:normal;}
 .removed_globaltoc {}
-div.shadow {	
+div.shadow {
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
@@ -206,6 +215,8 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables">Extract Text and Tables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
@@ -237,15 +248,17 @@ img {
 <ul class="simple">
 <li><p>Extract as JSON the content &amp; structure of text, table, and figure elements</p></li>
 <li><p>Extract as JSON the content, structure &amp; renditions of table and figure elements</p></li>
+<li><p>Extract as JSON the content, structure &amp; renditions of table and figure elements along with tables as CSVs</p></li>
+<li><p>Extract as JSON the content, structure &amp; renditions of table and figure elements along with Character Bounding Boxes</p></li>
 </ul>
 <div class="section" id="structured-information-output-format">
 <span id="result"></span><h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
 <ul class="simple">
-<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. See the <a class="reference external" href="../../release/shared/extractJSONOutputSchema.json">JSON schema</a>.</p></li>
+<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. See the <a class="reference external" href="../../release/shared/extractJSONOutputSchema2.json">JSON schema</a>.</p></li>
 <li><p>A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p></li>
 </ul>
-<img alt="_images/extractsamplefiles.png" src="_images/extractsamplefiles.png" />
+<img alt="_images/extractsamplefiles2.png" src="_images/extractsamplefiles2.png" />
 </div>
 <div class="section" id="runtime-in-memory-authentication">
 <span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
@@ -572,6 +585,199 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
   }
    </pre>
   </div></div>
+<div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
+<h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts table renditions and bounding boxes for characters present in text blocks(paragraphs, list, headings), in addition to text, table, and figure element information from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava1">JAVA</a></li>
+      <li><a href="#tabsnode1">NODE</a></li>
+    </ul>
+    <div id="tabsjava1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithCharBoundsFromPDF
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithCharBoundsFromPDF {
+
+  // Initialize the logger.
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithCharBoundsFromPDF.class);
+
+  public static void main(String[] args) {
+
+      try {
+
+          // Initial setup, create credentials instance.
+          Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                  .fromFile("pdftools-api-credentials.json")
+                  .build();
+
+          // Create an ExecutionContext using credentials and create a new operation instance.
+          ExecutionContext executionContext = ExecutionContext.create(credentials);
+          ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.createNew();
+
+          // Set operation input from a source file.
+          FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPDFInput.pdf");
+          extractPdfOperation.setInputFile(source);
+          extractPdfOperation.addElementsToExtract(Arrays.asList(PDFElementType.TEXT, PDFElementType.TABLES));
+          extractPdfOperation.addElementToExtractRenditions(PDFElementType.TABLES);
+          extractPdfOperation.addCharInfo(Boolean.TRUE);
+          // Execute the operation.
+          FileRef result = extractPdfOperation.execute(executionContext);
+
+          // Save the result to the specified location.
+          result.saveAs("output/ExtractTextTableInfoWithCharBoundsFromPDF.zip");
+
+      } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+          LOGGER.error("Exception encountered while executing operation", ex);
+      }
+  }
+}
+  </pre>
+</div>
+   <div id="tabsnode1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-char-bounds-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const ExtractPdfSdk = require('@adobe/pdftools-extract-node-sdk');
+
+  try {
+
+      // Initial setup, create credentials instance.
+      const credentials =  ExtractPdfSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile(`pdftools-api-credentials.json`)
+          .build();
+
+      //Create a clientContext using credentials and create a new operation instance.
+      const clientContext = ExtractPdfSdk.ExecutionContext.create(credentials)
+      extractPDFOperation = ExtractPdfSdk.ExtractPDF.Operation.createNew(),
+
+      // Set operation input from a source file.
+      input = ExtractPdfSdk.FileRef.createFromLocalFile(
+          'resources/extractPdfInput.pdf',
+          ExtractPdfSdk.ExtractPDF.SupportedSourceFormat.pdf
+      );
+
+      extractPDFOperation.setInput(input);
+
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TEXT);
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TABLES);
+
+      extractPDFOperation.addElementToExtractRenditions(ExtractPdfSdk.PDFElementType.TABLES);
+      extractPDFOperation.addCharInfo(Boolean.TRUE);
+
+      // Execute the operation
+      extractPDFOperation.execute(clientContext)
+          .then(result => result.saveAsFile('output/extractTextTableInfoWithCharBoundsFromPDF.zip'))
+          .catch(err => console.log(err));
+  } catch (err) {
+      console.log("Exception encountered while executing operation", err);
+  }
+   </pre>
+  </div></div>
+<div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
+<h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below adds option to get CSV output for tables in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava1">JAVA</a></li>
+      <li><a href="#tabsnode1">NODE</a></li>
+    </ul>
+    <div id="tabsjava1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithTableStructureFromPdf
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithTableStructureFromPdf {
+
+  // Initialize the logger.
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithTableStructureFromPdf.class);
+
+  public static void main(String[] args) {
+
+      try {
+
+          // Initial setup, create credentials instance.
+          Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                  .fromFile("pdftools-api-credentials.json")
+                  .build();
+
+          // Create an ExecutionContext using credentials and create a new operation instance.
+          ExecutionContext executionContext = ExecutionContext.create(credentials);
+          ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.createNew();
+
+          // Set operation input from a source file.
+          FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPDFInput.pdf");
+          extractPdfOperation.setInputFile(source);
+          extractPdfOperation.addElementsToExtract(Arrays.asList(PDFElementType.TEXT, PDFElementType.TABLES));
+          extractPdfOperation.addElementToExtractRenditions(PDFElementType.TABLES);
+          extractPdfOperation.addTableStructureFormat(TableStructureType.CSV);
+
+          // Execute the operation.
+          FileRef result = extractPdfOperation.execute(executionContext);
+
+          // Save the result to the specified location.
+          result.saveAs("output/ExtractTextTableInfoWithTableStructureFromPdf.zip");
+
+      } catch (ServiceApiException | IOException | SdkException | ServiceUsageException ex) {
+          LOGGER.error("Exception encountered while executing operation", ex);
+      }
+  }
+}
+  </pre>
+</div>
+   <div id="tabsnode1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const ExtractPdfSdk = require('@adobe/pdftools-extract-node-sdk');
+
+  try {
+
+      // Initial setup, create credentials instance.
+      const credentials =  ExtractPdfSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile(`pdftools-api-credentials.json`)
+          .build();
+
+      //Create a clientContext using credentials and create a new operation instance.
+      const clientContext = ExtractPdfSdk.ExecutionContext.create(credentials)
+      extractPDFOperation = ExtractPdfSdk.ExtractPDF.Operation.createNew(),
+
+      // Set operation input from a source file.
+      input = ExtractPdfSdk.FileRef.createFromLocalFile(
+          'resources/extractPdfInput.pdf',
+          ExtractPdfSdk.ExtractPDF.SupportedSourceFormat.pdf
+      );
+
+      extractPDFOperation.setInput(input);
+
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TEXT);
+      extractPDFOperation.addElementToExtract(ExtractPdfSdk.PDFElementType.TABLES);
+
+      extractPDFOperation.addElementToExtractRenditions(ExtractPdfSdk.PDFElementType.TABLES);
+      extractPdfOperation.addTableStructureFormat(ExtractPdfSdk.TableStructureType.CSV);
+
+      // Execute the operation
+      extractPDFOperation.execute(clientContext)
+          .then(result => result.saveAsFile('output/extractTextTableInfoWithTableStructureFromPdf.zip'))
+          .catch(err => console.log(err));
+  } catch (err) {
+      console.log("Exception encountered while executing operation", err);
+  }
+   </pre>
+  </div></div>
 </div>
 
 
@@ -586,8 +792,8 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
       
     </p>
     <p>
-       Last updated Nov 16, 2020 <br/>
-    </p>	
+       Last updated Mar 17, 2021 <br/>
+    </p>
   </div>
   </footer>
   </body>
