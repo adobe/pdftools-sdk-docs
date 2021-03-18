@@ -422,7 +422,7 @@ node src/documentmerge/merge-document-to-docx.js
        .build();
 
    // Setup input data for the document merge process.
-   const jsonString = JSON.parse("{\"customerName\": \"Kane Miller\", \"customerVisits\": 100}");
+   const jsonString = "{\"customerName\": \"Kane Miller\", \"customerVisits\": 100}",
        jsonDataForMerge = JSON.parse(jsonString);
 
    // Create an ExecutionContext using credentials.
@@ -672,7 +672,7 @@ node src/documentmerge/merge-document-to-pdf.js
       
     </p>
     <p>
-       Last updated Mar 17, 2021 <br/>
+       Last updated Mar 18, 2021 <br/>
     </p>
   </div>
   </footer>
