@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Extract API Quickstart (BETA) &#8212; PDF Tools SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -204,6 +204,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#java">JAVA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node-js">Node.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-issues">Known issues</a></li>
 </ul>
 </li>
@@ -498,6 +499,97 @@ img {
 <img alt="_images/node-extract.png" src="_images/node-extract.png" />
 </div>
 </div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opensource.adobe.com/pdfservices-extract-python-sdk-samples/apidocs/">API reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-extract-python-sdk-samples">Sample code</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/pdfservices-extract-sdk/">Python SDK</a></p></li>
+</ul>
+<div class="section" id="id9">
+<h3>Authentication<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>After you submit the <a class="reference external" href="http://www.adobe.com/go/pdfextractapi_requestform">request access form</a>, Adobe Document Cloud will email a zip file containing a pdftools-api-credentials.json file and private.key file.</p>
+<p>Replace the pdftools-api-credentials.json file in the sample project with the one you receive from Adobe, and add the private.key file to the same path as your pdftools-api-credentials.json file.</p>
+<p><strong>Example pdftools-api-credentials.json file</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;client_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_CLIENT_SECRET&gt; &quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;service_account_credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;organization_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_ORGANIZATION_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;account_id&quot;</span><span class="p">:</span> <span class="s2">&quot; &lt;YOUR_TECHINCAL_ACCOUNT_ID&gt; &quot;</span><span class="p">,</span>
+     <span class="s2">&quot;private_key_file&quot;</span><span class="p">:</span> <span class="s2">&quot;private.key&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-a-python-environment">
+<h3>Set up a Python environment<a class="headerlink" href="#set-up-a-python-environment" title="Permalink to this headline">¶</a></h3>
+<p>Running any sample or custom code requires the following steps:</p>
+<ol class="arabic simple">
+<li><p>Install <a class="reference external" href="https://www.python.org/downloads/">Python 3.6</a> or higher.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The pdfservices-extract-sdk package automatically downloads when you build the sample project.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pdfservices</span><span class="o">-</span><span class="n">extract</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+<div class="section" id="id11">
+<h4>Sample Project setup<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="https://github.com/adobe/pdfservices-extract-python-sdk-samples">the sample project</a>.</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">pdftools-api-credentials.json</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">private.key</span></code> with the zipped files within ZIP sent by Adobe.</p></li>
+<li><p>From the samples root directory, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</p></li>
+<li><p>Test the sample code on the command line.</p></li>
+<li><p>Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="https://opensource.adobe.com/pdfservices-extract-python-sdk-samples/apidocs/">API documentation</a>.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>Verifying download authenticity<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
+<ol class="arabic simple">
+<li><p>After downloading the package zip, run following command</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="nb">hash</span> <span class="o">&lt;</span><span class="n">download_dir</span><span class="o">&gt;/</span><span class="n">pdfservices</span><span class="o">-</span><span class="n">extract</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mb">0b1</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Above command will return the hash of downloaded package.</p></li>
+<li><p>Verify the hash matches the value published here.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sha256</span><span class="o">-</span><span class="n">b55af6dcc3ea04f20de630a5b8f8fa386c3ea59ce18640dabb05d363a7f5df29</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>Logging<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the API docs for error and exception details.</p>
+<p>The SDK uses the Python standard logging module. Customize the logging settings as needed.</p>
+<p><strong>Default Logging Config</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Test files<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Refer to each sample project’s <a class="reference external" href="https://github.com/adobe/pdfservices-extract-python-sdk-samples/tree/main/resources">resource directory</a> for the requisite input/output files.</p>
+</div>
+<div class="section" id="id17">
+<h3>Custom projects<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>While building the sample project automatically downloads the Python package, you can do it manually if you wish to use your own tools and process.</p>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://pypi.org/project/pdfservices-extract-sdk/">https://pypi.org/project/pdfservices-extract-sdk/</a></p></li>
+<li><p>Download the latest package.</p></li>
+</ol>
+<img alt="_images/python-extract.png" src="_images/python-extract.png" />
+</div>
+</div>
 <div class="section" id="known-issues">
 <h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -520,7 +612,7 @@ img {
       
     </p>
     <p>
-       Last updated Mar 17, 2021 <br/>
+       Last updated May 10, 2021 <br/>
     </p>
   </div>
   </footer>
