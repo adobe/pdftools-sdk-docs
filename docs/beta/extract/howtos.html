@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How Tos &#8212; PDF Tools SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -205,6 +205,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="index.html#api-limitations">API limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#java">JAVA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#python">Python</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#known-issues">Known issues</a></li>
 </ul>
 </li>
@@ -255,7 +256,7 @@ img {
 <span id="result"></span><h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
 <ul class="simple">
-<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. See the <a class="reference external" href="../../release/shared/extractJSONOutputSchema.json">JSON schema</a>.</p></li>
+<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. See the <a class="reference external" href="../../release/shared/extractJSONOutputSchema2.json">JSON schema</a>.</p></li>
 <li><p>A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p></li>
 </ul>
 <img alt="_images/extractsamplefiles2.png" src="_images/extractsamplefiles2.png" />
@@ -266,6 +267,7 @@ img {
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithInMemoryAuthCredentials.java">Java</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples/blob/main/src/extractpdf/extract-text-info-from-pdf-with-inmem-auth-cred.js">Node.js</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-extract-python-sdk-samples/blob/extractpdf/extract_txt_from_pdf_with_in_memory_auth_credentials.py">Python</a></p></li>
 </ul>
 </div>
 <div class="section" id="timeout-configuration">
@@ -274,6 +276,7 @@ img {
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/extractpdf/ExtractTextInfoFromPDFWithCustomTimeouts.java">Java</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdftools-extract-node-sdk-samples/blob/main/src/extractpdf/extract-text-info-from-pdf-with-custom-timeouts.js">Node.js</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-extract-python-sdk-samples/blob/extractpdf/extract_txt_from_pdf_with_custom_timeouts.py">Python</a></p></li>
 </ul>
 <div class="section" id="java-timeout-configuration">
 <span id="timejava"></span><h3>Java timeout configuration<a class="headerlink" href="#java-timeout-configuration" title="Permalink to this headline">¶</a></h3>
@@ -306,6 +309,21 @@ img {
 </pre></div>
 </div>
 </div>
+<div class="section" id="python-timeout-configuration">
+<span id="timepython"></span><h3>Python timeout configuration<a class="headerlink" href="#python-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 4000. The number of milliseconds Requests will wait for the client to establish a connection to Server.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The number of milliseconds the client will wait for the server to send a response.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_config</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">with_connect_timeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">with_read_timeout</span><span class="p">(</span><span class="mi">40000</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="extract-text-from-a-pdf">
 <h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
@@ -314,6 +332,7 @@ img {
     <ul>
       <li><a href="#tabsjava1">JAVA</a></li>
       <li><a href="#tabsnode1">NODE</a></li>
+      <li><a href="#tabspython1">PYTHON</a></li>
     </ul>
     <div id="tabsjava1">
     <div class="cmdline"><strong>Run the sample:</strong><br />
@@ -396,6 +415,48 @@ public class ExtractTextInfoFromPDF {
   }
 
   </pre>
+  </div>
+  <div id="tabspython1">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+python ./extractpdf/extract_txt_from_pdf.py </div>
+<pre class="prettyprint">
+
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdftools-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(PDFElementType.TEXT) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextInfoFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+
+    </pre>
   </div></div>
 <div class="section" id="extract-text-and-tables">
 <h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
@@ -404,6 +465,7 @@ public class ExtractTextInfoFromPDF {
     <ul>
       <li><a href="#tabsjava1">JAVA</a></li>
       <li><a href="#tabsnode1">NODE</a></li>
+      <li><a href="#tabspython1">PYTHON</a></li>
     </ul>
     <div id="tabsjava1">
     <div class="cmdline"><strong>Run the sample:</strong><br />
@@ -489,6 +551,48 @@ public class ExtractTextTableInfoFromPDF {
   }
 
   </pre>
+  </div>
+<div id="tabspython1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python ./extractpdf/extract_txt_table_info_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdftools-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(PDFElementType.TEXT) \
+          .with_element_to_extract(PDFElementType.TABLES) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableInfoFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+  </pre>
   </div></div>
 <div class="section" id="extract-text-and-tables-w-renditions">
 <h2>Extract Text and Tables (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-w-renditions" title="Permalink to this headline">¶</a></h2>
@@ -498,6 +602,7 @@ public class ExtractTextTableInfoFromPDF {
     <ul>
       <li><a href="#tabsjava1">JAVA</a></li>
       <li><a href="#tabsnode1">NODE</a></li>
+      <li><a href="#tabspython1">PYTHON</a></li>
     </ul>
     <div id="tabsjava1">
     <div class="cmdline"><strong>Run the sample:</strong><br />
@@ -584,6 +689,47 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
       console.log("Exception encountered while executing operation", err);
   }
    </pre>
+  </div>
+<div id="tabspython1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python ./extractpdf/extract_txt_table_info_with_rendition_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdftools-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([PDFElementType.TEXT, PDFElementType.TABLES]) \
+          .with_element_to_extract_renditions(PDFElementType.TABLES) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithTableRendition.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
   </div></div>
 <div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
 <h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
@@ -593,6 +739,7 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
     <ul>
       <li><a href="#tabsjava1">JAVA</a></li>
       <li><a href="#tabsnode1">NODE</a></li>
+      <li><a href="#tabspython1">PYTHON</a></li>
     </ul>
     <div id="tabsjava1">
     <div class="cmdline"><strong>Run the sample:</strong><br />
@@ -680,6 +827,48 @@ public class ExtractTextTableInfoWithCharBoundsFromPDF {
       console.log("Exception encountered while executing operation", err);
   }
    </pre>
+  </div>
+<div id="tabspython1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python ./extractpdf/extract_txt_table_info_with_char_bounds_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdftools-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([PDFElementType.TEXT, PDFElementType.TABLES]) \
+          .with_element_to_extract_renditions(PDFElementType.TABLES) \
+          .with_get_char_info(True) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableInfoWithCharBoundsFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
   </div></div>
 <div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
 <h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
@@ -689,6 +878,7 @@ public class ExtractTextTableInfoWithCharBoundsFromPDF {
     <ul>
       <li><a href="#tabsjava1">JAVA</a></li>
       <li><a href="#tabsnode1">NODE</a></li>
+      <li><a href="#tabspython1">PYTHON</a></li>
     </ul>
     <div id="tabsjava1">
     <div class="cmdline"><strong>Run the sample:</strong><br />
@@ -777,6 +967,48 @@ public class ExtractTextTableInfoWithTableStructureFromPdf {
       console.log("Exception encountered while executing operation", err);
   }
    </pre>
+  </div>
+<div id="tabspython1">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python ./extractpdf/extract_txt_table_info_with_table_structure_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdftools-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([PDFElementType.TEXT, PDFElementType.TABLES]) \
+          .with_element_to_extract_renditions(PDFElementType.TABLES) \
+          .with_table_structure_format(TableStructureType.CSV) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithTableStructure.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
   </div></div>
 </div>
 
@@ -792,7 +1024,7 @@ public class ExtractTextTableInfoWithTableStructureFromPdf {
       
     </p>
     <p>
-       Last updated Mar 17, 2021 <br/>
+       Last updated May 10, 2021 <br/>
     </p>
   </div>
   </footer>
