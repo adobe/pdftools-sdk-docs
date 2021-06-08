@@ -11,6 +11,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -30,14 +31,23 @@
 
     <script>
   $( function() {
-    $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
 
     $('.langmode').click(function () {
       $(".tabs").tabs("option", "active", $(this).data('index'));
     });
   } );
   </script>
-  
+
 <script>
 var heightMsgCounter = 0;
 var heightMsgValue = 0;
@@ -138,14 +148,14 @@ $(document).ready(function() {
 </script>
 <script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
 <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
-  
+
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
 .headerlink {display:none;}
 .toctree-l1 {font-weight:bold;}
 .toctree-l2 {font-weight:normal;}
 .removed_globaltoc {}
-div.shadow {	
+div.shadow {
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
@@ -190,13 +200,14 @@ img {
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-are-document-services-apis">What are Document Services APIs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pdf-viewing-and-collaboration-within-your-web-pages">PDF viewing and collaboration within your web pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pdf-automation-for-your-document-workflows">PDF automation for your document workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">PDF Embed API for viewing and collaboration within your web pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-services-api-to-automate-for-your-document-workflows">PDF Services API to automate for your document workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#document-generation-api-for-automating-document-workflows">Document Generation API for automating document workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-extract-api-for-extracting-pdf-structure-and-information">PDF Extract API for extracting pdf structure and information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#community-forum-and-feedback">Community forum and feedback</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="./release/latest/index.html#://">PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="./release/latest/index.html#://">PDF Services API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">PDF Embed API</a></li>
 <li class="toctree-l1"><a class="reference external" href="./docgen/latest/index.html#://">Document Generation API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-cloud-sdk/bd-p/Document-Cloud-SDK?page=1&amp;sort=latest_replies&amp;filter=all#://">Community forum</a></li>
@@ -206,7 +217,7 @@ img {
         </div>
       </div>
     <div class="col-md-9 content">
-<!-- <div>
+<div>
 <form class="navbar-form navbar-right" action="search.html" method="get">
  <div class="form-group">
   <input type="text" name="q" class="form-control" placeholder="Search" />
@@ -214,7 +225,7 @@ img {
   <input type="hidden" name="check_keywords" value="yes" />
   <input type="hidden" name="area" value="default" />
 </form>
-</div><br/>-->
+</div><br/>
 
       
   <div class="section" id="introduction">
@@ -222,24 +233,39 @@ img {
 <div class="section" id="what-are-document-services-apis">
 <h2>What are Document Services APIs?<a class="headerlink" href="#what-are-document-services-apis" title="Permalink to this headline">¶</a></h2>
 <p>Increasingly content and application owners are looking for easy-to-use PDF functionality when building modern web experiences. They are looking to cloud-based platforms with simple and reliable plug-and-play services.</p>
-<p>Adobe Document Services offers three APIs: the Adobe PDF Tools API , the Adobe PDF Embed API and the Adobe Document Generation API. Whether you’re developing a web app or web site, these APIs automate the generation, manipulation, and transformation of PDF content via a set of modern cloud-based web services. These APIs help you deliver simpler, faster, and branded experiences so that you control user interaction with your documents, streamline PDF workflows and promote usage and retention.</p>
+<p>Adobe Document Services has four main APIs: the Adobe PDF Services API , the Adobe PDF Embed API, the Adobe Document Generation API and Adobe PDF Extract API. The latter two APIs and their SDKs are bundled into Adobe PDF Services API as part of a paid offering. PDF Embed API is a free offering. These APIs automate the generation, manipulation, and transformation of document content via a set of modern cloud-based web services. They help you deliver simpler, faster, and branded experiences so that you control user interaction with your documents, streamline PDF workflows and promote usage and retention.</p>
 <p>With tools and language support that caters to developers’ existing skill sets, you can now create compelling and consistent PDF experiences, including viewing, exporting, creating and working with PDFs.</p>
 <p>These APIs represent a paradigm shift in the way PDF workflows exist and interact with your environment and digital documents. Adobe is rapidly evolving and expanding the portfolio of APIs to support additional use cases. We are also continually enhancing the APIs, including supporting SDKs, sample code, and documentation.</p>
 </div>
-<div class="section" id="pdf-viewing-and-collaboration-within-your-web-pages">
-<h2>PDF viewing and collaboration within your web pages<a class="headerlink" href="#pdf-viewing-and-collaboration-within-your-web-pages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">
+<h2>PDF Embed API for viewing and collaboration within your web pages<a class="headerlink" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed">PDF Embed API</a> brings PDF viewing to any web application with only a few lines of JavaScript. Multiple embed modes make it easy to support different views, from full browser to boxed containers and in line. Document collaboration is achieved with support for commenting, drawing, highlighting, and text editing tools. Analytics insights provide an opportunity to embed dynamic interactivity to enhance end-user experiences with chats, prompts, and other with event triggers based on PDF viewing activity.</p>
 </div>
-<div class="section" id="pdf-automation-for-your-document-workflows">
-<h2>PDF automation for your document workflows<a class="headerlink" href="#pdf-automation-for-your-document-workflows" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="./release/latest/index.html">PDF Tools API</a> offers a number of operations to programmatically manipulate documents and automate many different types of document workflows. You can easily create a PDF from a dynamic HTML report, set a password to prevent unauthorized opening of the document, and compress it for sharing as an attachment. Linearize a PDF for faster web viewing when end users have a large document to read.</p>
+<div class="section" id="pdf-services-api-to-automate-for-your-document-workflows">
+<h2>PDF Services API to automate for your document workflows<a class="headerlink" href="#pdf-services-api-to-automate-for-your-document-workflows" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="./release/latest/index.html">PDF Services API</a> offers a number of operations to programmatically manipulate documents and automate many different types of document workflows. You can easily create a PDF from a dynamic HTML report, set a password to prevent unauthorized opening of the document, and compress it for sharing as an attachment. Linearize a PDF for faster web viewing when end users have a large document to read.</p>
 <p>There are additional services to compress, linearize, and password-protect PDF documents. There are also capabilities to insert, reorder, rotate, replace, and delete pages within documents.</p>
-<p>The PDF Tools API includes ready-to-use code samples for Java, Node.JS and .NET and offers a <strong>free trial</strong> that includes up to 1,000 free PDF transactions.</p>
+<p>The PDF Services API includes ready-to-use code samples for Java, Node.JS and .NET and offers a
+<a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">free trial that includes up to 1,000 free Document Transactions or runs for 6 months, whichever occurs earlier.</a></p>
 </div>
 <div class="section" id="document-generation-api-for-automating-document-workflows">
 <h2>Document Generation API for automating document workflows<a class="headerlink" href="#document-generation-api-for-automating-document-workflows" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="./docgen/latest/index.html">Document Generation API</a> is a cloud-based web service that allows you to produce high fidelity PDF and Word documents with dynamic data inputs. Using Document Generation API, you can merge your JSON data with Word templates to create dynamic documents for contracts and agreements, invoices, proposals, reports, forms, branded marketing documents and more.</p>
-<p>Embed document generation API into any application using <a class="reference external" href="./release/latest/index.html">PDFTools SDK</a> for Node.js, .Net, and Java.</p>
+<p>The <a class="reference external" href="./docgen/latest/index.html">Document Generation API</a> is a cloud-based web service that allows you to produce high fidelity PDF and Word documents with dynamic data inputs. Using Document Generation API, you can merge your data(e.g. JSON file) with Word templates to create dynamic documents for contracts and agreements, invoices, proposals, reports, forms, branded marketing documents and more.</p>
+<p>Embed Document Generation API into any application using <a class="reference external" href="./release/latest/index.html">PDFServices SDK</a> for Node.js, .Net, and Java.
+<a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">Start a free trial that includes up to 1,000 free Document transactions or runs for 6 months, whichever occurs earlier.</a></p>
+</div>
+<div class="section" id="pdf-extract-api-for-extracting-pdf-structure-and-information">
+<h2>PDF Extract API for extracting pdf structure and information<a class="headerlink" href="#pdf-extract-api-for-extracting-pdf-structure-and-information" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="./release/2.0.0/index.html#extract-pdf">PDF Extract API</a> is a cloud-based web service that uses Adobe’s Sensei AI technology to automatically extract content and structural information from PDF documents – native or scanned – and to output it in a structured JSON format. The service extracts text, complex tables, and figures as follows:</p>
+<ul class="simple">
+<li><p>Text is extracted in contextual blocks – paragraphs, headings, lists, footnotes, etc. – and includes font, styling, and other text formatting information.</p></li>
+<li><p>Tables are extracted and parsed with the contents and table formatting information delivered for each cell. The service automatically identifies table cells that span multiple rows or columns. Table data is delivered within the resulting JSON and can also optionally be output in CSV and XLSX files. Tables are also output as PNG images allowing the table data to be visually validated.</p></li>
+<li><p>Objects that are identified as figures or images are extracted as PNG files.</p></li>
+</ul>
+<p>The JSON output also captures document structure information, such as the natural reading order of the various extracted elements and the layout of the elements on each given page.</p>
+<p>The PDF Extract API provides a method for developers to extract and structure content for use in a number of downstream applications including content republishing, workflow automation, content analysis, and data aggregation, management, and search.</p>
+<p>The PDF Extract API can be embedded into any application using the PDFServices SDK for Node.js, Python, and Java.
+<a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">Start a free trial that includes up to 1,000 free Document transactions or runs for 6 months, whichever occurs earlier.</a></p>
 </div>
 <div class="section" id="community-forum-and-feedback">
 <h2>Community forum and feedback<a class="headerlink" href="#community-forum-and-feedback" title="Permalink to this headline">¶</a></h2>
@@ -261,8 +287,8 @@ img {
       
     </p>
     <p>
-       Last updated Mar 12, 2021 <br/>
-    </p>	
+       Last updated Jun 08, 2021 <br/>
+    </p>
   </div>
   </footer>
   </body>

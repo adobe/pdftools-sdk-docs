@@ -11,6 +11,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -30,14 +31,23 @@
 
     <script>
   $( function() {
-    $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
 
     $('.langmode').click(function () {
       $(".tabs").tabs("option", "active", $(this).data('index'));
     });
   } );
   </script>
-  
+
 <script>
 var heightMsgCounter = 0;
 var heightMsgValue = 0;
@@ -138,14 +148,14 @@ $(document).ready(function() {
 </script>
 <script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
 <script src="https://www.adobe.com/marketingtech/main.min.js"></script>
-  
+
 <!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
 <style type="text/css">
 .headerlink {display:none;}
 .toctree-l1 {font-weight:bold;}
 .toctree-l2 {font-weight:normal;}
 .removed_globaltoc {}
-div.shadow {	
+div.shadow {
 	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
 	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
@@ -190,13 +200,14 @@ img {
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#what-are-document-services-apis">What are Document Services APIs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#pdf-viewing-and-collaboration-within-your-web-pages">PDF viewing and collaboration within your web pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#pdf-automation-for-your-document-workflows">PDF automation for your document workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">PDF Embed API for viewing and collaboration within your web pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pdf-services-api-to-automate-for-your-document-workflows">PDF Services API to automate for your document workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#document-generation-api-for-automating-document-workflows">Document Generation API for automating document workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pdf-extract-api-for-extracting-pdf-structure-and-information">PDF Extract API for extracting pdf structure and information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#community-forum-and-feedback">Community forum and feedback</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="./release/latest/index.html#://">PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="./release/latest/index.html#://">PDF Services API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">PDF Embed API</a></li>
 <li class="toctree-l1"><a class="reference external" href="./docgen/latest/index.html#://">Document Generation API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-cloud-sdk/bd-p/Document-Cloud-SDK?page=1&amp;sort=latest_replies&amp;filter=all#://">Community forum</a></li>
@@ -236,8 +247,8 @@ img {
       
     </p>
     <p>
-       Last updated Mar 12, 2021 <br/>
-    </p>	
+       Last updated Jun 08, 2021 <br/>
+    </p>
   </div>
   </footer>
   </body>
