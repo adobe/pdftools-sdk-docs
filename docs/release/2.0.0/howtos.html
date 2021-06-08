@@ -5,13 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How Tos &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -349,7 +348,7 @@ img {
 <span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
 <p>The SDK supports providing the authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/createpdf/CreatePDFWithInMemoryAuthCredentials.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/pdfservices/operation/samples/createpdf/CreatePDFWithInMemoryAuthCredentials.java">Java</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/PDFServices.NET.SDK.Samples/tree/master/CreatePDFWithInMemoryAuthCredentials">.NET</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-inmemory-auth-credentials.js">Node.js</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_in_memory_auth_credentials.py">Python</a></p></li>
@@ -359,7 +358,7 @@ img {
 <h2>Custom timeout configuration<a class="headerlink" href="#custom-timeout-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/platform/operation/samples/createpdf/CreatePDFWithCustomTimeouts.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/pdfservices/operation/samples/createpdf/CreatePDFWithCustomTimeouts.java">Java</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/PDFServices.NET.SDK.Samples/blob/master/CreatePDFWithCustomTimeouts/Program.cs">.NET</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-custom-timeouts.js">Node.js</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_custom_timeouts.py">Python</a></p></li>
@@ -430,7 +429,7 @@ img {
 <h2>Create PDF<a class="headerlink" href="#create-pdf" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="create-a-pdf">
 <h3>Create a PDF<a class="headerlink" href="#create-a-pdf" title="Permalink to this headline">¶</a></h3>
-<p>Use the sample below to create PDFs from Microsoft Office documents (Word, Excel and PowerPoint) and other <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/platform/operation/pdfops/CreatePDFOperation.SupportedSourceFormat.html">supported file formats</a>. While the example shows .docx file conversion, the SDK supports the following formats:</p>
+<p>Use the sample below to create PDFs from Microsoft Office documents (Word, Excel and PowerPoint) and other <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/pdfservices/operation/pdfops/CreatePDFOperation.SupportedSourceFormat.html">supported file formats</a>. While the example shows .docx file conversion, the SDK supports the following formats:</p>
 <ul class="simple">
 <li><p>Microsoft Word (DOC, DOCX)</p></li>
 <li><p>Microsoft PowerPoint (PPT, PPTX)</p></li>
@@ -1203,7 +1202,7 @@ dotnet run CreatePDFFromStaticHtml.csproj
 <h2>Export PDF<a class="headerlink" href="#export-pdf" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="export-a-pdf">
 <h3>Export a PDF<a class="headerlink" href="#export-a-pdf" title="Permalink to this headline">¶</a></h3>
-<p>The sample below converts a PDF file into a number of <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/platform/operation/pdfops/options/exportpdf/ExportPDFTargetFormat.html">supported formats</a> such as:</p>
+<p>The sample below converts a PDF file into a number of <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/pdfservices/operation/pdfops/options/exportpdf/ExportPDFTargetFormat.html">supported formats</a> such as:</p>
 <ul class="simple">
 <li><p>Microsoft Office file formats</p></li>
 <li><p>Text files</p></li>
@@ -4883,7 +4882,7 @@ namespace OcrPDFWithOptions
     <div id="tabsjava100">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextInfoFromPDF </div>
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextInfoFromPDF </div>
 <pre class="prettyprint">
 
 public class ExtractTextInfoFromPDF {
@@ -5035,7 +5034,7 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
     <div id="tabsjava101">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-  mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoFromPDF </div>
+  mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoFromPDF </div>
 
   <pre class="prettyprint">
 
@@ -5189,7 +5188,7 @@ public class ExtractTextTableInfoFromPDF {
     <div id="tabsjava102">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
 </div>
 
   <pre class="prettyprint">
@@ -5343,7 +5342,7 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
     <div id="tabsjava103">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithCharBoundsFromPDF
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithCharBoundsFromPDF
 </div>
 
   <pre class="prettyprint">
@@ -5497,7 +5496,7 @@ public class ExtractTextTableInfoWithCharBoundsFromPDF {
     <div id="tabsjava104">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableInfoWithTableStructureFromPdf
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithTableStructureFromPdf
 </div>
 
   <pre class="prettyprint">
@@ -5656,7 +5655,7 @@ Please see the <a class="reference external" href="../../release/shared/extractJ
     <div id="tabsjava105">
     <div class="cmdline"><strong>Run the sample:</strong><br />
 
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.extractpdf.ExtractTextTableWithStylingInfoFromPdf
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableWithStylingInfoFromPdf
 </div>
 
   <pre class="prettyprint">
