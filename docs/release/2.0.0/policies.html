@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Version - Support policy &#8212; PDF Services SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="releasenotes.html" />
+    <link rel="prev" title="How Tos" href="howtos.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quickstarts</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-credentials">Getting credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#public-api">Public API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#sdk">SDK</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#java">Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#net">.NET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#node-js">Node.js</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#python">Python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#custom-timeout-configuration">Custom timeout configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#java-timeout-configuration">Java timeout configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#net-timeout-configuration">.NET timeout configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#node-js-timeout-configuration">Node.js timeout configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#python-timeout-configuration">Python timeout configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#create-pdf">Create PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#create-a-pdf">Create a PDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#create-pdf-with-documentlanguage">Create PDF with DocumentLanguage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#create-a-pdf-from-static-html">Create a PDF from static HTML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#create-a-pdf-from-dynamic-html">Create a PDF from dynamic HTML</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#export-pdf">Export PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#export-a-pdf">Export a PDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#export-a-pdf-to-images">Export a PDF to images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#combine-pdf-files">Combine PDF Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#combine-files">Combine files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#combine-pages-from-multiple-files">Combine pages from multiple files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#ocr-pdf">OCR PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#text-recognition-ocr">Text recognition (OCR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#ocr-with-explicit-language">OCR with explicit language</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#compress-pdfs">Compress PDFs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#id1">Compress PDFs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#compress-pdfs-with-compression-level">Compress PDFs with Compression Level</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#linearize-pdfs">Linearize PDFs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#protect-pdf">Protect PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#protect-pdfs-with-user-password">Protect PDFs with user password</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#protect-pdfs-with-owner-password">Protect PDFs with owner password</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#remove-protection">Remove Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#insert-pages">Insert Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#replace-pages">Replace Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#delete-pages">Delete Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#reorder-pages">Reorder Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#rotate-pages">Rotate Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#split-pdf">Split PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#split-pdf-by-number-of-pages">Split PDF by number of pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#split-pdf-by-page-ranges">Split PDF by page ranges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#split-pdf-into-number-of-files">Split PDF into number of files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#extract-pdf">Extract PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#api-limitations">API limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howtos.html#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Version - Support policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sdk">SDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#versioning-scheme">Versioning scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#support">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#public-api">Public API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#versioning">Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deprecated-docs-past-versions">Deprecated docs - past versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#supported-versions">Supported versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#migration-guide-to-pdf-services-sdk">Migration Guide to PDF Services SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#documentation-library">Documentation library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-types">Change types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-history">Change history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dcserviceslicensing.html">PDF Services API Licensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dcserviceslicensing.html#paid-programs">Paid programs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcserviceslicensing.html#metrics">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcserviceslicensing.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcserviceslicensing.html#usage-limits">Usage limits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcserviceslicensing.html#licensing-metrics-free-trial">Licensing Metrics &amp; Free Trial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">Go to PDF Embed API</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../docgen/latest/index.html#://">Go to Document Generation API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="version-support-policy">
+<span id="policies"></span><h1>Version - Support policy<a class="headerlink" href="#version-support-policy" title="Permalink to this headline">¶</a></h1>
+<p>This document describes the PDF Services SDK’s and Public API’s versioning and support policies.</p>
+<div class="section" id="sdk">
+<h2>SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="versioning-scheme">
+<h3>Versioning scheme<a class="headerlink" href="#versioning-scheme" title="Permalink to this headline">¶</a></h3>
+<p>The SDK has a version format of #.#.# (e.g. 1.1.0) where the numbers correspond to a major release, minor release, and patch/update (Major.Minor.Patch). Releases are defined as follows:</p>
+<ul class="simple">
+<li><p><strong>Major Releases (1.x.x)</strong>: Major releases introduce backward-incompatible changes to the APIs and interfaces and start the EOL clock for all previous releases. Developers should plan on migrating their code prior to the end of life of the previous major release.</p></li>
+<li><p><strong>Minor Releases (x.1.x)</strong>: Minor releases typically appear quarterly. Changes are backward compatible to the last major release. Minor releases introduce new interfaces. Existing interfaces continue to function but some interfaces may be deprecated; deprecated interfaces will be removed in a next major release.</p></li>
+<li><p><strong>Patch Releases (x.x.1)</strong>: Patch releases only deliver critical security or bug fixes as needed. Patch release changes are rolled into the next minor release so that developers can update and deploy new code based on their business requirements.</p></li>
+</ul>
+</div>
+<div class="section" id="support">
+<h3>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h3>
+<p>Adobe always recommends that you use the latest product version (Major.Minor.Patch) since it is always the most functional and most secure. To support existing applications that may take time to migrate, The SDK team adheres to a support policy that ensures deployed versions continue to function securely as follows:</p>
+<ul class="simple">
+<li><p>Every Major/Minor Version is supported for one year after the release of a newer Major/Minor Version; that is a Major.Minor.X version reaches its end of life 1 year after the next Major/Minor Release. For example, If there are 1.2.0 (Minor), 1.3.0 (Minor) and 2.0.0 (Major) releases in sequence then,</p>
+<ul>
+<li><p>1.2.0 becomes unsupported 1 year after the release of 1.3.0.</p></li>
+<li><p>1.3.0 becomes unsupported 1 year after the release of 2.0.0.</p></li>
+</ul>
+</li>
+<li><p>Security patches and critical bug fixes are generally provided for the last dot release of the supported major versions. For example, if supported versions are 1.2.1, 1.3.1 and 2.0.0, only the 1.3.1 and 2.0.0 release would receive a security update. As a best practice, deployment on a supported major release should migrate to the last minor update for that release.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once a version reaches its end of life, functionality may be deprecated and stop working.</p>
+</div>
+<img alt="_images/support1.png" src="_images/support1.png" />
+</div>
+</div>
+<div class="section" id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="versioning">
+<h3>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned on <a class="reference external" href="https://documentcloud.adobe.com/document-services/index.html">Public API Docs</a>, each operation
+has a unique assetId which is passed in Form Parameters. Generally, APIs will be enhanced while keeping them backward compatible.
+If its functionality can’t be enhanced without breaking changes, then its new version will be released with its own unique assetId.
+The supported older API versions info will be present on <a class="reference external" href="https://documentcloud.adobe.com/document-services/index.html">Public API Docs</a></p>
+<p>Additionally, the output for the PDF Extract API is generated by a machine learning pipeline that is frequently
+trained to improve inference of document layout and structure.As a result, while changes to the output structure
+are not expected between versions, specific results may vary as the model output improves.</p>
+</div>
+<div class="section" id="id2">
+<h3>Support<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>With the evolution of our APIs, a new version of the API may contain non-backward compatible changes and we recommend
+adoption of a new version upon its release.  The previous version of the API will be supported for one year after the
+release of a new version. Adobe will use reasonably commercial efforts to provide 12-months’ notice of deprecation,
+unless extenuating circumstances prompt a shorter notice period.  Notices will be updated from time to time here, and
+it is your sole responsibility to check for updates from time to time. After the deprecation notice, no new enhancements
+are made to the service. Adobe reserves the right to modify, deprecate, or discontinue the service, in whole or in part,
+at any time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once a version reaches its end of life, functionality may be deprecated and stop working.</p>
+</div>
+</div>
+</div>
+<div class="section" id="deprecated-docs-past-versions">
+<h2>Deprecated docs - past versions<a class="headerlink" href="#deprecated-docs-past-versions" title="Permalink to this headline">¶</a></h2>
+<p>Only the latest documentation is typically available online. Refer to the <a class="reference internal" href="releasenotes.html#library"><span class="std std-ref">Documentation library</span></a> for links.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Legacy docs for all past releases are not maintained. Some links may be broken and content may be outdated.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Jun 07, 2021 <br/>
+    </p>
+  </div>
+  </footer>
+  </body>
+</html>
