@@ -4,13 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quickstarts &#8212; PDF Tools SDK</title>
+    <title>Quickstarts &#8212; PDF Services SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -225,7 +226,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">API licensing</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Services API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
 </ul>
 </ul>
@@ -264,11 +265,11 @@ img {
 <p>There are two ways to access Document Generation API:</p>
 <ul class="simple">
 <li><p>Use cloud based <a class="reference external" href="https://www.adobe.com/go/dcsdk_APIdocs#post-documentGeneration">REST API</a>.</p></li>
-<li><p>Or, directly use our offering through <a class="reference external" href="../../release/latest/index.html">PDFTools SDK</a>.</p></li>
+<li><p>Or, directly use our offering through <a class="reference external" href="../../release/latest/index.html">PDFServices SDK</a>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To get started with PDFTools SDK, refer <a class="reference external" href="../../release/latest/index.html">Quickstarts Section</a></p>
+<p>To get started with PDFServices SDK, refer <a class="reference external" href="../../release/latest/index.html">Quickstarts Section</a></p>
 </div>
 <p><br/></p>
 <p>The samples below illustrate how to merge Word based document template with the JSON data to generate the output document in the Word or PDF format.</p>
@@ -281,11 +282,11 @@ img {
       </ul>
            <div id="tabsjava1">
      <div class="cmdline"><strong>Run the sample:</strong><br />
-mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.documentmerge.MergeDocumentToDOCX</div>
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.documentmerge.MergeDocumentToDOCX</div>
 
 <pre class="prettyprint">
 //Get the samples from https://www.adobe.com/go/pdftoolsapi_java_samples
-  package com.adobe.platform.operation.samples.documentmerge;
+  package com.adobe.pdfservices.operation.samples.documentmerge;
 
   public class MergeDocumentToDOCX {
 
@@ -298,7 +299,7 @@ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.d
 
            // Initial setup, create credentials instance.
            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
-                   .fromFile("pdftools-api-credentials.json")
+                   .fromFile("pdfservices-api-credentials.json")
                    .build();
 
            // Setup input data for the document merge process.
@@ -351,7 +352,7 @@ dotnet run MergeDocumentToDOCX.csproj
              {
                  // Initial setup, create credentials instance.
                  Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
-                          .FromFile(Directory.GetCurrentDirectory() + "/pdftools-api-credentials.json")
+                          .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
                           .Build();
 
                  // Create an ExecutionContext using credentials.
@@ -412,13 +413,13 @@ node src/documentmerge/merge-document-to-docx.js
  </div>
 <pre class="prettyprint">
 // Get the samples from http://www.adobe.com/go/pdftoolsapi_node_sample
- const PDFToolsSdk = require('@adobe/documentservices-pdftools-node-sdk');
+ const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
 
  try {
    // Initial setup, create credentials instance.
-   const credentials =  PDFToolsSdk.Credentials
+   const credentials =  PDFServicesSdk.Credentials
        .serviceAccountCredentialsBuilder()
-       .fromFile("pdftools-api-credentials.json")
+       .fromFile("pdfservices-api-credentials.json")
        .build();
 
    // Setup input data for the document merge process.
@@ -426,10 +427,10 @@ node src/documentmerge/merge-document-to-docx.js
        jsonDataForMerge = JSON.parse(jsonString);
 
    // Create an ExecutionContext using credentials.
-   const executionContext = PDFToolsSdk.ExecutionContext.create(credentials);
+   const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
 
    // Create a new DocumentMerge options instance.
-   const documentMerge = PDFToolsSdk.DocumentMerge,
+   const documentMerge = PDFServicesSdk.DocumentMerge,
        documentMergeOptions = documentMerge.options,
        options = new documentMergeOptions.DocumentMergeOptions(jsonDataForMerge, documentMergeOptions.OutputFormat.DOCX);
 
@@ -437,15 +438,15 @@ node src/documentmerge/merge-document-to-docx.js
    const documentMergeOperation = documentMerge.Operation.createNew(options);
 
    // Set operation input document template from a source file.
-   const input = PDFToolsSdk.FileRef.createFromLocalFile('resources/documentMergeTemplate.docx');
+   const input = PDFServicesSdk.FileRef.createFromLocalFile('resources/documentMergeTemplate.docx');
    documentMergeOperation.setInput(input);
 
    // Execute the operation and Save the result to the specified location.
    documentMergeOperation.execute(executionContext)
        .then(result => result.saveAsFile('output/documentMergeOutput.docx'))
        .catch(err => {
-           if(err instanceof PDFToolsSdk.Error.ServiceApiError
-               || err instanceof PDFToolsSdk.Error.ServiceUsageError) {
+           if(err instanceof PDFServicesSdk.Error.ServiceApiError
+               || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
                console.log('Exception encountered while executing operation', err);
            } else {
                console.log('Exception encountered while executing operation', err);
@@ -468,7 +469,7 @@ node src/documentmerge/merge-document-to-docx.js
      </ul>
      <div id="tabsjava2">
  <div class="cmdline"><strong>Run the sample:</strong><br />
- mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.platform.operation.samples.documentmerge.MergeDocumentToPDF
+ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.documentmerge.MergeDocumentToPDF
  </div>
 <pre class="prettyprint">
 // Get the samples from https://www.adobe.com/go/pdftoolsapi_java_samples
@@ -483,7 +484,7 @@ node src/documentmerge/merge-document-to-docx.js
 
            // Initial setup, create credentials instance.
            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
-                   .fromFile("pdftools-api-credentials.json")
+                   .fromFile("pdfservices-api-credentials.json")
                    .build();
 
            // Setup input data for the document merge process.
@@ -537,7 +538,7 @@ dotnet run MergeDocumentToPDF.csproj
              {
                  // Initial setup, create credentials instance.
                  Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
-                               .FromFile(Directory.GetCurrentDirectory() + "/pdftools-api-credentials.json")
+                               .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
                                .Build();
 
                  // Create an ExecutionContext using credentials.
@@ -599,14 +600,14 @@ node src/documentmerge/merge-document-to-pdf.js
  </div>
 <pre class="prettyprint">
 // Get the samples from http://www.adobe.com/go/pdftoolsapi_node_sample
- const PDFToolsSdk = require('@adobe/documentservices-pdftools-node-sdk'),
+ const PDFServicesSdk = require('@adobe/pdfservices-node-sdk'),
      fs = require('fs');
 
  try {
    // Initial setup, create credentials instance.
-   const credentials =  PDFToolsSdk.Credentials
+   const credentials =  PDFServicesSdk.Credentials
        .serviceAccountCredentialsBuilder()
-       .fromFile("pdftools-api-credentials.json")
+       .fromFile("pdfservices-api-credentials.json")
        .build();
 
    // Setup input data for the document merge process.
@@ -614,10 +615,10 @@ node src/documentmerge/merge-document-to-pdf.js
        jsonDataForMerge = JSON.parse(jsonString);
 
    // Create an ExecutionContext using credentials.
-   const executionContext = PDFToolsSdk.ExecutionContext.create(credentials);
+   const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
 
    // Create a new DocumentMerge options instance.
-   const documentMerge = PDFToolsSdk.DocumentMerge,
+   const documentMerge = PDFServicesSdk.DocumentMerge,
        documentMergeOptions = documentMerge.options,
        options = new documentMergeOptions.DocumentMergeOptions(jsonDataForMerge, documentMergeOptions.OutputFormat.PDF);
 
@@ -625,15 +626,15 @@ node src/documentmerge/merge-document-to-pdf.js
    const documentMergeOperation = documentMerge.Operation.createNew(options)
 
    // Set operation input document template from a source file.
-   const input = PDFToolsSdk.FileRef.createFromLocalFile('resources/salesOrderTemplate.docx');
+   const input = PDFServicesSdk.FileRef.createFromLocalFile('resources/salesOrderTemplate.docx');
    documentMergeOperation.setInput(input);
 
    // Execute the operation and Save the result to the specified location.
    documentMergeOperation.execute(executionContext)
        .then(result => result.saveAsFile('output/salesOrderOutput.pdf'))
        .catch(err => {
-           if(err instanceof PDFToolsSdk.Error.ServiceApiError
-               || err instanceof PDFToolsSdk.Error.ServiceUsageError) {
+           if(err instanceof PDFServicesSdk.Error.ServiceApiError
+               || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
                console.log('Exception encountered while executing operation', err);
            } else {
                console.log('Exception encountered while executing operation', err);
@@ -672,7 +673,7 @@ node src/documentmerge/merge-document-to-pdf.js
       
     </p>
     <p>
-       Last updated Mar 18, 2021 <br/>
+       Last updated Jun 22, 2021 <br/>
     </p>
   </div>
   </footer>
