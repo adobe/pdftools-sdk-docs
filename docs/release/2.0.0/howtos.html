@@ -271,7 +271,8 @@ img {
 <li class="toctree-l3"><a class="reference internal" href="#api-limitations">API limitations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables">Extract Text and Tables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables-w-renditions">Extract Text and Tables (w/ Renditions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables-w-tables-renditions">Extract Text and Tables (w/ Tables Renditions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables-w-tables-and-figures-renditions">Extract Text and Tables (w/ Tables and Figures Renditions)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
@@ -313,6 +314,7 @@ img {
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">Go to PDF Embed API</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../docgen/latest/index.html#://">Go to Document Generation API</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../extract/latest/index.html#://">Go to PDF Extract API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
 </ul>
 </ul>
@@ -4868,6 +4870,7 @@ namespace OcrPDFWithOptions
 <li><p><strong>Unsupported PDF types</strong>: The API does not support extracting from policy protected and secured PDFs unless the security restrictions allow for Content Copying.</p></li>
 <li><p><strong>Size limits</strong>: Maximum supported file size is 100MB.</p></li>
 <li><p><strong>Page limits</strong>: Non scanned PDFs are limited to 200 pages and Scanned PDFs must be 100 pages or less.Limits may be lower for files with a large number of tables.</p></li>
+<li><p><strong>Rate limits[Extract]</strong>: Keep request rate below 25 requests per minute.</p></li>
 </ul>
 </div>
 <div class="section" id="extract-text-from-a-pdf">
@@ -5023,7 +5026,7 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
 </div></div>
 <div class="section" id="extract-text-and-tables">
 <h3>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h3>
-<p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
+<p>The sample below extracts text and table elements information from a PDF document.It also generates table renditions in xlsx format by default.</p>
 <div class="tabs">
     <ul>
       <li><a href="#tabsjava101">JAVA</a></li>
@@ -5175,9 +5178,9 @@ public class ExtractTextTableInfoFromPDF {
   </div>
 <!--end tab data-->
 </div></div>
-<div class="section" id="extract-text-and-tables-w-renditions">
-<h3>Extract Text and Tables (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-w-renditions" title="Permalink to this headline">¶</a></h3>
-<p>The sample below extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="section" id="extract-text-and-tables-w-tables-renditions">
+<h3>Extract Text and Tables (w/ Tables Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-renditions" title="Permalink to this headline">¶</a></h3>
+<p>The sample below extracts text and table elements information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
     <ul>
@@ -5322,6 +5325,160 @@ public class ExtractTextTableInfoWithRenditionsFromPDF {
 
       # Save the result to the specified location.
       result.save_as(base_path + "/output/ExtractTextTableWithTableRendition.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div></div>
+<div class="section" id="extract-text-and-tables-w-tables-and-figures-renditions">
+<h3>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h3>
+<p>The sample below extracts text and table elements information as well as tables and figures renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava106">JAVA</a></li>
+      <li><a href="#tabsnode106">NODE</a></li>
+      <li><a href="#tabspython106">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava106">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addElementsToExtractRenditions(Arrays.asList(ExtractRenditionsElementType.TABLES, ExtractRenditionsElementType.FIGURES))
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+   <div id="tabsnode106">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-figures-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.FIGURES, PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableWithFigureTableRendition.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+<div id="tabspython106">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_with_figure_tables_rendition_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([ExtractElementType.TEXT, ExtractElementType.TABLES]) \
+          .with_elements_to_extract_renditions([ExtractRenditionsElementType.TABLES, ExtractRenditionsElementType.FIGURES]) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithFigureTableRendition.zip")
   except (ServiceApiException, ServiceUsageException, SdkException):
       logging.exception("Exception encountered while executing operation")
 
@@ -5814,7 +5971,7 @@ public class ExtractTextTableInfoWithStylingFromPDF {
       
     </p>
     <p>
-       Last updated Jun 09, 2021 <br/>
+       Last updated Jul 21, 2021 <br/>
     </p>
   </div>
   </footer>

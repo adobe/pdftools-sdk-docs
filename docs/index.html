@@ -200,16 +200,17 @@ img {
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-are-document-services-apis">What are Document Services APIs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">PDF Embed API for viewing and collaboration within your web pages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pdf-services-api-to-automate-for-your-document-workflows">PDF Services API to automate for your document workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#document-generation-api-for-automating-document-workflows">Document Generation API for automating document workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pdf-extract-api-for-extracting-pdf-structure-and-information">PDF Extract API for extracting pdf structure and information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">PDF Embed API for viewing and collaboration within your web pages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#community-forum-and-feedback">Community forum and feedback</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="./release/latest/index.html#://">PDF Services API</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">PDF Embed API</a></li>
 <li class="toctree-l1"><a class="reference external" href="./docgen/latest/index.html#://">Document Generation API</a></li>
+<li class="toctree-l1"><a class="reference external" href="./extract/latest/index.html#://">PDF Extract API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed#://">PDF Embed API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-cloud-sdk/bd-p/Document-Cloud-SDK?page=1&amp;sort=latest_replies&amp;filter=all#://">Community forum</a></li>
 </ul>
 </ul>
@@ -237,10 +238,6 @@ img {
 <p>With tools and language support that caters to developers’ existing skill sets, you can now create compelling and consistent PDF experiences, including viewing, exporting, creating and working with PDFs.</p>
 <p>These APIs represent a paradigm shift in the way PDF workflows exist and interact with your environment and digital documents. Adobe is rapidly evolving and expanding the portfolio of APIs to support additional use cases. We are also continually enhancing the APIs, including supporting SDKs, sample code, and documentation.</p>
 </div>
-<div class="section" id="pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">
-<h2>PDF Embed API for viewing and collaboration within your web pages<a class="headerlink" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed">PDF Embed API</a> brings PDF viewing to any web application with only a few lines of JavaScript. Multiple embed modes make it easy to support different views, from full browser to boxed containers and in line. Document collaboration is achieved with support for commenting, drawing, highlighting, and text editing tools. Analytics insights provide an opportunity to embed dynamic interactivity to enhance end-user experiences with chats, prompts, and other with event triggers based on PDF viewing activity.</p>
-</div>
 <div class="section" id="pdf-services-api-to-automate-for-your-document-workflows">
 <h2>PDF Services API to automate for your document workflows<a class="headerlink" href="#pdf-services-api-to-automate-for-your-document-workflows" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="./release/latest/index.html">PDF Services API</a> offers a number of operations to programmatically manipulate documents and automate many different types of document workflows. You can easily create a PDF from a dynamic HTML report, set a password to prevent unauthorized opening of the document, and compress it for sharing as an attachment. Linearize a PDF for faster web viewing when end users have a large document to read.</p>
@@ -256,7 +253,7 @@ img {
 </div>
 <div class="section" id="pdf-extract-api-for-extracting-pdf-structure-and-information">
 <h2>PDF Extract API for extracting pdf structure and information<a class="headerlink" href="#pdf-extract-api-for-extracting-pdf-structure-and-information" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="./release/2.0.0/index.html#extract-pdf">PDF Extract API</a> is a cloud-based web service that uses Adobe’s Sensei AI technology to automatically extract content and structural information from PDF documents – native or scanned – and to output it in a structured JSON format. The service extracts text, complex tables, and figures as follows:</p>
+<p>The <a class="reference external" href="./extract/latest/index.html">PDF Extract API (included with the PDF Services API)</a> is a cloud-based web service that uses Adobe’s Sensei AI technology to automatically extract content and structural information from PDF documents – native or scanned – and to output it in a structured JSON format. The service extracts text, complex tables, and figures as follows:</p>
 <ul class="simple">
 <li><p>Text is extracted in contextual blocks – paragraphs, headings, lists, footnotes, etc. – and includes font, styling, and other text formatting information.</p></li>
 <li><p>Tables are extracted and parsed with the contents and table formatting information delivered for each cell. The service automatically identifies table cells that span multiple rows or columns. Table data is delivered within the resulting JSON and can also optionally be output in CSV and XLSX files. Tables are also output as PNG images allowing the table data to be visually validated.</p></li>
@@ -264,8 +261,12 @@ img {
 </ul>
 <p>The JSON output also captures document structure information, such as the natural reading order of the various extracted elements and the layout of the elements on each given page.</p>
 <p>The PDF Extract API provides a method for developers to extract and structure content for use in a number of downstream applications including content republishing, workflow automation, content analysis, and data aggregation, management, and search.</p>
-<p>The PDF Extract API can be embedded into any application using the PDFServices SDK for Node.js, Python, and Java.
+<p>The PDF Extract API can be embedded into any application using the <a class="reference external" href="./release/latest/index.html">PDFServices SDK</a> for Node.js, Python, and Java.
 <a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">Start a free trial that includes up to 1,000 free Document transactions or runs for 6 months, whichever occurs earlier.</a></p>
+</div>
+<div class="section" id="pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages">
+<h2>PDF Embed API for viewing and collaboration within your web pages<a class="headerlink" href="#pdf-embed-api-for-viewing-and-collaboration-within-your-web-pages" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdfembed">PDF Embed API</a> brings PDF viewing to any web application with only a few lines of JavaScript. Multiple embed modes make it easy to support different views, from full browser to boxed containers and in line. Document collaboration is achieved with support for commenting, drawing, highlighting, and text editing tools. Analytics insights provide an opportunity to embed dynamic interactivity to enhance end-user experiences with chats, prompts, and other with event triggers based on PDF viewing activity.</p>
 </div>
 <div class="section" id="community-forum-and-feedback">
 <h2>Community forum and feedback<a class="headerlink" href="#community-forum-and-feedback" title="Permalink to this headline">¶</a></h2>
@@ -287,7 +288,7 @@ img {
       
     </p>
     <p>
-       Last updated Jun 08, 2021 <br/>
+       Last updated Jul 21, 2021 <br/>
     </p>
   </div>
   </footer>
