@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Tos &#8212; PDF Services SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PDF Extract API" href="extract.html" />
+    <link rel="prev" title="Overview" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#extract-process">Extract Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-timeout-configuration">Custom timeout configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extract.html">PDF Extract API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#api-limitations">API limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-w-table-renditions">Extract Text and Tables (w/ Table Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-w-tables-and-figures-renditions">Extract Text and Tables (w/ Tables and Figures Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">PDF Services API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Services API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="how-tos">
+<span id="howtos"></span><h1>How Tos<a class="headerlink" href="#how-tos" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="../../extract/latest/extract.html#extract-text-from-a-pdf">samples and documentation</a> should get you quickly up and running with PDF Extract capabilities in the <a class="reference external" href="../../release/latest/index.html#://">PDFServices SDK</a> including:</p>
+<ul class="simple">
+<li><p>Extracting PDF as JSON: the content, structure &amp; renditions of table and figure elements along with Character Bounding Boxes</p></li>
+</ul>
+<p>For  code examples illustrating other PDF actions including those below, see the <a class="reference external" href="../../release/latest/index.html#://">PDFServices SDK</a> :</p>
+<ul class="simple">
+<li><p>Creating a PDF from multiple formats, including HTML, Microsoft Office documents, and text files</p></li>
+<li><p>Exporting a PDF to other formats or an image</p></li>
+<li><p>Combining entire PDFs or specified page ranges</p></li>
+<li><p>Using OCR to make a PDF file searchable with a custom locale</p></li>
+<li><p>Compress PDFs with compression level and Linearize PDFs</p></li>
+<li><p>Protect PDFs with password(s) and Remove password protection from PDFs</p></li>
+<li><p>Common page operations, including inserting, replacing, deleting, reordering, and rotating</p></li>
+<li><p>Splitting PDFs into multiple files</p></li>
+</ul>
+<div class="section" id="runtime-in-memory-authentication">
+<span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
+<p>The SDK supports providing the authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/pdfservices/operation/samples/createpdf/CreatePDFWithInMemoryAuthCredentials.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/PDFServices.NET.SDK.Samples/tree/master/CreatePDFWithInMemoryAuthCredentials">.NET</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-inmemory-auth-credentials.js">Node.js</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_in_memory_auth_credentials.py">Python</a></p></li>
+</ul>
+</div>
+<div class="section" id="custom-timeout-configuration">
+<h2>Custom timeout configuration<a class="headerlink" href="#custom-timeout-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-java-sdk-samples/blob/master/src/main/java/com/adobe/pdfservices/operation/samples/createpdf/CreatePDFWithCustomTimeouts.java">Java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/PDFServices.NET.SDK.Samples/blob/master/CreatePDFWithCustomTimeouts/Program.cs">.NET</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-custom-timeouts.js">Node.js</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_custom_timeouts.py">Python</a></p></li>
+</ul>
+<div class="section" id="java-timeout-configuration">
+<span id="timejava"></span><h3>Java timeout configuration<a class="headerlink" href="#java-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 2000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>socketTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span>
+   <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">withSocketTimeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+   <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="net-timeout-configuration">
+<span id="timenet"></span><h3>.NET timeout configuration<a class="headerlink" href="#net-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>timeout</strong>: Default: 400000. The maximum allowed time in milliseconds for establishing a connection, sending a request, and getting a response.</p></li>
+<li><p><strong>readWriteTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds to read or write data after connection is established.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClientConfig</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">ConfigBuilder</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="mi">500000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">readWriteTimeout</span><span class="p">(</span><span class="mi">15000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">Build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="node-js-timeout-configuration">
+<span id="timenode"></span><h3>Node.js timeout configuration<a class="headerlink" href="#node-js-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds for creating an initial HTTPS connection.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The maximum allowed time in milliseconds between two successive HTTP response packets.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">clientConfig</span> <span class="o">=</span> <span class="n">PDFServicesSdk</span><span class="o">.</span><span class="n">ClientConfig</span>
+  <span class="o">.</span><span class="n">clientConfigBuilder</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">withConnectTimeout</span><span class="p">(</span><span class="mi">15000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">withReadTimeout</span><span class="p">(</span><span class="mi">15000</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-timeout-configuration">
+<span id="timepython"></span><h3>Python timeout configuration<a class="headerlink" href="#python-timeout-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Available properties:</p>
+<ul class="simple">
+<li><p><strong>connectTimeout</strong>: Default: 4000. The number of milliseconds Requests will wait for the client to establish a connection to Server.</p></li>
+<li><p><strong>readTimeout</strong>: Default: 10000. The number of milliseconds the client will wait for the server to send a response.</p></li>
+</ul>
+<p>Override the timeout properties via a custom <code class="docutils literal notranslate"><span class="pre">ClientConfig</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_config</span> <span class="o">=</span> <span class="n">ClientConfig</span><span class="o">.</span><span class="n">builder</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">with_connect_timeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">with_read_timeout</span><span class="p">(</span><span class="mi">40000</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Jul 21, 2021 <br/>
+    </p>
+  </div>
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Services API Licensing &#8212; PDF Services SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#extract-process">Extract Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#custom-timeout-configuration">Custom timeout configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extract.html">PDF Extract API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#api-limitations">API limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-w-table-renditions">Extract Text and Tables (w/ Table Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-w-tables-and-figures-renditions">Extract Text and Tables (w/ Tables and Figures Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract.html#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">PDF Services API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Services API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="pdf-services-api-licensing">
+<span id="license"></span><h1>PDF Services API Licensing<a class="headerlink" href="#pdf-services-api-licensing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="paid-programs">
+<h2>Paid programs<a class="headerlink" href="#paid-programs" title="Permalink to this headline">¶</a></h2>
+<p>Adobe PDF Services API licensing is measured per Document Transaction (previously known as PDF Transactions) which is based on the initial endpoint request (i.e., API call) and the digital output, with each operation in the table described below. Content limits apply and are provided along with examples for clarity.</p>
+<p>Paid credentials enable a greater processing quota and require entering into a separate written agreement.  To learn more, please see our <a class="reference external" href="https://www.adobe.io/apis/documentcloud/dcsdk/pdf-pricing.html">pricing page</a> for purchase options.</p>
+<p>Document Transactions for the Operations below resulting in a Document will be counted with the following page limits:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Document Transactions for the Operations below resulting in a Document will be counted with the following page limits:</p>
+<ul class="simple">
+<li><p>Extract PDF Operation: up to 5 pages per Document Transaction</p></li>
+<li><p>All other Operations: up to 50 pages per Document Transaction</p></li>
+</ul>
+<p>Notes can have more than one paragraph. Successive paragraphs must
+indent to the same level as the rest of the note.</p>
+</div>
+<div class="section" id="metrics">
+<h3>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Capability</p></th>
+<th class="head"><p>Metric</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Document Generation</p></td>
+<td><p>Create PDF and Word documents from your own authored Microsoft Word templates and JSON data</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extract PDF</p></td>
+<td><p>Extracts PDF Elements such as text, images, tables in a structured format from a PDF.</p></td>
+<td><p>Document Transaction (up to 5 pages)</p></td>
+</tr>
+<tr class="row-even"><td><p>Create</p></td>
+<td><p>Create PDF from static or dynamic HTML, MS Office and other supported file types. File types: BMP, DOC, DOCX, GIF, JPEG, JPG, PNG, PPT, PPTX, RTF, TIF, TIFF, TXT, XLS, XLSX, ZIP</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Export</p></td>
+<td><p>Convert PDF to MS Office and other supported file types. File types: DOC, DOCX, JPEG, PNG, PPTX, RTF, XLSX</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Combine</p></td>
+<td><p>Combine multiple PDFs or pages in PDFs to a single PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>OCR</p></td>
+<td><p>Convert scanned PDF   to editable and searchable PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Compress</p></td>
+<td><p>Reduce the size of a PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Protect</p></td>
+<td><p>Set user password in a PDF to prevent others from opening and viewing the Document</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Remove Password</p></td>
+<td><p>Remove password security from a PDF document. This can only be accomplished using the owner password of the document, which must be passed in the operation.</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linearize</p></td>
+<td><p>Optimize a PDF for <a class="reference external" href="https://helpx.adobe.com/acrobat/using/optimizing-pdfs-acrobat-pro.html#EnableFastWebViewinaPDF">Fast Web View</a></p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Split</p></td>
+<td><p>Split a PDF document into multiple smaller PDFs</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Insert Pages</p></td>
+<td><p>Insert one or more pages from different PDFs into a PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Replace Pages</p></td>
+<td><p>Replace one or more pages in a single PDF from pages in other PDFs</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Delete Pages</p></td>
+<td><p>Delete one or more pages in a single PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Rotate Pages</p></td>
+<td><p>Rotate one or more pages in a single PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reorder Pages</p></td>
+<td><p>Reorder one or more pages in a single PDF</p></td>
+<td><p>Document Transaction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of documents used to calculate Document Transactions is rounded up on a 5-page basis for Extract PDF and on a 50-page basis for other PDF Tools.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Calculation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Document Generation</p></td>
+<td><p>Generating a fifteen-page PDF Document from a two-page Microsoft Word template and 1MB JSON file consumes one Document Transaction</p></td>
+<td><p>1 (Operation: Document Generation) x 1 (Document) = 1 Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extract PDF</p></td>
+<td><p>Extracting PDF Elements from an 8 page PDF Document consumes two Document Transactions</p></td>
+<td><p>1 (Operation: Extract PDF) x 2 (5 page document) = 2 Document Transactions</p></td>
+</tr>
+<tr class="row-even"><td><p>Create, Export</p></td>
+<td><p>Converting ten single page Word Documents into ten PDF Documents consumes ten Document Transactions.</p></td>
+<td><p>1 (Operation: create) x 10 (documents) = 10 Document Transactions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Combine</p></td>
+<td><p>Combining six different PDF Documents into a single  250 page PDF Document consumes five Document Transactions.</p></td>
+<td><p>1 (Operation: combine) x 5 (50 page documents) =  5 Document Transactions</p></td>
+</tr>
+<tr class="row-even"><td><p>OCR</p></td>
+<td><p>Running OCR on a single 50 page document consumes one Document Transaction</p></td>
+<td><p>1 (Operation: OCR) x 1 (50 page document) = 1 Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compress, Protect</p></td>
+<td><p>Setting password protection for a single PDF document consumes one Document Transaction</p></td>
+<td><p>1 (Operation: protect) x 1 (document) = 1 Document Transaction</p></td>
+</tr>
+<tr class="row-even"><td><p>Linearize</p></td>
+<td><p>Optimizing one PDF document with three pages will consume one Document Transaction.</p></td>
+<td><p>1 (Operation: Linearize) x 1 (document) = 1 Document Transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Insert, replace, rotate, reorder, delete pages</p></td>
+<td><p>Inserting ten pages into a 100 page PDF document consumes three Document Transactions.</p></td>
+<td><p>1 (Operation: Insert) x 3 (50-page documents) = 2 Document Transactions</p></td>
+</tr>
+<tr class="row-even"><td><p>Create + Reorder</p></td>
+<td><p>Converting a 10 page Word Document into a single PDF and then reordering five of the pages in the same PDF Document consumes two Document Transactions.</p></td>
+<td><p>1 (Operation: create) x 1 (document) + 1 (Operation: reorder) x 1 (document) = 2 Document Transactions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Combine + Rotate + OCR</p></td>
+<td><p>Combining three PDF Documents into a single 30 page PDF, then rotating two pages of the PDF, and then running OCR on the PDF consumes three Document Transactions.</p></td>
+<td><p>1 (Operation: combine) x 1 (document) + 1 (Operation: rotate) x 1 (document) + 1 (Operation: OCR) x 1 (document) = 3 Document Transactions</p></td>
+</tr>
+<tr class="row-even"><td><p>Replace + Delete + Export</p></td>
+<td><p>Replacing seven pages in a single 45 page PDF document, then deleting three pages on the same PDF document, and finally exporting the PDF document to a PPT document will consume three Document Transactions.</p></td>
+<td><p>1 (Operation: replace) x 1 (document) + 1 (Operation: delete) x 1 (document) + 1 (Operation: export) x 1 (document) = 3 Document Transactions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Create + Combine + Protect</p></td>
+<td><p>Creating a 10 page PDF document from an HTML page, then combining the PDF into four other 5 page PDF documents, and finally password protecting all four PDF documents will consume nine Document Transactions.</p></td>
+<td><p>1 (Operation: create) x 1 (document) + 1 (Operation: combine) x 4 (documents) + 1 (Operation: export) x 4 (documents) = 9 Document Transactions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="usage-limits">
+<h3>Usage limits<a class="headerlink" href="#usage-limits" title="Permalink to this headline">¶</a></h3>
+<p>There are several usage limits that apply to operation metrics.  Files submitted for processing that exceed content limits below will fail and result in an error message.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 90%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Usage limit</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Document limit (combine, insert, replace)</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Document file size</p></td>
+<td><p>100MB</p></td>
+</tr>
+<tr class="row-even"><td><p>Output images per Document Transaction (export)</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p>Page limit (OCR)*</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p>Page limit(Non-Scanned - Extract API)*</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum Requests Per Minute (RPM)*</p></td>
+<td><p>25 RPM</p></td>
+</tr>
+<tr class="row-even"><td><p>JSON file size (Document Generation)</p></td>
+<td><p>10MB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Payload size (Document Generation): Word template and JSON file</p></td>
+<td><p>100MB</p></td>
+</tr>
+</tbody>
+</table>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>Page limits may be lower for documents with a large number of tables.</p>
+</div>
+</div>
+<div class="section" id="licensing-metrics-free-trial">
+<h2>Licensing Metrics &amp; Free Trial<a class="headerlink" href="#licensing-metrics-free-trial" title="Permalink to this headline">¶</a></h2>
+<p>The PDF Services API provides a free trial program so that you can take a deep dive into its cool features at zero cost. Trial users that sign up directly on Adobe I/O get free credentials that enable processing of 1,000 Document Transactions for up to 6 months. A Document Transaction is based on the initial endpoint request (i.e., API call) and the digital output. For detailed licensing metrics, please see the tables above.</p>
+<p>Processing is calculated on a per Document Transaction basis.</p>
+<p>Example 1:</p>
+<ul class="simple">
+<li><p>Converting a ten-page Word document into PDF consumes 1 Document Transaction of the trial quota.</p></li>
+<li><p>1 (Operation: convert) x 1 (document) = 1 Document Transaction</p></li>
+</ul>
+<p>Example 2:</p>
+<ul class="simple">
+<li><p>Combining 20 single page documents into one PDF and then running OCR on the PDF consumes 2 Document Transactions of the trial quota.</p></li>
+<li><p>1 (Operation: combine) x 1 (document) + 1 (Operation: OCR) x 1 (document) = 2 Document Transactions</p></li>
+</ul>
+<p>This generous allowance of processing power should allow you to get up and running with the easy-to-use APIs with little investment.</p>
+<p>Paid credentials enable a greater processing quota and require entering into a separate written agreement. To learn more, please see our <a class="reference external" href="https://www.adobe.io/apis/documentcloud/dcsdk/pdf-pricing.html">pricing page</a> for purchase options.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Jul 21, 2021 <br/>
+    </p>
+  </div>
+  </footer>
+  </body>
+</html>
