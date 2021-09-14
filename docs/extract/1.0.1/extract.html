@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PDF Extract API &#8212; PDF Services SDK</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="How Tos" href="howtos.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs({
+                          collapsible: false,
+                          beforeActivate: function (event, ui) {
+                              if ($(ui.newTab).find('a').attr('href').startsWith("https")) {
+                                  window.open($(ui.newTab).find('a').attr('href'), '_blank');
+                                  return false;
+                              }
+                              return true;
+                          }
+                      });
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdfembed#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdfembed']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#extract-process">Extract Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#runtime-in-memory-authentication">Runtime in-memory authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#custom-timeout-configuration">Custom timeout configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structured-information-output-format">Structured Information Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-limitations">API limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables">Extract Text and Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-table-renditions">Extract Text and Tables (w/ Table Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-tables-and-figures-renditions">Extract Text and Tables (w/ Tables and Figures Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">PDF Services API Licensing</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../release/latest/index.html#://">Go to the PDF Services API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://community.adobe.com/t5/document-services-apis/bd-p/Document-Cloud-SDK?page=1&amp;s[…]eplies&amp;filter=no_replies&amp;topics=label-documentgenerationapi">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <section id="pdf-extract-api">
+<span id="extract"></span><h1>PDF Extract API<a class="headerlink" href="#pdf-extract-api" title="Permalink to this headline">¶</a></h1>
+<section id="structured-information-output-format">
+<h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
+<p>The output of an SDK extract operation is a zip package containing the following:</p>
+<ul class="simple">
+<li><p>The structuredData.json file with the extracted content &amp; PDF element structure. See the <a class="reference external" href="../../release/shared/extractJSONOutputSchema2.json">JSON schema</a> for a description of the default output. (Please refer the <a class="reference external" href="../../release/shared/extractJSONOutputSchemaStylingInfo.json">Styling JSON schema</a> for a description of the output when the styling option is enabled.)</p></li>
+<li><p>A renditions folder(s) containing renditions for each element type selected as input. The folder name is either “tables” or “figures” depending on your specified element type. Each folder contains renditions with filenames that correspond to the element information in the JSON file.</p></li>
+</ul>
+<img alt="_images/extractsamplefiles.png" src="_images/extractsamplefiles.png" />
+<p>The following is a summary of key components in the extracted JSON(See additional descriptions in the <a class="reference external" href="../../release/shared/extractJSONOutputSchema2.json">JSON schema</a>):</p>
+<ul class="simple">
+<li><p>Elements: Ordered list of semantic elements (like headings, paragraphs, tables, figures) found in the document, on the basis of position in the structure tree of the document. The output does not include headers or footers. In addition, headings that repeat across pages are reported for the first occurrence only.</p></li>
+<li><p>Bounds: Bounding box enclosing the content items forming this element. Not reported for elements which don’t have any content items (like empty table cells).</p></li>
+<li><p>Font: Font description for the font associated with the first character. Only reported for text elements.</p></li>
+<li><p>TextSize: Text size (in points) of the last character. Only reported for text elements.</p></li>
+<li><p>Attributes: Includes additional properties like line height and text alignment.</p></li>
+<li><p>Path: The Path describes the location of elements in the structure tree including the element type and the instance number. Element types are based on the
+<a class="reference external" href="https://www.iso.org/standard/75839.html">ISO standard</a> , a summary is included below for convenience :</p>
+<ul>
+<li><p>Aside: Content which is not part of regular content flow of the document</p></li>
+<li><p>Figure: Non-reflowable constructs like graphs, images, flowcharts</p></li>
+<li><p>Footnote: FootNote</p></li>
+<li><p>H, H1, H2, etc: Heading Level</p></li>
+<li><p>L: List</p></li>
+<li><p>Li: List Item</p></li>
+<li><p>Lbl: List Item label</p></li>
+<li><p>Lbody: List item body</p></li>
+<li><p>P: Paragraph</p></li>
+<li><p>ParagraphSpan: Denotes part of a paragraph. Reported when paragraph is broken (generally due to page break or column break)</p></li>
+<li><p>Reference: Link</p></li>
+<li><p>Sect: Logical section of the document</p></li>
+<li><p>StyleSpan: Denotes difference in styling of text relative to the parent container</p></li>
+<li><p>Sub: Single line of a multiline paragraph (e.g. addresses). Such paras are created in html using &lt;br&gt; inside &lt;p&gt; tags</p></li>
+<li><p>Table: Table</p></li>
+<li><p>TD: Table cell</p></li>
+<li><p>TH: Table header cell</p></li>
+<li><p>TR: Table row</p></li>
+<li><p>Title: Title of the document. This is the most prominent heading which can define the whole document.</p></li>
+<li><p>TOC: Table of contents</p></li>
+<li><p>TOCI: Table of contents item</p></li>
+<li><p>Watermark: Watermark</p></li>
+</ul>
+</li>
+<li><p>Text: Text for the element in UTF-8 format, only reported for text elements. When inline elements are reported separately from parent block element, then this value has references to those inline elements.</p></li>
+<li><p>Figures: Identified as a Figure in the Path attribute, saved as a PNG in the figures folder with the filename identified in the filePaths attribute.</p></li>
+<li><p>Tables: Identified as a Table in the Path attribute, saved as a .CSV, .XLSX, and .PNG in the tables folder with the filename identified in the filePaths attribute.</p></li>
+<li><p>FilePaths: List of file paths to additional output files (images and spreadsheets)</p></li>
+<li><p>Pages: A list of properties for each page of the PDF including page number, width, height, and rotation.</p></li>
+<li><p>Reading Order: The reading order of content within columns, across page breaks, and inclusive of asides is represented by the order of the elements in the Elements array. In the normal mode, exceptions can occur for elements extracted from their container (eg. A reference link in the middle of a paragraph). However, the order is preserved in Styling mode where all Elements and their Kids are represented in the natural reading order.</p></li>
+</ul>
+</section>
+<section id="api-limitations">
+<h2>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Unsupported PDF types</strong>: The API does not support extracting from policy protected and secured PDFs unless the security restrictions allow for Content Copying.</p></li>
+<li><p><strong>Size limits</strong>: Maximum supported file size is 100MB.</p></li>
+<li><p><strong>Page limits</strong>: Non scanned PDFs are limited to 200 pages and Scanned PDFs must be 100 pages or less.Limits may be lower for files with a large number of tables.</p></li>
+<li><p><strong>Rate limits</strong>: Keep request rate below 25 requests per minute.</p></li>
+<li><p><strong>Scan quality</strong>: Scanned pages with a resolution of less than 200 DPI may result in low quality text output.</p></li>
+</ul>
+</section>
+<section id="extract-text-from-a-pdf">
+<h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
+<p>Use the sample below to extract text element information from a PDF document.</p>
+<div class="tabs">
+    <ul>
+      <li><a href="#tabsjava100">JAVA</a></li>
+      <li><a href="#tabsnet100">.NET</a></li>
+      <li><a href="#tabsnode100">NODE</a></li>
+      <li><a href="#tabspython100">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava100">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextInfoFromPDF </div>
+<pre class="prettyprint">
+
+public class ExtractTextInfoFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextInfoFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT))
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextInfoFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+    </pre>
+  </div>
+  <div id="tabsnet100">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+    cd ExtractTextInfoFromPDF/<br />
+    dotnet run ExtractTextInfoFromPDF.csproj </div>
+  <pre class="prettyprint">
+
+  namespace ExtractTextInfoFromPDF
+  {
+      class Program
+      {
+          private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+          static void Main()
+          {
+              //Configure the logging
+              ConfigureLogging();
+              try
+              {
+                  // Initial setup, create credentials instance.
+                  Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                      .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                      .Build();
+
+                  //Create an ExecutionContext using credentials and create a new operation instance.
+                  ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                  ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                  // Set operation input from a source file.
+                  FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                  extractPdfOperation.SetInputFile(sourceFileRef);
+
+                  // Build ExtractPDF options and set them into the operation
+                  ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                      .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT}))
+                      .build();
+                  extractPdfOperation .SetOptions(extractPdfOptions);
+
+                  // Execute the operation.
+                  FileRef result = extractPdfOperation.Execute(executionContext);
+
+                  // Save the result to the specified location.
+                  result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextInfoFromPDF.zip");
+              }
+              catch (ServiceUsageException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (ServiceApiException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (SDKException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (IOException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (Exception ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+          }
+
+          static void ConfigureLogging()
+          {
+              ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+              XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+          }
+      }
+  }
+
+  </pre>
+  </div>
+   <div id="tabsnode100">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-info-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT).build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file.
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextInfoFromPDF.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+
+  </pre>
+  </div>
+  <div id="tabspython100">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+python src/extractpdf/extract_txt_from_pdf.py </div>
+<pre class="prettyprint">
+
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(ExtractElementType.TEXT) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextInfoFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+
+    </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="extract-text-and-tables">
+<h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
+<div class="tabs">
+    <ul>
+      <li><a href="#tabsjava101">JAVA</a></li>
+      <li><a href="#tabsnet101">.NET</a></li>
+      <li><a href="#tabsnode101">NODE</a></li>
+      <li><a href="#tabspython101">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+
+    </ul>
+    <div id="tabsjava101">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+  mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoFromPDF </div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+  </div>
+  <div id="tabsnet101">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+    cd ExtractTextTableInfoFromPDF/<br />
+    dotnet run ExtractTextTableInfoFromPDF.csproj </div>
+  <pre class="prettyprint">
+
+  namespace ExtractTextTableInfoFromPDF
+  {
+      class Program
+      {
+          private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+          static void Main()
+          {
+              //Configure the logging
+              ConfigureLogging();
+              try
+              {
+                  // Initial setup, create credentials instance.
+                  Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                  .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                  .Build();
+
+                  //Create an ExecutionContext using credentials and create a new operation instance.
+                  ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                  ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                  // Set operation input from a source file.
+                  FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                  extractPdfOperation.SetInputFile(sourceFileRef);
+
+                  // Build ExtractPDF options and set them into the operation
+                  ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                      .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                      .build();
+                  extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                  // Execute the operation.
+                  FileRef result = extractPdfOperation.Execute(executionContext);
+
+                  // Save the result to the specified location.
+                  result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoFromPDF.zip");
+              }
+              catch (ServiceUsageException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (ServiceApiException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (SDKException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (IOException ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+              catch (Exception ex)
+              {
+                  log.Error("Exception encountered while executing operation", ex);
+              }
+          }
+
+          static void ConfigureLogging()
+          {
+              ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+              XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+          }
+      }
+  }
+
+  </pre>
+  </div>
+   <div id="tabsnode101">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file.
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableInfoFromPDF.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+
+  </pre>
+  </div>
+<div id="tabspython101">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(ExtractElementType.TEXT) \
+          .with_element_to_extract(ExtractElementType.TABLES) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableInfoFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+  </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="extract-text-and-tables-w-table-renditions">
+<h2>Extract Text and Tables (w/ Table Renditions)<a class="headerlink" href="#extract-text-and-tables-w-table-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava102">JAVA</a></li>
+      <li><a href="#tabsnet102">.NET</a></li>
+      <li><a href="#tabsnode102">NODE</a></li>
+      <li><a href="#tabspython102">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava102">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithRenditionsFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithRenditionsFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addElementToExtractRenditions(ExtractRenditionsElementType.TABLES)
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithRenditionsFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+<div id="tabsnet102">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+  cd ExtractTextTableInfoWithRenditionsFromPDF/<br />
+  dotnet run ExtractTextTableInfoWithRenditionsFromPDF.csproj </div>
+<pre class="prettyprint">
+
+namespace ExtractTextTableInfoWithRenditionsFromPDF
+{
+    class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        static void Main()
+        {
+            //Configure the logging
+            ConfigureLogging();
+            try
+            {
+                // Initial setup, create credentials instance.
+                Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                .Build();
+
+                //Create an ExecutionContext using credentials and create a new operation instance.
+                ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                // Set operation input from a source file.
+                FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                extractPdfOperation.SetInputFile(sourceFileRef);
+
+                // Build ExtractPDF options and set them into the operation
+                ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                        .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                        .AddElementsToExtractRenditions(new List&lt;ExtractRenditionsElementType&gt; (new [] {ExtractRenditionsElementType.TABLES}))
+                        .build();
+
+                extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                // Execute the operation.
+                FileRef result = extractPdfOperation.Execute(executionContext);
+
+                // Save the result to the specified location.
+                result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoWithRenditionsFromPDF.zip");
+            }
+            catch (ServiceUsageException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (ServiceApiException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (SDKException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (IOException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+        }
+
+        static void ConfigureLogging()
+        {
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+    }
+}
+
+</pre>
+</div>
+   <div id="tabsnode102">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableInfoWithTablesRenditionsFromPDF.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+<div id="tabspython102">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_with_rendition_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([ExtractElementType.TEXT, ExtractElementType.TABLES]) \
+          .with_element_to_extract_renditions(ExtractRenditionsElementType.TABLES) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithTableRendition.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="extract-text-and-tables-w-tables-and-figures-renditions">
+<h2>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts text and table elements information as well as tables and figures renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava106">JAVA</a></li>
+      <li><a href="#tabsnet106">.NET</a></li>
+      <li><a href="#tabsnode106">NODE</a></li>
+      <li><a href="#tabspython106">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava106">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithRenditionsFromPDF
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addElementsToExtractRenditions(Arrays.asList(ExtractRenditionsElementType.TABLES, ExtractRenditionsElementType.FIGURES))
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+<div id="tabsnet106">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+  cd ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF/<br />
+  dotnet run ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.csproj </div>
+<pre class="prettyprint">
+
+namespace ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF
+{
+    class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        static void Main()
+        {
+            //Configure the logging
+            ConfigureLogging();
+            try
+            {
+                // Initial setup, create credentials instance.
+                Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                .Build();
+
+                //Create an ExecutionContext using credentials and create a new operation instance.
+                ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                // Set operation input from a source file.
+                FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                extractPdfOperation.SetInputFile(sourceFileRef);
+
+                // Build ExtractPDF options and set them into the operation
+                ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                        .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                        .AddElementsToExtractRenditions(new List&lt;ExtractRenditionsElementType&gt; (new []{ExtractRenditionsElementType.FIGURES, ExtractRenditionsElementType.TABLES}))
+                        .build();
+
+                extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                // Execute the operation.
+                FileRef result = extractPdfOperation.Execute(executionContext);
+
+                // Save the result to the specified location.
+                result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF.zip");
+            }
+            catch (ServiceUsageException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (ServiceApiException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (SDKException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (IOException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+        }
+
+        static void ConfigureLogging()
+        {
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+    }
+}
+
+</pre>
+</div>
+   <div id="tabsnode106">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-figures-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.FIGURES, PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableWithFigureTableRendition.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+<div id="tabspython106">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_with_figure_tables_rendition_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([ExtractElementType.TEXT, ExtractElementType.TABLES]) \
+          .with_elements_to_extract_renditions([ExtractRenditionsElementType.TABLES, ExtractRenditionsElementType.FIGURES]) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithFigureTableRendition.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
+<h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below extracts table renditions and bounding boxes for characters present in text blocks(paragraphs, list, headings), in addition to text, table, and figure element information from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava103">JAVA</a></li>
+      <li><a href="#tabsnet103">.NET</a></li>
+      <li><a href="#tabsnode103">NODE</a></li>
+      <li><a href="#tabspython103">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava103">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithCharBoundsFromPDF
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithCharBoundsFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithCharBoundsFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addCharInfo(true)
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithCharBoundsFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+<div id="tabsnet103">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+  cd ExtractTextTableInfoWithCharBoundsFromPDF/<br />
+  dotnet run ExtractTextTableInfoWithCharBoundsFromPDF.csproj </div>
+<pre class="prettyprint">
+
+namespace ExtractTextTableInfoWithCharBoundsFromPDF
+{
+    class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        static void Main()
+        {
+            //Configure the logging
+            ConfigureLogging();
+            try
+            {
+                // Initial setup, create credentials instance.
+                Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                .Build();
+
+                //Create an ExecutionContext using credentials and create a new operation instance.
+                ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                // Set operation input from a source file.
+                FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                extractPdfOperation.SetInputFile(sourceFileRef);
+
+                // Build ExtractPDF options and set them into the operation
+                ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                    .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                    .AddAddCharInfo(true)
+                    .build();
+                extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                // Execute the operation.
+                FileRef result = extractPdfOperation.Execute(executionContext);
+
+                // Save the result to the specified location.
+                result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoWithCharBoundsFromPDF.zip");
+            }
+            catch (ServiceUsageException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (ServiceApiException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (SDKException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (IOException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+        }
+
+        static void ConfigureLogging()
+        {
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+    }
+}
+
+</pre>
+</div>
+   <div id="tabsnode103">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-char-bounds-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .addCharInfo(true)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file.
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableInfoWithCharBoundsFromPDF.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+<div id="tabspython103">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_with_char_bounds_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(ExtractElementType.TEXT) \
+          .with_get_char_info(True) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextInfoWithCharBoundsFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
+<h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
+<p>The sample below adds option to get CSV output for tables in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava104">JAVA</a></li>
+      <li><a href="#tabsnet104">.NET</a></li>
+      <li><a href="#tabsnode104">NODE</a></li>
+      <li><a href="#tabspython104">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava104">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableInfoWithTableStructureFromPdf
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithTableStructureFromPdf {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithTableStructureFromPdf.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addElementToExtractRenditions(ExtractRenditionsElementType.TABLES)
+                    .addTableStructureFormat(TableStructureType.CSV)
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithTableStructureFromPdf.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+<div id="tabsnet104">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+  cd ExtractTextTableInfoWithTableStructureFromPDF/<br />
+  dotnet run ExtractTextTableInfoWithTableStructureFromPDF.csproj </div>
+<pre class="prettyprint">
+
+namespace ExtractTextTableInfoWithTableStructureFromPDF
+{
+    class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        static void Main()
+        {
+            //Configure the logging
+            ConfigureLogging();
+            try
+            {
+                // Initial setup, create credentials instance.
+                Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                .Build();
+
+                //Create an ExecutionContext using credentials and create a new operation instance.
+                ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                // Set operation input from a source file.
+                FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                extractPdfOperation.SetInputFile(sourceFileRef);
+
+                // Build ExtractPDF options and set them into the operation
+                ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                    .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                    .AddElementsToExtractRenditions(new List&lt;ExtractRenditionsElementType&gt;(new [] {ExtractRenditionsElementType.TABLES}))
+                    .AddTableStructureFormat(TableStructureType.CSV)
+                    .build();
+
+                extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                // Execute the operation.
+                FileRef result = extractPdfOperation.Execute(executionContext);
+
+                // Save the result to the specified location.
+                result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoWithTableStructureFromPDF.zip");
+            }
+            catch (ServiceUsageException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (ServiceApiException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (SDKException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (IOException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+        }
+
+        static void ConfigureLogging()
+        {
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+    }
+}
+
+</pre>
+</div>
+   <div id="tabsnode104">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-info-with-tables-renditions-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .addElementsToExtractRenditions(PDFServicesSdk.ExtractPDF.options.ExtractRenditionsElementType.TABLES)
+          .addTableStructureFormat(PDFServicesSdk.ExtractPDF.options.TableStructureType.CSV)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file.
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableWithTableStructure.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+<div id="tabspython104">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_info_with_table_structure_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder() \
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      # Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      # Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_elements_to_extract([ExtractElementType.TEXT, ExtractElementType.TABLES]) \
+          .with_element_to_extract_renditions(ExtractRenditionsElementType.TABLES) \
+          .with_table_structure_format(TableStructureType.CSV) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      # Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextTableWithTableStructure.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div></section>
+<section id="beta-feature-extract-text-and-tables-and-styling-info">
+<h2>(Beta Feature) Extract Text and Tables and Styling Info<a class="headerlink" href="#beta-feature-extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h2>
+<p>Note: This option is experimental which means that the output may change without notice. It is provided for evaluation and feedback purposes only. Use of this option is not supported under the <a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/policies.html#">Document Cloud Services versioning policy</a></p>
+<p>The sample below adds option to get styling information of each element( Bold / Italics / Superscript etc) in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.
+Please see the <a class="reference external" href="../../release/shared/extractJSONOutputSchemaStylingInfo.json">Styling JSON schema</a> for reference.</p>
+<div class="tabs">
+        <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
+    <ul>
+      <li><a href="#tabsjava105">JAVA</a></li>
+      <li><a href="#tabsnet105">.NET</a></li>
+      <li><a href="#tabsnode105">NODE</a></li>
+      <li><a href="#tabspython105">PYTHON</a></li>
+      <li><a href="https://documentcloud.adobe.com/document-services/index.html#post-extractPDF">REST API</a></li>
+    </ul>
+    <div id="tabsjava105">
+    <div class="cmdline"><strong>Run the sample:</strong><br />
+
+mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.samples.extractpdf.ExtractTextTableWithStylingInfoFromPdf
+</div>
+
+  <pre class="prettyprint">
+
+public class ExtractTextTableInfoWithStylingFromPDF {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ExtractTextTableInfoWithStylingFromPDF.class);
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Initial setup, create credentials instance.
+            Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
+                    .fromFile("pdfservices-api-credentials.json")
+                    .build();
+
+            // Create an ExecutionContext using credentials.
+            ExecutionContext executionContext = ExecutionContext.create(credentials);
+
+            ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();
+
+            // Provide an input FileRef for the operation
+            FileRef source = FileRef.createFromLocalFile("src/main/resources/extractPdfInput.pdf");
+            extractPDFOperation.setInputFile(source);
+
+            // Build ExtractPDF options and set them into the operation
+            ExtractPDFOptions extractPDFOptions = ExtractPDFOptions.extractPdfOptionsBuilder()
+                    .addElementsToExtract(Arrays.asList(ExtractElementType.TEXT, ExtractElementType.TABLES))
+                    .addGetStylingInfo(true)
+                    .build();
+            extractPDFOperation.setOptions(extractPDFOptions);
+
+            // Execute the operation
+            FileRef result = extractPDFOperation.execute(executionContext);
+
+            // Save the result at the specified location
+            result.saveAs("output/ExtractTextTableInfoWithStylingFromPDF.zip");
+
+        } catch (ServiceApiException | IOException | SdkException | ServiceUsageException e) {
+            LOGGER.error("Exception encountered while executing operation", e);
+        }
+    }
+}
+  </pre>
+</div>
+<div id="tabsnet105">
+<div class="cmdline"><strong>Run the sample:</strong><br />
+  cd ExtractTextTableInfoWithStylingFromPDF/<br />
+  dotnet run ExtractTextTableInfoWithStylingFromPDF.csproj </div>
+<pre class="prettyprint">
+
+namespace ExtractTextTableInfoWithStylingFromPDF
+{
+    class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        static void Main()
+        {
+            //Configure the logging
+            ConfigureLogging();
+            try
+            {
+                // Initial setup, create credentials instance.
+                Credentials credentials = Credentials.ServiceAccountCredentialsBuilder()
+                                .FromFile(Directory.GetCurrentDirectory() + "/pdfservices-api-credentials.json")
+                                .Build();
+
+                //Create an ExecutionContext using credentials and create a new operation instance.
+                ExecutionContext executionContext = ExecutionContext.Create(credentials);
+                ExtractPDFOperation extractPdfOperation = ExtractPDFOperation.CreateNew();
+
+                // Set operation input from a source file.
+                FileRef sourceFileRef = FileRef.CreateFromLocalFile(@"extractPdfInput.pdf");
+                extractPdfOperation.SetInputFile(sourceFileRef);
+
+                // Build ExtractPDF options and set them into the operation
+                ExtractPDFOptions extractPdfOptions = ExtractPDFOptions.ExtractPdfOptionsBuilder()
+                        .AddElementsToExtract(new List&lt;ExtractElementType&gt;(new []{ ExtractElementType.TEXT, ExtractElementType.TABLES}))
+                        .AddGetStylingInfo(true)
+                        .build();
+
+                extractPdfOperation.SetOptions(extractPdfOptions);
+
+
+                // Execute the operation.
+                FileRef result = extractPdfOperation.Execute(executionContext);
+
+                // Save the result to the specified location.
+                result.SaveAs(Directory.GetCurrentDirectory() + "/output/ExtractTextTableInfoWithStylingFromPDF.zip");
+            }
+            catch (ServiceUsageException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (ServiceApiException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (SDKException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (IOException ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception encountered while executing operation", ex);
+            }
+        }
+
+        static void ConfigureLogging()
+        {
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+    }
+}
+</pre>
+</div>
+   <div id="tabsnode105">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  node src/extractpdf/extract-text-table-with-styling-info-from-pdf.js
+   </div>
+  <pre class="prettyprint">
+  const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+  try {
+      // Initial setup, create credentials instance.
+      const credentials =  PDFServicesSdk.Credentials
+          .serviceAccountCredentialsBuilder()
+          .fromFile("pdfservices-api-credentials.json")
+          .build();
+
+      // Create an ExecutionContext using credentials
+      const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
+
+      // Build extractPDF options
+      const options = new PDFServicesSdk.ExtractPDF.options.ExtractPdfOptions.Builder()
+          .addElementsToExtract(PDFServicesSdk.ExtractPDF.options.ExtractElementType.TEXT, PDFServicesSdk.ExtractPDF.options.ExtractElementType.TABLES)
+          .getStylingInfo(true)
+          .build()
+
+      // Create a new operation instance.
+      const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
+          input = PDFServicesSdk.FileRef.createFromLocalFile(
+              'resources/extractPDFInput.pdf',
+              PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
+          );
+
+      // Set operation input from a source file.
+      extractPDFOperation.setInput(input);
+
+      // Set options
+      extractPDFOperation.setOptions(options);
+
+      extractPDFOperation.execute(executionContext)
+          .then(result => result.saveAsFile('output/ExtractTextTableInfoWithStylingInfoFromPDF.zip'))
+          .catch(err => {
+              if(err instanceof PDFServicesSdk.Error.ServiceApiError
+                  || err instanceof PDFServicesSdk.Error.ServiceUsageError) {
+                  console.log('Exception encountered while executing operation', err);
+              } else {
+                  console.log('Exception encountered while executing operation', err);
+              }
+          });
+  } catch (err) {
+      console.log('Exception encountered while executing operation', err);
+  }
+   </pre>
+  </div>
+
+<div id="tabspython105">
+  <div class="cmdline"><strong>Run the sample:</strong><br />
+  python src/extractpdf/extract_txt_table_with_styling_info_from_pdf.py
+   </div>
+  <pre class="prettyprint">
+  logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+
+  try:
+      # get base path.
+      base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+      # Initial setup, create credentials instance.
+      credentials = Credentials.service_account_credentials_builder()\
+          .from_file(base_path + "/pdfservices-api-credentials.json") \
+          .build()
+
+      #Create an ExecutionContext using credentials and create a new operation instance.
+      execution_context = ExecutionContext.create(credentials)
+      extract_pdf_operation = ExtractPDFOperation.create_new()
+
+      #Set operation input from a source file.
+      source = FileRef.create_from_local_file(base_path + "/resources/extractPdfInput.pdf")
+      extract_pdf_operation.set_input(source)
+
+      # Build ExtractPDF options and set them into the operation
+      extract_pdf_options: ExtractPDFOptions = ExtractPDFOptions.builder() \
+          .with_element_to_extract(ExtractElementType.TEXT) \
+          .with_include_styling_info(True) \
+          .build()
+      extract_pdf_operation.set_options(extract_pdf_options)
+
+      #Execute the operation.
+      result: FileRef = extract_pdf_operation.execute(execution_context)
+
+      # Save the result to the specified location.
+      result.save_as(base_path + "/output/ExtractTextInfoWithStylingInfoFromPDF.zip")
+  except (ServiceApiException, ServiceUsageException, SdkException):
+      logging.exception("Exception encountered while executing operation")
+
+   </pre>
+  </div>
+<!--end tab data-->
+</div><div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Sep 14, 2021 <br/>
+    </p>
+  </div>
+  </footer>
+  </body>
+</html>
