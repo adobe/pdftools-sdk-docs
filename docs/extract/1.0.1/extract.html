@@ -3,12 +3,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Extract API &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -240,9 +239,9 @@ img {
 </div><br/>
 
       
-  <section id="pdf-extract-api">
+  <div class="section" id="pdf-extract-api">
 <span id="extract"></span><h1>PDF Extract API<a class="headerlink" href="#pdf-extract-api" title="Permalink to this headline">¶</a></h1>
-<section id="structured-information-output-format">
+<div class="section" id="structured-information-output-format">
 <h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
 <ul class="simple">
@@ -291,18 +290,25 @@ img {
 <li><p>Pages: A list of properties for each page of the PDF including page number, width, height, and rotation.</p></li>
 <li><p>Reading Order: The reading order of content within columns, across page breaks, and inclusive of asides is represented by the order of the elements in the Elements array. In the normal mode, exceptions can occur for elements extracted from their container (eg. A reference link in the middle of a paragraph). However, the order is preserved in Styling mode where all Elements and their Kids are represented in the natural reading order.</p></li>
 </ul>
-</section>
-<section id="api-limitations">
+</div>
+<div class="section" id="api-limitations">
 <h2>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><strong>Unsupported PDF types</strong>: The API does not support extracting from policy protected and secured PDFs unless the security restrictions allow for Content Copying.</p></li>
-<li><p><strong>Size limits</strong>: Maximum supported file size is 100MB.</p></li>
-<li><p><strong>Page limits</strong>: Non scanned PDFs are limited to 200 pages and Scanned PDFs must be 100 pages or less.Limits may be lower for files with a large number of tables.</p></li>
-<li><p><strong>Rate limits</strong>: Keep request rate below 25 requests per minute.</p></li>
-<li><p><strong>Scan quality</strong>: Scanned pages with a resolution of less than 200 DPI may result in low quality text output.</p></li>
+<li><p><strong>File size</strong>: Files up to a maximum of 100MB are supported.</p></li>
+<li><p><strong>Number of Pages</strong>: Non-scanned PDFs up to 200 pages and scanned PDFs up to 100 pages are supported, however limits may be lower for files with a large number of tables.</p></li>
+<li><p><strong>Rate limits</strong>: Keep request rate below 25 requests per minutes.</p></li>
+<li><p><strong>Page Size</strong>: The API supports standard page sizes not to exceed 17.5” or less than 6” in either dimension.</p></li>
+<li><p><strong>Hidden Objects</strong>: PDF files that contain content that is not visible on the page like javascript, OCG (optional content groups), etc are not supported. Files that contain such hidden information may fail to process. For such cases, <a class="reference external" href="https://helpx.adobe.com/acrobat/using/removing-sensitive-content-pdfs.html">removing hidden content</a> prior to processing files again may return a successful result.</p></li>
+<li><p><strong>Language</strong>: The API is currently optimized for English language content. Files containing content in other Latin languages should return good results, but may have issues with non-English punctuation.</p></li>
+<li><p><strong>OCR and Scan quality</strong>: The quality of text extracted from scanned files is dependent on the clarity of content in the input file. Conditions like skewed pages, shadowing, obscured or overlapping fonts, and page resolution less than 200 DPI can all result in lower quality text output.</p></li>
+<li><p><strong>Form fields</strong>: Files containing XFA and other fillable form elements are not supported.</p></li>
+<li><p><strong>Unprotected files</strong>: The API supports files that are unprotected or where security restrictions allow copying of content. Files that are secured and do not allow copying of content will not be processed.</p></li>
+<li><p><strong>Annotations</strong>: Content in PDF files containing annotations such as highlights and sticky notes will be processed, but annotations that obscure text could impact output quality. Text within annotations will not be included in the output.</p></li>
+<li><p><strong>PDF Producers</strong>: The Extract API is designed to extract content from files that contain text, table data, and figures. Files created from applications that produce other types of content like illustrations, CAD drawings or other types of vector art may not return quality results.</p></li>
+<li><p><strong>PDF Collections</strong>: PDFs that are made from a collection of files including PDF Portfolios are not currently supported.</p></li>
 </ul>
-</section>
-<section id="extract-text-from-a-pdf">
+</div>
+<div class="section" id="extract-text-from-a-pdf">
 <h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
 <p>Use the sample below to extract text element information from a PDF document.</p>
 <div class="tabs">
@@ -527,8 +533,8 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
     </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="extract-text-and-tables">
+</div></div>
+<div class="section" id="extract-text-and-tables">
 <h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
 <div class="tabs">
@@ -757,8 +763,8 @@ public class ExtractTextTableInfoFromPDF {
   </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="extract-text-and-tables-w-table-renditions">
+</div></div>
+<div class="section" id="extract-text-and-tables-w-table-renditions">
 <h2>Extract Text and Tables (w/ Table Renditions)<a class="headerlink" href="#extract-text-and-tables-w-table-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
 <div class="tabs">
@@ -989,8 +995,8 @@ namespace ExtractTextTableInfoWithRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="extract-text-and-tables-w-tables-and-figures-renditions">
+</div></div>
+<div class="section" id="extract-text-and-tables-w-tables-and-figures-renditions">
 <h2>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text and table elements information as well as tables and figures renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
 <div class="tabs">
@@ -1221,8 +1227,8 @@ namespace ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
+</div></div>
+<div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
 <h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts table renditions and bounding boxes for characters present in text blocks(paragraphs, list, headings), in addition to text, table, and figure element information from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
 <div class="tabs">
@@ -1452,8 +1458,8 @@ namespace ExtractTextTableInfoWithCharBoundsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
+</div></div>
+<div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
 <h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below adds option to get CSV output for tables in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
 <div class="tabs">
@@ -1688,8 +1694,8 @@ namespace ExtractTextTableInfoWithTableStructureFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></section>
-<section id="beta-feature-extract-text-and-tables-and-styling-info">
+</div></div>
+<div class="section" id="beta-feature-extract-text-and-tables-and-styling-info">
 <h2>(Beta Feature) Extract Text and Tables and Styling Info<a class="headerlink" href="#beta-feature-extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h2>
 <p>Note: This option is experimental which means that the output may change without notice. It is provided for evaluation and feedback purposes only. Use of this option is not supported under the <a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/policies.html#">Document Cloud Services versioning policy</a></p>
 <p>The sample below adds option to get styling information of each element( Bold / Italics / Superscript etc) in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.
@@ -1924,8 +1930,8 @@ namespace ExtractTextTableInfoWithStylingFromPDF
 <!--end tab data-->
 </div><div class="toctree-wrapper compound">
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
     </div>
@@ -1939,7 +1945,7 @@ namespace ExtractTextTableInfoWithStylingFromPDF
       
     </p>
     <p>
-       Last updated Sep 14, 2021 <br/>
+       Last updated Oct 11, 2021 <br/>
     </p>
   </div>
   </footer>
