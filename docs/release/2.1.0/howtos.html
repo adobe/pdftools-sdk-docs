@@ -5,13 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How Tos &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -5439,10 +5438,18 @@ namespace OcrPDFWithOptions
 <div class="section" id="api-limitations">
 <h3>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Unsupported PDF types</strong>: The API does not support extracting from policy protected and secured PDFs unless the security restrictions allow for Content Copying.</p></li>
-<li><p><strong>Size limits</strong>: Maximum supported file size is 100MB.</p></li>
-<li><p><strong>Page limits</strong>: Non scanned PDFs are limited to 200 pages and Scanned PDFs must be 100 pages or less.Limits may be lower for files with a large number of tables.</p></li>
-<li><p><strong>Rate limits[Extract]</strong>: Keep request rate below 25 requests per minute.</p></li>
+<li><p><strong>File size</strong>: Files up to a maximum of 100MB are supported.</p></li>
+<li><p><strong>Number of Pages</strong>: Non-scanned PDFs up to 200 pages and scanned PDFs up to 100 pages are supported, however limits may be lower for files with a large number of tables.</p></li>
+<li><p><strong>Rate limits</strong>: Keep request rate below 25 requests per minutes.</p></li>
+<li><p><strong>Page Size</strong>: The API supports standard page sizes not to exceed 17.5” or less than 6” in either dimension.</p></li>
+<li><p><strong>Hidden Objects</strong>: PDF files that contain content that is not visible on the page like javascript, OCG (optional content groups), etc are not supported. Files that contain such hidden information may fail to process. For such cases, <a class="reference external" href="https://helpx.adobe.com/acrobat/using/removing-sensitive-content-pdfs.html">removing hidden content</a> prior to processing files again may return a successful result.</p></li>
+<li><p><strong>Language</strong>: The API is currently optimized for English language content. Files containing content in other Latin languages should return good results, but may have issues with non-English punctuation.</p></li>
+<li><p><strong>OCR and Scan quality</strong>: The quality of text extracted from scanned files is dependent on the clarity of content in the input file. Conditions like skewed pages, shadowing, obscured or overlapping fonts, and page resolution less than 200 DPI can all result in lower quality text output.</p></li>
+<li><p><strong>Form fields</strong>: Files containing XFA and other fillable form elements are not supported.</p></li>
+<li><p><strong>Unprotected files</strong>: The API supports files that are unprotected or where security restrictions allow copying of content. Files that are secured and do not allow copying of content will not be processed.</p></li>
+<li><p><strong>Annotations</strong>: Content in PDF files containing annotations such as highlights and sticky notes will be processed, but annotations that obscure text could impact output quality. Text within annotations will not be included in the output.</p></li>
+<li><p><strong>PDF Producers</strong>: The Extract API is designed to extract content from files that contain text, table data, and figures. Files created from applications that produce other types of content like illustrations, CAD drawings or other types of vector art may not return quality results.</p></li>
+<li><p><strong>PDF Collections</strong>: PDFs that are made from a collection of files including PDF Portfolios are not currently supported.</p></li>
 </ul>
 </div>
 <div class="section" id="extract-text-from-a-pdf">
@@ -7389,7 +7396,7 @@ namespace ExtractTextTableInfoWithStylingFromPDF
       
     </p>
     <p>
-       Last updated Sep 23, 2021 <br/>
+       Last updated Oct 11, 2021 <br/>
     </p>
   </div>
   </footer>
