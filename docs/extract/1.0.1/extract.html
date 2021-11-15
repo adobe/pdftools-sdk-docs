@@ -198,8 +198,20 @@ img {
 	 <ul class="removed_globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Overview</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html#extract-process">Extract Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#extract-process">Extract Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstarts.html">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstarts.html#getting-credentials">Getting credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstarts.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstarts.html#sdk">SDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstarts.html#java">Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstarts.html#net">.NET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstarts.html#node-js">Node.js</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstarts.html#python">Python</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">How Tos</a><ul>
@@ -210,13 +222,16 @@ img {
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Extract API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#structured-information-output-format">Structured Information Output Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api-limitations">API limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-codes">Error codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-from-a-pdf">Extract Text from a PDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables">Extract Text and Tables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-table-renditions">Extract Text and Tables (w/ Table Renditions)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-w-tables-and-figures-renditions">Extract Text and Tables (w/ Tables and Figures Renditions)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions">Extract Text and Tables and Character Bounding Boxes (w/ Renditions)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions">Extract Text and Tables and Table Structure as CSV (w/ Renditions)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#beta-feature-extract-text-and-tables-and-styling-info">(Beta Feature) Extract Text and Tables and Styling Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-text-and-tables-and-styling-info">Extract Text and Tables and Styling Info</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="../../release/latest/dcserviceslicensing.html#://">PDF Services API Licensing</a></li>
@@ -308,9 +323,72 @@ img {
 <li><p><strong>PDF Collections</strong>: PDFs that are made from a collection of files including PDF Portfolios are not currently supported.</p></li>
 </ul>
 </div>
+<div class="section" id="error-codes">
+<h2>Error codes<a class="headerlink" href="#error-codes" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Following is the list of error code and error messages for various scenarios:</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Scenario</p></th>
+<th class="head"><p>Error code</p></th>
+<th class="head"><p>Error message</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Invalid API parameters</p></td>
+<td><p>-</p></td>
+<td><p>Invalid parameters. Please refer to Extract documentation at {%link%} for correct usage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>File size violation</p></td>
+<td><p>DISQUALIFIED_FILE_SIZE</p></td>
+<td><p>File exceeds size limit.</p></td>
+</tr>
+<tr class="row-even"><td><p>Page limit violation</p></td>
+<td><p>DISQUALIFIED_PAGE_LIMIT</p></td>
+<td><p>File exceeds page limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scan page limit violation</p></td>
+<td><p>DISQUALIFIED_SCAN_PAGE_LIMIT</p></td>
+<td><p>Scanned file exceeds page limit.</p></td>
+</tr>
+<tr class="row-even"><td><p>Unsupported XFA file</p></td>
+<td><p>DISQUALIFIED_XFA</p></td>
+<td><p>File contains XFA form(s). Not supported for content extraction.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Encryption permission</p></td>
+<td><p>DISQUALIFIED_ENCRYPTION</p></td>
+<td><p>File permissions do not allow for content extraction.</p></td>
+</tr>
+<tr class="row-even"><td><p>Complex file</p></td>
+<td><p>DISQUALIFIED_CMPLX_FILE</p></td>
+<td><p>File contents are too complex for content extraction.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bad PDF</p></td>
+<td><p>BAD_PDF</p></td>
+<td><p>Unable to extract content. File is corrupted, malformed or an empty PDF.</p></td>
+</tr>
+<tr class="row-even"><td><p>Protected PDF</p></td>
+<td><p>PROTECTED_PDF</p></td>
+<td><p>Unable to extract content. File is password protected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Timeout</p></td>
+<td><p>TIMEOUT</p></td>
+<td><p>Processing timeout. Please try splitting the file into multiple files with fewer pages.</p></td>
+</tr>
+<tr class="row-even"><td><p>Unknown error / failure</p></td>
+<td><p>ERROR</p></td>
+<td><p>Unable to extract content - Internal error.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="extract-text-from-a-pdf">
 <h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
-<p>Use the sample below to extract text element information from a PDF document.</p>
+<p>The sample below extracts text element information from a PDF document and returns a JSON file.</p>
 <div class="tabs">
     <ul>
       <li><a href="#tabsjava100">JAVA</a></li>
@@ -536,7 +614,7 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
 </div></div>
 <div class="section" id="extract-text-and-tables">
 <h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
-<p>The sample below extracts text, tables, and figures element information from a PDF document.</p>
+<p>The sample below extracts text and table element information from a PDF document and returns a JSON file along with table data in XLSX format.</p>
 <div class="tabs">
     <ul>
       <li><a href="#tabsjava101">JAVA</a></li>
@@ -766,7 +844,7 @@ public class ExtractTextTableInfoFromPDF {
 </div></div>
 <div class="section" id="extract-text-and-tables-w-table-renditions">
 <h2>Extract Text and Tables (w/ Table Renditions)<a class="headerlink" href="#extract-text-and-tables-w-table-renditions" title="Permalink to this headline">¶</a></h2>
-<p>The sample below extracts text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<p>The sample below extracts text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
     <ul>
@@ -998,7 +1076,7 @@ namespace ExtractTextTableInfoWithRenditionsFromPDF
 </div></div>
 <div class="section" id="extract-text-and-tables-w-tables-and-figures-renditions">
 <h2>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h2>
-<p>The sample below extracts text and table elements information as well as tables and figures renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<p>The sample below extracts text and table elements information as well as table and figure renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with figure renditions as PNGs and table renditions in PNG and XLSX format.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
     <ul>
@@ -1230,7 +1308,7 @@ namespace ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF
 </div></div>
 <div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
 <h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
-<p>The sample below extracts table renditions and bounding boxes for characters present in text blocks(paragraphs, list, headings), in addition to text, table, and figure element information from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<p>The sample below extracts table renditions and bounding boxes for characters present in text blocks (paragraphs, list, headings), in addition to text and table element information from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
     <ul>
@@ -1461,7 +1539,7 @@ namespace ExtractTextTableInfoWithCharBoundsFromPDF
 </div></div>
 <div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
 <h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
-<p>The sample below adds option to get CSV output for tables in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.</p>
+<p>The sample below adds option to get CSV output for tables in addition to extracting text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and CSV format.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
     <ul>
@@ -1602,7 +1680,7 @@ namespace ExtractTextTableInfoWithTableStructureFromPDF
 </div>
    <div id="tabsnode104">
   <div class="cmdline"><strong>Run the sample:</strong><br />
-  node src/extractpdf/extract-text-table-info-with-tables-renditions-from-pdf.js
+  node src/extractpdf/extract-text-table-info-with-tables-structure-from-pdf.js
    </div>
   <pre class="prettyprint">
   const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
@@ -1695,10 +1773,9 @@ namespace ExtractTextTableInfoWithTableStructureFromPDF
   </div>
 <!--end tab data-->
 </div></div>
-<div class="section" id="beta-feature-extract-text-and-tables-and-styling-info">
-<h2>(Beta Feature) Extract Text and Tables and Styling Info<a class="headerlink" href="#beta-feature-extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h2>
-<p>Note: This option is experimental which means that the output may change without notice. It is provided for evaluation and feedback purposes only. Use of this option is not supported under the <a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/policies.html#">Document Cloud Services versioning policy</a></p>
-<p>The sample below adds option to get styling information of each element( Bold / Italics / Superscript etc) in addition to extracting text, table, and figure element information as well as table renditions from PDF Document. Note that the output is a zip containing the structured information along with renditions.
+<div class="section" id="extract-text-and-tables-and-styling-info">
+<h2>Extract Text and Tables and Styling Info<a class="headerlink" href="#extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h2>
+<p>The sample below adds an option to get styling information for each text element( Bold / Italics / Superscript etc) in addition to extracting text and table element information. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.
 Please see the <a class="reference external" href="../../release/shared/extractJSONOutputSchemaStylingInfo.json">Styling JSON schema</a> for reference.</p>
 <div class="tabs">
         <!--<button onclick="copyToClipboard('#tabsjava1')">This copy button works.</button>-->
@@ -1945,7 +2022,7 @@ namespace ExtractTextTableInfoWithStylingFromPDF
       
     </p>
     <p>
-       Last updated Oct 11, 2021 <br/>
+       Last updated Nov 11, 2021 <br/>
     </p>
   </div>
   </footer>
