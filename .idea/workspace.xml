@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f92cb0a9-5cf0-40da-9ebc-54722075eb2b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/awsMarketplaceInternationalAllowedCountryList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/awsMarketplaceInternationalAllowedCountryList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/dcserviceslicensing.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/dcserviceslicensing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/extract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/extract.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/genindex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/howtos.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/howtos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/1.0.1/searchindex.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/1.0.1/searchindex.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extract/latest" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extract/latest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/release/2.1.0/_static/pygments.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/release/2.1.0/_static/pygments.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/release/2.1.0/awsMarketplaceInternationalAllowedCountryList.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/release/2.1.0/awsMarketplaceInternationalAllowedCountryList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/release/2.1.0/dcserviceslicensing.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/release/2.1.0/dcserviceslicensing.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/release/2.1.0/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/release/2.1.0/genindex.html" afterDir="false" />
@@ -67,5 +57,8 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
