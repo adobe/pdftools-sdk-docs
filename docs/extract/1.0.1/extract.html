@@ -3,11 +3,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>PDF Extract API &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -254,9 +255,9 @@ img {
 </div><br/>
 
       
-  <div class="section" id="pdf-extract-api">
+  <section id="pdf-extract-api">
 <span id="extract"></span><h1>PDF Extract API<a class="headerlink" href="#pdf-extract-api" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="structured-information-output-format">
+<section id="structured-information-output-format">
 <h2>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h2>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
 <ul class="simple">
@@ -305,13 +306,13 @@ img {
 <li><p>Pages: A list of properties for each page of the PDF including page number, width, height, and rotation.</p></li>
 <li><p>Reading Order: The reading order of content within columns, across page breaks, and inclusive of asides is represented by the order of the elements in the Elements array. In the normal mode, exceptions can occur for elements extracted from their container (eg. A reference link in the middle of a paragraph). However, the order is preserved in Styling mode where all Elements and their Kids are represented in the natural reading order.</p></li>
 </ul>
-</div>
-<div class="section" id="api-limitations">
+</section>
+<section id="api-limitations">
 <h2>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>File size</strong>: Files up to a maximum of 100MB are supported.</p></li>
 <li><p><strong>Number of Pages</strong>: Non-scanned PDFs up to 200 pages and scanned PDFs up to 100 pages are supported, however limits may be lower for files with a large number of tables.</p></li>
-<li><p><strong>Rate limits</strong>: Keep request rate below 25 requests per minutes.</p></li>
+<li><p><strong>Rate limits</strong>: Keep request rate below 30 requests per minutes.</p></li>
 <li><p><strong>Page Size</strong>: The API supports standard page sizes not to exceed 17.5” or less than 6” in either dimension.</p></li>
 <li><p><strong>Hidden Objects</strong>: PDF files that contain content that is not visible on the page like javascript, OCG (optional content groups), etc are not supported. Files that contain such hidden information may fail to process. For such cases, <a class="reference external" href="https://helpx.adobe.com/acrobat/using/removing-sensitive-content-pdfs.html">removing hidden content</a> prior to processing files again may return a successful result.</p></li>
 <li><p><strong>Language</strong>: The API is currently optimized for English language content. Files containing content in other Latin languages should return good results, but may have issues with non-English punctuation.</p></li>
@@ -322,8 +323,8 @@ img {
 <li><p><strong>PDF Producers</strong>: The Extract API is designed to extract content from files that contain text, table data, and figures. Files created from applications that produce other types of content like illustrations, CAD drawings or other types of vector art may not return quality results.</p></li>
 <li><p><strong>PDF Collections</strong>: PDFs that are made from a collection of files including PDF Portfolios are not currently supported.</p></li>
 </ul>
-</div>
-<div class="section" id="error-codes">
+</section>
+<section id="error-codes">
 <h2>Error codes<a class="headerlink" href="#error-codes" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">Following is the list of error code and error messages for various scenarios:</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
@@ -385,8 +386,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="extract-text-from-a-pdf">
+</section>
+<section id="extract-text-from-a-pdf">
 <h2>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text element information from a PDF document and returns a JSON file.</p>
 <div class="tabs">
@@ -611,8 +612,8 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
     </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables">
+</div></section>
+<section id="extract-text-and-tables">
 <h2>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text and table element information from a PDF document and returns a JSON file along with table data in XLSX format.</p>
 <div class="tabs">
@@ -841,8 +842,8 @@ public class ExtractTextTableInfoFromPDF {
   </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-w-table-renditions">
+</div></section>
+<section id="extract-text-and-tables-w-table-renditions">
 <h2>Extract Text and Tables (w/ Table Renditions)<a class="headerlink" href="#extract-text-and-tables-w-table-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -1073,8 +1074,8 @@ namespace ExtractTextTableInfoWithRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-w-tables-and-figures-renditions">
+</div></section>
+<section id="extract-text-and-tables-w-tables-and-figures-renditions">
 <h2>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts text and table elements information as well as table and figure renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with figure renditions as PNGs and table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -1305,8 +1306,8 @@ namespace ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
+</div></section>
+<section id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
 <h2>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below extracts table renditions and bounding boxes for characters present in text blocks (paragraphs, list, headings), in addition to text and table element information from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -1536,8 +1537,8 @@ namespace ExtractTextTableInfoWithCharBoundsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
+</div></section>
+<section id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
 <h2>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h2>
 <p>The sample below adds option to get CSV output for tables in addition to extracting text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and CSV format.</p>
 <div class="tabs">
@@ -1772,8 +1773,8 @@ namespace ExtractTextTableInfoWithTableStructureFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-styling-info">
+</div></section>
+<section id="extract-text-and-tables-and-styling-info">
 <h2>Extract Text and Tables and Styling Info<a class="headerlink" href="#extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h2>
 <p>The sample below adds an option to get styling information for each text element( Bold / Italics / Superscript etc) in addition to extracting text and table element information. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.
 Please see the <a class="reference external" href="../../release/shared/extractJSONOutputSchemaStylingInfo.json">Styling JSON schema</a> for reference.</p>
@@ -2007,8 +2008,8 @@ namespace ExtractTextTableInfoWithStylingFromPDF
 <!--end tab data-->
 </div><div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -2022,7 +2023,7 @@ namespace ExtractTextTableInfoWithStylingFromPDF
       
     </p>
     <p>
-       Last updated Nov 11, 2021 <br/>
+       Last updated Nov 18, 2021 <br/>
     </p>
   </div>
   </footer>

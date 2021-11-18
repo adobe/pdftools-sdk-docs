@@ -3,11 +3,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Quickstarts &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -255,14 +256,14 @@ img {
 </div><br/>
 
       
-  <div class="section" id="quickstarts">
+  <section id="quickstarts">
 <h1>Quickstarts<a class="headerlink" href="#quickstarts" title="Permalink to this headline">¶</a></h1>
 <p>The PDF Extract API provides modern cloud-based capabilities for automatically extracting contents from PDF. The API is accessible through SDKs which help you get up and running quickly. Once you’ve received your developer credential, download and set up one of the sample projects. After you’re familiar with the APIs, leverage the samples in your own server-side code.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The SDK only supports server-based use cases where credentials are saved securely in a safe environment. SDK credentials should not be sent to untrusted environments or end user devices.</p>
 </div>
-<div class="section" id="getting-credentials">
+<section id="getting-credentials">
 <span id="getcred"></span><h2>Getting credentials<a class="headerlink" href="#getting-credentials" title="Permalink to this headline">¶</a></h2>
 <p>Developing with the PDF Services SDK requires an Adobe-provided credential. To get one, <a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials?ref=getStartedWithServicesSDK">click HERE</a>, and complete the workflow. Be sure to copy and save the credential values to a secure location.</p>
 <p><strong>Validity term</strong>: The certificate associated with your credential is valid for one year. However, you can simply regenerate a new credential or apply a new certificate to the current credentials from the Document Cloud <a class="reference external" href="https://console.adobe.io/">developer console</a>.</p>
@@ -270,8 +271,8 @@ img {
 <p class="admonition-title">Note</p>
 <p>During the credential creation process you’ll be asked to whether you’d like a <strong>Personalized Code Sample Download</strong>. Choosing <em>Personalized</em> preconfigures the samples with your credential and removes a few steps from your development setup process.</p>
 </div>
-</div>
-<div class="section" id="public-api">
+</section>
+<section id="public-api">
 <span id="javasetup"></span><h2>Public API<a class="headerlink" href="#public-api" title="Permalink to this headline">¶</a></h2>
 <p>PDF Services API is accessible directly via REST APIs which requires Adobe-provided credential for authentication. Once you’ve completed the <a class="reference internal" href="#getcred"><span class="std std-ref">Getting credentials</span></a> workflow,
 a zip file automatically downloads that contains content whose structure varies based on whether you opted to download personalized code samples. The zip file structures are as follows:</p>
@@ -294,11 +295,11 @@ a zip file automatically downloads that contains content whose structure varies 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sdk">
+</section>
+<section id="sdk">
 <h2>SDK<a class="headerlink" href="#sdk" title="Permalink to this headline">¶</a></h2>
 <p>PDF Extract API is also accessible via SDKs in popular languages such as Node.js, Java, Python and .NET.</p>
-<div class="section" id="java">
+<section id="java">
 <h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
 <p>Jump start your development by bookmarking or downloading the following key resources:</p>
 <ul class="simple">
@@ -307,7 +308,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_java_samples">Sample code</a></p></li>
 <li><p><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_java_maven">Java library</a>. The Maven project contains the .jar file.</p></li>
 </ul>
-<div class="section" id="authentication">
+<section id="authentication">
 <span id="auth"></span><h4>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h4>
 <p>Once you complete the <a class="reference internal" href="#getcred"><span class="std std-ref">Getting credentials</span></a> workflow, a zip file automatically downloads that contains content whose structure varies based on whether you opted to download personalized code samples. The zip file structures are as follows:</p>
 <ul class="simple">
@@ -329,8 +330,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="setup-a-java-environment">
+</section>
+<section id="setup-a-java-environment">
 <h4>Setup a Java environment<a class="headerlink" href="#setup-a-java-environment" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Install <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 8 or above</a>.</p></li>
@@ -348,7 +349,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <p class="admonition-title">Note</p>
 <p>Maven uses pom.xml to fetch pdfservices-sdk from the public Maven repository when running the project. The .jar automatically downloads when you build the sample project. Alternatively, you can download the pdfservices-sdk.jar file, and configure your own environment.</p>
 </div>
-<div class="section" id="option-1-personalized-samples-setup">
+<section id="option-1-personalized-samples-setup">
 <h5>Option 1: Personalized samples setup<a class="headerlink" href="#option-1-personalized-samples-setup" title="Permalink to this headline">¶</a></h5>
 <p>The quickest way to get up and running is to download the personalized code samples during the Getting Credentials workflow. These samples provide everything from ready-to-run sample code, an embedded credential json file, and pre-configured connections to dependencies.</p>
 <ol class="arabic simple">
@@ -357,8 +358,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to this document for details about running samples as well as the API Reference for API details.</p></li>
 </ol>
-</div>
-<div class="section" id="option-2-generic-samples-setup">
+</section>
+<section id="option-2-generic-samples-setup">
 <h5>Option 2: Generic samples setup<a class="headerlink" href="#option-2-generic-samples-setup" title="Permalink to this headline">¶</a></h5>
 <p>If you did not choose <strong>Personalized Code Sample Download</strong> during the credential setup process:</p>
 <ol class="arabic simple">
@@ -373,9 +374,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <p class="admonition-title">Tip</p>
 <p>Command line execution is not mandatory. You can import the samples Maven project into your preferred IDE (e.g. IntelliJ/Eclipse) and run the samples from there.</p>
 </div>
-</div>
-</div>
-<div class="section" id="verifying-download-authenticity">
+</section>
+</section>
+<section id="verifying-download-authenticity">
 <h4>Verifying download authenticity<a class="headerlink" href="#verifying-download-authenticity" title="Permalink to this headline">¶</a></h4>
 <p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
 <ol class="arabic simple">
@@ -387,8 +388,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">9</span><span class="n">f48ce8c34bdc14ac842530588c734a52b216276</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="logging">
+</section>
+<section id="logging">
 <h4>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h4>
 <p>Refer to the API docs for error and exception details.</p>
 <ul class="simple">
@@ -424,13 +425,13 @@ a zip file automatically downloads that contains content whose structure varies 
 
        logger.apache.name=org.apache
        logger.apache.level=WARN
-</pre></div>
-<div class="section" id="test-files">
+</pre></section>
+<section id="test-files">
 <span id="javaenv"></span><h4>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h4>
 <p>The sample files reference input and output files located in the sample project’s /resources/ directory. You can of course modify the files and paths or use your own files.</p>
 <img alt="_images/samplefilesjava.png" src="_images/samplefilesjava.png" />
-</div>
-<div class="section" id="custom-projects">
+</section>
+<section id="custom-projects">
 <h4>Custom projects<a class="headerlink" href="#custom-projects" title="Permalink to this headline">¶</a></h4>
 <p>While the samples use Maven, you can use your own tools and process.</p>
 <p>To build a custom project:</p>
@@ -441,9 +442,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Add the <a class="reference internal" href="#auth"><span class="std std-ref">Authentication</span></a> details as described above.</p></li>
 </ol>
 <img alt="_images/maven.png" src="_images/maven.png" />
-</div>
-</div>
-<div class="section" id="net">
+</section>
+</section>
+<section id="net">
 <h3>.NET<a class="headerlink" href="#net" title="Permalink to this headline">¶</a></h3>
 <p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
 <ul class="simple">
@@ -453,15 +454,15 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_net_samples">Sample code</a></p></li>
 <li><p>Input/output test files reside in the their respective sample directories</p></li>
 </ul>
-<div class="section" id="prerequisites">
+<section id="prerequisites">
 <h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h4>
 <p>The samples project requires the following:</p>
 <ul class="simple">
 <li><p>.NET Core: version 2.1 or above</p></li>
 <li><p>A build Tool: Either Visual Studio or .NET Core CLI.</p></li>
 </ul>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h4>Authentication<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <p>Once you complete the <a class="reference internal" href="#getcred"><span class="std std-ref">Getting credentials</span></a> workflow, you will receive a zip file with content whose structure varies based on whether you opted to download personalized code samples. The zip file structures are as follows:</p>
 <ul class="simple">
@@ -483,8 +484,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="set-up-a-net-environment">
+</section>
+<section id="set-up-a-net-environment">
 <h4>Set up a NET environment<a class="headerlink" href="#set-up-a-net-environment" title="Permalink to this headline">¶</a></h4>
 <p>Running any sample or custom code requires the following:</p>
 <ol class="arabic simple">
@@ -494,7 +495,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <p class="admonition-title">Note</p>
 <p>The Nuget package automatically downloads when you build the sample project.</p>
 </div>
-<div class="section" id="id3">
+<section id="id3">
 <h5>Option 1: Personalized samples setup<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
 <p>The quickest way to get up and running is to download the personalized code samples during the Getting Credentials workflow. These samples provide everything from ready-to-run sample code, an embedded credential json file, and pre-configured connections to dependencies.</p>
 <ol class="arabic simple">
@@ -503,8 +504,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to this document for details about running samples as well as the API Reference for API details.</p></li>
 </ol>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h5>Option 2: Generic samples setup<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
 <p>If you did not choose <strong>Personalized Code Sample Download</strong> during the credential setup process:</p>
 <ol class="arabic simple">
@@ -514,9 +515,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to this document for details about running samples as well as the API Reference for API details.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id5">
+</section>
+</section>
+<section id="id5">
 <h4>Verifying download authenticity<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
 <ol class="arabic simple">
@@ -527,8 +528,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">+</span><span class="n">QhCZTFx2TU0f3ny2V5uXh4iUFI12Sa0hSVprx8XMM</span><span class="o">+</span><span class="n">DnHrPhJL9aSBAM</span><span class="o">+</span><span class="n">EwEp0Wz</span><span class="o">+</span><span class="n">obYoSC247XFe2pDIrBw</span><span class="o">==</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h4>Logging<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p>Refer to the API docs for error and exception details.</p>
 <p>The .NET SDK uses <a class="reference external" href="https://github.com/damianh/LibLog">LibLog</a> as a bridge between different logging frameworks. Log4net is used as a logging provider in the sample projects and the logging configurations are provided in log4net.config. Add the configuration for your preferred provider and set up the necessary appender as required to enable logging.</p>
@@ -545,12 +546,12 @@ a zip file automatically downloads that contains content whose structure varies 
    &lt;/layout&gt;
  &lt;/appender&gt;
 &lt;/log4net&gt;
-</pre></div>
-<div class="section" id="id7">
+</pre></section>
+<section id="id7">
 <h4>Test files<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <p>Refer to each sample directory for the requisite input/output files.</p>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h4>Custom projects<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>While building the sample project automatically downloads the Nuget package, you can do it manually if you wish to use your own tools and process.</p>
 <ol class="arabic simple">
@@ -558,9 +559,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Download the latest package.</p></li>
 </ol>
 <img alt="_images/nuget.png" src="_images/nuget.png" />
-</div>
-</div>
-<div class="section" id="node-js">
+</section>
+</section>
+<section id="node-js">
 <h3>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h3>
 <p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
 <ul class="simple">
@@ -569,7 +570,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p><a class="reference external" href="http://www.adobe.com/go/pdftoolsapi_node_sample">Sample code</a></p></li>
 <li><p><a class="reference external" href="http://www.adobe.com/go/pdftoolsapi_node_npm">Node.js SDK</a></p></li>
 </ul>
-<div class="section" id="id9">
+<section id="id9">
 <h4>Authentication<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>Once you complete the <a class="reference internal" href="#getcred"><span class="std std-ref">Getting credentials</span></a> workflow, you will receive a zip file with content whose structure varies based on whether you opted to download personalized code samples. The zip file structures are as follows:</p>
 <ul class="simple">
@@ -591,8 +592,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="set-up-a-node-js-environment">
+</section>
+<section id="set-up-a-node-js-environment">
 <h4>Set up a Node.js environment<a class="headerlink" href="#set-up-a-node-js-environment" title="Permalink to this headline">¶</a></h4>
 <p>Running any sample or custom code requires the following steps:</p>
 <ol class="arabic simple">
@@ -605,7 +606,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span> <span class="nd">@adobe</span><span class="o">/</span><span class="n">pdfservices</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">sdk</span>
 </pre></div>
 </div>
-<div class="section" id="id10">
+<section id="id10">
 <h5>Option 1: Personalized samples setup<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
 <li><p>Extract the downloaded samples .zip.</p></li>
@@ -613,8 +614,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to this document for details about running samples as well as the API Reference for API details.</p></li>
 </ol>
-</div>
-<div class="section" id="id11">
+</section>
+<section id="id11">
 <h5>Option 2: Generic samples setup<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
 <p>If you did not choose <strong>Personalized Code Sample Download</strong> during the credential setup process:</p>
 <ol class="arabic simple">
@@ -624,9 +625,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to this document for details about running samples as well as the API Reference for API details.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id13">
+</section>
+</section>
+<section id="id13">
 <h4>Verifying download authenticity<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
 <ol class="arabic simple">
@@ -637,8 +638,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sha512</span><span class="o">-</span><span class="mi">9</span><span class="n">g6D3Ts</span><span class="o">/</span><span class="n">HJXktogLyYN9QxzpB1KhpAnTPDlRX</span><span class="o">+</span><span class="n">sohCVz2IhMSskAhxGQtu9Pa1zxv</span><span class="o">+</span><span class="n">J1Vh68rm0Wr3d8tUVCBA</span><span class="o">==</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id14">
+</section>
+<section id="id14">
 <h4>Logging<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <p>Refer to the API docs for error and exception details.</p>
 <p>The SDK uses the <a class="reference external" href="https://www.npmjs.com/package/log4js">log4js API</a> for logging. During execution, the SDK searches for config/pdfservices-sdk-log4js-config.json in the working directory and reads the logging properties from there. If you do not provide a configuration file, the default logging logs INFO to the console. Customize the logging settings as needed.</p>
@@ -665,12 +666,12 @@ a zip file automatically downloads that contains content whose structure varies 
      }
    }
  }
-</pre></div>
-<div class="section" id="id15">
+</pre></section>
+<section id="id15">
 <h4>Test files<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <p>The sample files reference input and output files located in the sample project’s <a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/tree/master/resources">resource directory</a>. You can of course modify the files and paths or use your own files.</p>
-</div>
-<div class="section" id="id16">
+</section>
+<section id="id16">
 <h4>Custom projects<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <p>While building the sample project automatically downloads the Node package, you can do it manually if you wish to use your own tools and process.</p>
 <ol class="arabic simple">
@@ -678,9 +679,9 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Download the latest package.</p></li>
 </ol>
 <img alt="_images/node.png" src="_images/node.png" />
-</div>
-</div>
-<div class="section" id="python">
+</section>
+</section>
+<section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>Jumpstart your development by bookmarking or downloading the following key resources:</p>
 <ul class="simple">
@@ -688,7 +689,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p><a class="reference external" href="https://www.adobe.com/go/pdfservices_python_samples">Sample code</a></p></li>
 <li><p><a class="reference external" href="https://www.adobe.com/go/pdfservices_python_pypi">Python SDK</a></p></li>
 </ul>
-<div class="section" id="id17">
+<section id="id17">
 <h4>Authentication<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
 <p>Once you complete the <a class="reference internal" href="#getcred"><span class="std std-ref">Getting credentials</span></a> workflow, you will receive a zip file with content whose structure varies based on whether you opted to download personalized code samples. The zip file structures are as follows:</p>
 <ul class="simple">
@@ -710,8 +711,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="set-up-a-python-environment">
+</section>
+<section id="set-up-a-python-environment">
 <h4>Set up a Python environment<a class="headerlink" href="#set-up-a-python-environment" title="Permalink to this headline">¶</a></h4>
 <p>Running any sample or custom code requires the following steps:</p>
 <ol class="arabic simple">
@@ -724,7 +725,7 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pdfservices</span><span class="o">-</span><span class="n">sdk</span>
 </pre></div>
 </div>
-<div class="section" id="id18">
+<section id="id18">
 <h5>Option 1: Personalized samples setup<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
 <li><p>Extract the downloaded samples .zip.</p></li>
@@ -732,8 +733,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="https://www.adobe.com/go/pdfservices_python_docs">API documentation</a>.</p></li>
 </ol>
-</div>
-<div class="section" id="id19">
+</section>
+<section id="id19">
 <h5>Option 2: Generic samples setup<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
 <li><p>Download <a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples">the sample project</a>.</p></li>
@@ -742,15 +743,15 @@ a zip file automatically downloads that contains content whose structure varies 
 <li><p>Test the sample code on the command line.</p></li>
 <li><p>Refer to the <a class="reference internal" href="howtos.html#howtos"><span class="std std-ref">How Tos</span></a> for details about running samples. Additional details also reside in the <a class="reference external" href="https://www.adobe.com/go/pdfservices_python_docs">API documentation</a>.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id21">
+</section>
+</section>
+<section id="id21">
 <h4>Verifying download authenticity<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
 <p>For security reasons you may wish to confirm the installer’s authenticity. To do so,</p>
 <ol class="arabic simple">
 <li><p>After downloading the package zip, run following command</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="nb">hash</span> <span class="o">&lt;</span><span class="n">download_dir</span><span class="o">&gt;/</span><span class="n">pdfservices</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mf">0.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="nb">hash</span> <span class="o">&lt;</span><span class="n">download_dir</span><span class="o">&gt;/</span><span class="n">pdfservices</span><span class="o">-</span><span class="n">sdk</span><span class="o">-</span><span class="mf">1.0.0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
@@ -760,8 +761,8 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sha256</span><span class="o">-</span><span class="mi">73</span><span class="n">d38723a3f72dbde221f757b430dfdf13409c46b033503b30812804588da88f</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id22">
+</section>
+<section id="id22">
 <h4>Logging<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
 <p>Refer to the API docs for error and exception details.</p>
 <p>The SDK uses the Python standard logging module. Customize the logging settings as needed.</p>
@@ -769,12 +770,12 @@ a zip file automatically downloads that contains content whose structure varies 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id23">
+</section>
+<section id="id23">
 <h4>Test files<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
 <p>Refer to each sample project’s <a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/tree/master/resources">resource directory</a> for the requisite input/output files.</p>
-</div>
-<div class="section" id="id25">
+</section>
+<section id="id25">
 <h4>Custom projects<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
 <p>While building the sample project automatically downloads the Python package, you can do it manually if you wish to use your own tools and process.</p>
 <ol class="arabic simple">
@@ -784,10 +785,10 @@ a zip file automatically downloads that contains content whose structure varies 
 <img alt="_images/python2.png" src="_images/python2.png" />
 <div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -801,7 +802,7 @@ a zip file automatically downloads that contains content whose structure varies 
       
     </p>
     <p>
-       Last updated Nov 11, 2021 <br/>
+       Last updated Nov 18, 2021 <br/>
     </p>
   </div>
   </footer>

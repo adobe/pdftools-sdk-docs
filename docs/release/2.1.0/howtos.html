@@ -3,11 +3,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>How Tos &#8212; PDF Services SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -341,7 +342,7 @@ img {
 </div><br/>
 
       
-  <div class="section" id="how-tos">
+  <section id="how-tos">
 <span id="howtos"></span><h1>How Tos<a class="headerlink" href="#how-tos" title="Permalink to this headline">¶</a></h1>
 <p>The samples and documentation here should get you quickly up and running with the PDF Services SDK. These code examples illustrate how to perform PDF actions using the SDK, including:</p>
 <ul class="simple">
@@ -356,7 +357,7 @@ img {
 <li><p>Extract PDF as JSON: the content, structure &amp; renditions of table and figure elements along with Character Bounding Boxes</p></li>
 <li><p>Get the properties of a PDF file like page count, PDF version, file size, compliance levels, font info, permissions and more</p></li>
 </ul>
-<div class="section" id="runtime-in-memory-authentication">
+<section id="runtime-in-memory-authentication">
 <span id="inmemory"></span><h2>Runtime in-memory authentication<a class="headerlink" href="#runtime-in-memory-authentication" title="Permalink to this headline">¶</a></h2>
 <p>The SDK supports providing the authentication credentials at runtime. Doing so allows fetching the credentials from a secret server during runtime instead of storing them in a file. Please refer the following samples for details.</p>
 <ul class="simple">
@@ -365,8 +366,8 @@ img {
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-inmemory-auth-credentials.js">Node.js</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_in_memory_auth_credentials.py">Python</a></p></li>
 </ul>
-</div>
-<div class="section" id="custom-timeout-configuration">
+</section>
+<section id="custom-timeout-configuration">
 <h2>Custom timeout configuration<a class="headerlink" href="#custom-timeout-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The APIs use inferred timeout properties and provide defaults. However, the SDK supports custom timeouts for the API calls. You can tailor the timeout settings for your environment and network speed. In addition to the details below, you can refer to working code samples:</p>
 <ul class="simple">
@@ -375,7 +376,7 @@ img {
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-node-sdk-samples/blob/master/src/createpdf/create-pdf-with-custom-timeouts.js">Node.js</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adobe/pdfservices-python-sdk-samples/blob/master/src/extractpdf/extract_txt_from_pdf_with_custom_timeouts.py">Python</a></p></li>
 </ul>
-<div class="section" id="java-timeout-configuration">
+<section id="java-timeout-configuration">
 <span id="timejava"></span><h3>Java timeout configuration<a class="headerlink" href="#java-timeout-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Available properties:</p>
 <ul class="simple">
@@ -389,8 +390,8 @@ img {
    <span class="o">.</span><span class="n">build</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="net-timeout-configuration">
+</section>
+<section id="net-timeout-configuration">
 <span id="timenet"></span><h3>.NET timeout configuration<a class="headerlink" href="#net-timeout-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Available properties:</p>
 <ul class="simple">
@@ -404,8 +405,8 @@ img {
   <span class="o">.</span><span class="n">Build</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="node-js-timeout-configuration">
+</section>
+<section id="node-js-timeout-configuration">
 <span id="timenode"></span><h3>Node.js timeout configuration<a class="headerlink" href="#node-js-timeout-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Available properties:</p>
 <ul class="simple">
@@ -420,8 +421,8 @@ img {
   <span class="o">.</span><span class="n">build</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="python-timeout-configuration">
+</section>
+<section id="python-timeout-configuration">
 <span id="timepython"></span><h3>Python timeout configuration<a class="headerlink" href="#python-timeout-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Available properties:</p>
 <ul class="simple">
@@ -435,11 +436,11 @@ img {
                 <span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="create-pdf">
+</section>
+</section>
+<section id="create-pdf">
 <h2>Create PDF<a class="headerlink" href="#create-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="create-a-pdf">
+<section id="create-a-pdf">
 <h3>Create a PDF<a class="headerlink" href="#create-a-pdf" title="Permalink to this headline">¶</a></h3>
 <p>Use the sample below to create PDFs from Microsoft Office documents (Word, Excel and PowerPoint) and other <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/pdfservices/operation/pdfops/CreatePDFOperation.SupportedSourceFormat.html">supported file formats</a>. While the example shows .docx file conversion, the SDK supports the following formats:</p>
 <ul class="simple">
@@ -594,8 +595,8 @@ node src/createpdf/create-pdf-from-docx.js
 
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="create-pdf-with-documentlanguage">
+ </div></section>
+<section id="create-pdf-with-documentlanguage">
 <h3>Create PDF with DocumentLanguage<a class="headerlink" href="#create-pdf-with-documentlanguage" title="Permalink to this headline">¶</a></h3>
 <p>Use the sample below to create PDFs with supported documentLanguage from Microsoft Office documents (Word, Excel and PowerPoint). The example shows .docx file conversion with english as the language of the input file, the SDK supports the following formats:</p>
 <ul class="simple">
@@ -793,8 +794,8 @@ try {
 
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="create-a-pdf-from-static-html">
+ </div></section>
+<section id="create-a-pdf-from-static-html">
 <h3>Create a PDF from static HTML<a class="headerlink" href="#create-a-pdf-from-static-html" title="Permalink to this headline">¶</a></h3>
 <p>The sample below creates a PDF file from a static HTML file. The file must be local. Since HTML/web pages typically contain external assets, the input file must be a zip file containing an index.html at the top level of the archive as well as any dependencies such as images, css files, and so on.</p>
  <div class="tabs">
@@ -992,8 +993,8 @@ dotnet run CreatePDFFromStaticHtml.csproj
 
   </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="create-a-pdf-from-static-html-with-inline-css">
+ </div></section>
+<section id="create-a-pdf-from-static-html-with-inline-css">
 <h3>Create a PDF from static HTML with inline CSS<a class="headerlink" href="#create-a-pdf-from-static-html-with-inline-css" title="Permalink to this headline">¶</a></h3>
 <p>The sample below creates a PDF file from a static HTML file with inline CSS. The file must be local.</p>
  <div class="tabs">
@@ -1191,8 +1192,8 @@ dotnet run CreatePDFFromHTMLWithInlineCSS.csproj
 
   </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="create-a-pdf-file-from-html-specified-via-url">
+ </div></section>
+<section id="create-a-pdf-file-from-html-specified-via-url">
 <h3>Create a PDF File From HTML specified via URL<a class="headerlink" href="#create-a-pdf-file-from-html-specified-via-url" title="Permalink to this headline">¶</a></h3>
 <p>The sample below creates a PDF file from a HTML file specified via URL.</p>
  <div class="tabs">
@@ -1392,8 +1393,8 @@ dotnet run CreatePDFFromURL.csproj
 
   </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="create-a-pdf-from-dynamic-html">
+ </div></section>
+<section id="create-a-pdf-from-dynamic-html">
 <h3>Create a PDF from dynamic HTML<a class="headerlink" href="#create-a-pdf-from-dynamic-html" title="Permalink to this headline">¶</a></h3>
 <p>To support workflows with dynamic data, <code class="docutils literal notranslate"><span class="pre">CreatePDFFromDynamicHTML</span></code> creates PDFs from dynamic HTML. It’s a common scenario for enterprise to provide end users with an HTML template with form fields. This API allows you to capture the users unique data entries and then save it as PDF.  Collected data is stored in a JSON file, and the source HTML file must include <code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">src='./json.js'</span> <span class="pre">type='text/javascript'&gt;&lt;/script&gt;</span></code>. Refer to the API docs for usage.</p>
 <p>The sample <code class="docutils literal notranslate"><span class="pre">CreatePDFFromDynamicHTML</span></code> converts a zip file, containing the input HTML file and its resources, along with the input data to a PDF file. The input data is used by the JavaScript in the HTML file to manipulate the HTML DOM, thus effectively updating the source HTML file. This mechanism can be used to provide data to the template HTML dynamically prior to PDF conversion.</p>
@@ -1608,11 +1609,11 @@ dotnet run CreatePDFFromURL.csproj
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="export-pdf">
+ </div></section>
+</section>
+<section id="export-pdf">
 <h2>Export PDF<a class="headerlink" href="#export-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="export-a-pdf">
+<section id="export-a-pdf">
 <h3>Export a PDF<a class="headerlink" href="#export-a-pdf" title="Permalink to this headline">¶</a></h3>
 <p>The sample below converts a PDF file into a number of <a class="reference external" href="https://opensource.adobe.com/pdfservices-java-sdk-samples/apidocs/latest/com/adobe/pdfservices/operation/pdfops/options/exportpdf/ExportPDFTargetFormat.html">supported formats</a> such as:</p>
 <ul class="simple">
@@ -1763,8 +1764,8 @@ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.sample
 
 </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="export-a-pdf-to-images">
+ </div></section>
+<section id="export-a-pdf-to-images">
 <h3>Export a PDF to images<a class="headerlink" href="#export-a-pdf-to-images" title="Permalink to this headline">¶</a></h3>
 <p>The sample below converts a PDF file to one or more jpeg or png images. Exporting to an image produces a zip archive containing one image per page. Each image file name ends with “_&lt;unpadded_page_index_number&gt;”. For example, a PDF file with 15 pages will generate 15 image files. The first file’s name ends with “_1” and the last file’s name ends with “_15”.</p>
  <div class="tabs">
@@ -1912,8 +1913,8 @@ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.sample
 
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="export-a-pdf-to-list-of-images">
+ </div></section>
+<section id="export-a-pdf-to-list-of-images">
 <h3>Export a PDF to list of images<a class="headerlink" href="#export-a-pdf-to-list-of-images" title="Permalink to this headline">¶</a></h3>
 <p>The sample below converts a PDF file to one or more jpeg or png images.</p>
  <div class="tabs">
@@ -2077,11 +2078,11 @@ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.sample
 
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="combine-pdf-files">
+ </div></section>
+</section>
+<section id="combine-pdf-files">
 <h2>Combine PDF Files<a class="headerlink" href="#combine-pdf-files" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="combine-files">
+<section id="combine-files">
 <h3>Combine files<a class="headerlink" href="#combine-files" title="Permalink to this headline">¶</a></h3>
 <p>This sample combines up to 20 PDF files into a single PDF file.</p>
  <div class="tabs">
@@ -2233,8 +2234,8 @@ mvn -f pom.xml exec:java -Dexec.mainClass=com.adobe.pdfservices.operation.sample
 
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="combine-pages-from-multiple-files">
+ </div></section>
+<section id="combine-pages-from-multiple-files">
 <h3>Combine pages from multiple files<a class="headerlink" href="#combine-pages-from-multiple-files" title="Permalink to this headline">¶</a></h3>
 <p>This combine sample combines specific pages from up to 20 different PDF files into a single
 PDF file. Optional arguments allow specifying page ranges for each file to combine in the output file.</p>
@@ -2469,11 +2470,11 @@ PDF file. Optional arguments allow specifying page ranges for each file to combi
 </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="ocr-pdf">
+ </div></section>
+</section>
+<section id="ocr-pdf">
 <h2>OCR PDF<a class="headerlink" href="#ocr-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="text-recognition-ocr">
+<section id="text-recognition-ocr">
 <h3>Text recognition (OCR)<a class="headerlink" href="#text-recognition-ocr" title="Permalink to this headline">¶</a></h3>
 <p>Optical character recognition (OCR) converts images to text so that you and your users can fully interact with the PDF file. After performing OCR, the PDF may be fully editable and searchable. The input format must be <code class="docutils literal notranslate"><span class="pre">application/pdf</span></code>.</p>
 <p>This sample defaults to the en-us locale. For other languages, see <a class="reference internal" href="#ocrlang"><span class="std std-ref">OCR with explicit language</span></a>.</p>
@@ -2621,8 +2622,8 @@ public class OcrPDF {
 </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="ocr-with-explicit-language">
+ </div></section>
+<section id="ocr-with-explicit-language">
 <span id="ocrlang"></span><h3>OCR with explicit language<a class="headerlink" href="#ocr-with-explicit-language" title="Permalink to this headline">¶</a></h3>
 <p>You can perform OCR on files in other languages, including German, French, Danish, and other languages. Refer to <code class="docutils literal notranslate"><span class="pre">OCRSupportedLocale</span></code> and <code class="docutils literal notranslate"><span class="pre">OCRSupportedType</span></code> in the API docs  for a list of supported OCR locales and OCR types.</p>
 <p>As shown in the OcrPDFWithOptions sample, when you make a PDF file searchable, you specify both the locale (language) and the type. There are two types which produce a different result:</p>
@@ -2794,11 +2795,11 @@ namespace OcrPDFWithOptions
 </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="compress-pdfs">
+ </div></section>
+</section>
+<section id="compress-pdfs">
 <h2>Compress PDFs<a class="headerlink" href="#compress-pdfs" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Compress PDFs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Compress PDFs to reduce the file size prior to performing workflow operations that use bandwidth or memory.</p>
 <div class="tabs">
@@ -2939,8 +2940,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="compress-pdfs-with-compression-level">
+ </div></section>
+<section id="compress-pdfs-with-compression-level">
 <h3>Compress PDFs with Compression Level<a class="headerlink" href="#compress-pdfs-with-compression-level" title="Permalink to this headline">¶</a></h3>
 <p>Compress PDFs to reduce the file size on the basis of provided compression level, prior to performing workflow operations that use bandwidth or memory. Refer to <code class="docutils literal notranslate"><span class="pre">CompressionLevel</span></code> in the API docs for a list of supported compression levels.</p>
 <div class="tabs">
@@ -3099,9 +3100,9 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="linearize-pdfs">
+ </div></section>
+</section>
+<section id="linearize-pdfs">
 <h2>Linearize PDFs<a class="headerlink" href="#linearize-pdfs" title="Permalink to this headline">¶</a></h2>
 <p>Linearizing a PDF creates a web-optimized PDF file which supports incremental access in network environments.</p>
 <div class="tabs">
@@ -3242,10 +3243,10 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="protect-pdf">
+ </div></section>
+<section id="protect-pdf">
 <h2>Protect PDF<a class="headerlink" href="#protect-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="protect-pdfs-with-user-password">
+<section id="protect-pdfs-with-user-password">
 <h3>Protect PDFs with user password<a class="headerlink" href="#protect-pdfs-with-user-password" title="Permalink to this headline">¶</a></h3>
 <p>You can password protect PDFs so that only users with a document open password can open the file.</p>
 <div class="tabs">
@@ -3413,8 +3414,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="protect-pdfs-with-owner-password">
+ </div></section>
+<section id="protect-pdfs-with-owner-password">
 <h3>Protect PDFs with owner password<a class="headerlink" href="#protect-pdfs-with-owner-password" title="Permalink to this headline">¶</a></h3>
 <p>You can secure a PDF file with owner/permissions password and set the restriction on certain features like printing, editing and copying in the PDF document. Refer to <code class="docutils literal notranslate"><span class="pre">ContentEncryption</span></code> and <code class="docutils literal notranslate"><span class="pre">Permission</span></code> in the API docs for a list of supported types of content to encrypt and types of document permissions.</p>
 <div class="tabs">
@@ -3608,9 +3609,9 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="remove-protection">
+ </div></section>
+</section>
+<section id="remove-protection">
 <h2>Remove Protection<a class="headerlink" href="#remove-protection" title="Permalink to this headline">¶</a></h2>
 <p>Use the below sample to remove security from a PDF document.</p>
 <div class="tabs">
@@ -3765,8 +3766,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="insert-pages">
+ </div></section>
+<section id="insert-pages">
 <h2>Insert Pages<a class="headerlink" href="#insert-pages" title="Permalink to this headline">¶</a></h2>
 <p>The insert operation inserts additional pages from different PDFs into an existing PDF.</p>
 <div class="tabs">
@@ -3988,8 +3989,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="replace-pages">
+ </div></section>
+<section id="replace-pages">
 <h2>Replace Pages<a class="headerlink" href="#replace-pages" title="Permalink to this headline">¶</a></h2>
 <p>The replace pages operation replaces pages in a PDF with pages from other PDF files.</p>
 <div class="tabs">
@@ -4211,8 +4212,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="delete-pages">
+ </div></section>
+<section id="delete-pages">
 <h2>Delete Pages<a class="headerlink" href="#delete-pages" title="Permalink to this headline">¶</a></h2>
 <p>The delete pages operation selectively removes pages from a PDF file.</p>
 <div class="tabs">
@@ -4400,8 +4401,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="reorder-pages">
+ </div></section>
+<section id="reorder-pages">
 <h2>Reorder Pages<a class="headerlink" href="#reorder-pages" title="Permalink to this headline">¶</a></h2>
 <p>The reorder pages operation moves pages from one location to another in a PDF file.</p>
 <div class="tabs">
@@ -4589,8 +4590,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="rotate-pages">
+ </div></section>
+<section id="rotate-pages">
 <h2>Rotate Pages<a class="headerlink" href="#rotate-pages" title="Permalink to this headline">¶</a></h2>
 <p>The rotate pages operation selectively rotates pages in PDF file. For example, you can change portrait view to landscape view.</p>
 <div class="tabs">
@@ -4825,10 +4826,10 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="split-pdf">
+ </div></section>
+<section id="split-pdf">
 <h2>Split PDF<a class="headerlink" href="#split-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="split-pdf-by-number-of-pages">
+<section id="split-pdf-by-number-of-pages">
 <h3>Split PDF by number of pages<a class="headerlink" href="#split-pdf-by-number-of-pages" title="Permalink to this headline">¶</a></h3>
 <p>This operation splits a PDF into multiple smaller documents. Simply use the page count to specify the maximum number of pages of each output file.</p>
 <div class="tabs">
@@ -5000,8 +5001,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="split-pdf-by-page-ranges">
+ </div></section>
+<section id="split-pdf-by-page-ranges">
 <h3>Split PDF by page ranges<a class="headerlink" href="#split-pdf-by-page-ranges" title="Permalink to this headline">¶</a></h3>
 <p>As an alternative to creating smaller PDFs with a set number of pages, you can split PDFs into multiple smaller documents by specifying page ranges where each page range corresponds to a single output file.</p>
 <div class="tabs">
@@ -5209,8 +5210,8 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="split-pdf-into-number-of-files">
+ </div></section>
+<section id="split-pdf-into-number-of-files">
 <h3>Split PDF into number of files<a class="headerlink" href="#split-pdf-into-number-of-files" title="Permalink to this headline">¶</a></h3>
 <p>As an alternative to creating smaller PDFs by specifying a set number of pages or a page range, you can split PDFs by file count. In this case, the operation creates the specified number of files with each containing an identical number of pages (if possible).</p>
 <div class="tabs">
@@ -5382,11 +5383,11 @@ namespace OcrPDFWithOptions
      </pre>
    </div>
  <!--end tab data-->
- </div></div>
-</div>
-<div class="section" id="extract-pdf">
+ </div></section>
+</section>
+<section id="extract-pdf">
 <h2>Extract PDF<a class="headerlink" href="#extract-pdf" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="structured-information-output-format">
+<section id="structured-information-output-format">
 <h3>Structured Information Output Format<a class="headerlink" href="#structured-information-output-format" title="Permalink to this headline">¶</a></h3>
 <p>The output of an SDK extract operation is a zip package containing the following:</p>
 <ul class="simple">
@@ -5435,8 +5436,8 @@ namespace OcrPDFWithOptions
 <li><p>Pages : A list of properties for each page of the PDF including page number, width, height, and rotation.</p></li>
 <li><p>Reading Order : The reading order of content within columns, across page breaks, and inclusive of asides is represented by the order of the elements in the Elements array. In the normal mode, exceptions can occur for elements extracted from their container (eg. A reference link in the middle of a paragraph). However, the order is preserved in Styling mode where all Elements and their Kids are represented in the natural reading order.</p></li>
 </ul>
-</div>
-<div class="section" id="api-limitations">
+</section>
+<section id="api-limitations">
 <h3>API limitations<a class="headerlink" href="#api-limitations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><strong>File size</strong>: Files up to a maximum of 100MB are supported.</p></li>
@@ -5452,8 +5453,8 @@ namespace OcrPDFWithOptions
 <li><p><strong>PDF Producers</strong>: The Extract API is designed to extract content from files that contain text, table data, and figures. Files created from applications that produce other types of content like illustrations, CAD drawings or other types of vector art may not return quality results.</p></li>
 <li><p><strong>PDF Collections</strong>: PDFs that are made from a collection of files including PDF Portfolios are not currently supported.</p></li>
 </ul>
-</div>
-<div class="section" id="error-codes">
+</section>
+<section id="error-codes">
 <h3>Error codes<a class="headerlink" href="#error-codes" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text">Following is the list of error code and error messages for various scenarios:</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
@@ -5515,8 +5516,8 @@ namespace OcrPDFWithOptions
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="extract-text-from-a-pdf">
+</section>
+<section id="extract-text-from-a-pdf">
 <h3>Extract Text from a PDF<a class="headerlink" href="#extract-text-from-a-pdf" title="Permalink to this headline">¶</a></h3>
 <p>The sample below extracts text element information from a PDF document and returns a JSON file.</p>
 <div class="tabs">
@@ -5741,8 +5742,8 @@ python src/extractpdf/extract_txt_from_pdf.py </div>
     </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables">
+</div></section>
+<section id="extract-text-and-tables">
 <h3>Extract Text and Tables<a class="headerlink" href="#extract-text-and-tables" title="Permalink to this headline">¶</a></h3>
 <p>The sample below extracts text and table element information from a PDF document and returns a JSON file along with table data in XLSX format.</p>
 <div class="tabs">
@@ -5970,8 +5971,8 @@ public class ExtractTextTableInfoFromPDF {
   </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-w-tables-renditions">
+</div></section>
+<section id="extract-text-and-tables-w-tables-renditions">
 <h3>Extract Text and Tables (w/ Tables Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-renditions" title="Permalink to this headline">¶</a></h3>
 <p>The sample below extracts text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -6201,8 +6202,8 @@ namespace ExtractTextTableInfoWithRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-w-tables-and-figures-renditions">
+</div></section>
+<section id="extract-text-and-tables-w-tables-and-figures-renditions">
 <h3>Extract Text and Tables (w/ Tables and Figures Renditions)<a class="headerlink" href="#extract-text-and-tables-w-tables-and-figures-renditions" title="Permalink to this headline">¶</a></h3>
 <p>The sample below extracts text and table elements information as well as table and figure renditions from a PDF Document. Note that the output is a zip containing the structured information in a JSON file along with figure renditions as PNGs and table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -6432,8 +6433,8 @@ namespace ExtractTextTableInfoWithFiguresTablesRenditionsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
+</div></section>
+<section id="extract-text-and-tables-and-character-bounding-boxes-w-renditions">
 <h3>Extract Text and Tables and Character Bounding Boxes (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-character-bounding-boxes-w-renditions" title="Permalink to this headline">¶</a></h3>
 <p>The sample below extracts table renditions and bounding boxes for characters present in text blocks (paragraphs, list, headings), in addition to text and table element information from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.</p>
 <div class="tabs">
@@ -6662,8 +6663,8 @@ namespace ExtractTextTableInfoWithCharBoundsFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
+</div></section>
+<section id="extract-text-and-tables-and-table-structure-as-csv-w-renditions">
 <h3>Extract Text and Tables and Table Structure as CSV (w/ Renditions)<a class="headerlink" href="#extract-text-and-tables-and-table-structure-as-csv-w-renditions" title="Permalink to this headline">¶</a></h3>
 <p>The sample below adds option to get CSV output for tables in addition to extracting text and table element information as well as table renditions from a PDF Document. Note that the output is a zip containing the structured information along with table renditions in PNG and CSV format.</p>
 <div class="tabs">
@@ -6897,8 +6898,8 @@ namespace ExtractTextTableInfoWithTableStructureFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-<div class="section" id="extract-text-and-tables-and-styling-info">
+</div></section>
+<section id="extract-text-and-tables-and-styling-info">
 <h3>Extract Text and Tables and Styling Info<a class="headerlink" href="#extract-text-and-tables-and-styling-info" title="Permalink to this headline">¶</a></h3>
 <p>The sample below adds an option to get styling information for each text element( Bold / Italics / Superscript etc) in addition to extracting text and table element information. Note that the output is a zip containing the structured information along with table renditions in PNG and XLSX format.
 Please see the <a class="reference external" href="../../release/shared/extractJSONOutputSchemaStylingInfo.json">Styling JSON schema</a> for reference.</p>
@@ -7130,11 +7131,11 @@ namespace ExtractTextTableInfoWithStylingFromPDF
    </pre>
   </div>
 <!--end tab data-->
-</div></div>
-</div>
-<div class="section" id="get-pdf-properties">
+</div></section>
+</section>
+<section id="get-pdf-properties">
 <h2>Get PDF Properties<a class="headerlink" href="#get-pdf-properties" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="get-pdf-properties-as-a-json-file">
+<section id="get-pdf-properties-as-a-json-file">
 <h3>Get PDF Properties as a JSON File<a class="headerlink" href="#get-pdf-properties-as-a-json-file" title="Permalink to this headline">¶</a></h3>
 <p>The sample below fetches the properties of an input PDF, as a JSON file.</p>
 <div class="tabs">
@@ -7280,8 +7281,8 @@ namespace ExtractTextTableInfoWithStylingFromPDF
 
 </div>
  <!--end tab data-->
- </div></div>
-<div class="section" id="get-pdf-properties-as-a-json-object">
+ </div></section>
+<section id="get-pdf-properties-as-a-json-object">
 <h3>Get PDF Properties as a JSON Object<a class="headerlink" href="#get-pdf-properties-as-a-json-object" title="Permalink to this headline">¶</a></h3>
 <p>The sample below fetches the properties of an input PDF, as a JSON object.</p>
 <div class="tabs">
@@ -7443,9 +7444,9 @@ namespace ExtractTextTableInfoWithStylingFromPDF
  <!--end tab data-->
  </div><div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -7459,7 +7460,7 @@ namespace ExtractTextTableInfoWithStylingFromPDF
       
     </p>
     <p>
-       Last updated Nov 15, 2021 <br/>
+       Last updated Nov 18, 2021 <br/>
     </p>
   </div>
   </footer>
